@@ -16,9 +16,9 @@
   /* ── Shadcn / Core semantic layer ── */
   --color-background: var(--bg-primary);
   --color-foreground: var(--text-primary);
-  --font-sans: var(--font-sans);
+  --font-sans: var(--font-montserrat);
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-heading: var(--font-montserrat);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -236,10 +236,205 @@
 .offer-primary-hover { color: var(--text-offer-primary-hover); }
 .offer-secondary-hover { color: var(--text-offer-secondary-hover); }
 
+/* ── Typography utilities: title, heading, body, label, caption ── */
+.title-1 {
+  font-family: var(--font-sans);
+  font-size: var(--type-title-1-size);
+  line-height: var(--type-title-1-lh);
+  letter-spacing: var(--type-title-1-ls);
+  font-weight: 700;
+}
+.title-2 {
+  font-family: var(--font-sans);
+  font-size: var(--type-title-2-size);
+  line-height: var(--type-title-2-lh);
+  letter-spacing: var(--type-title-2-ls);
+  font-weight: 700;
+}
+.title-3 {
+  font-family: var(--font-sans);
+  font-size: var(--type-title-3-size);
+  line-height: var(--type-title-3-lh);
+  letter-spacing: var(--type-title-3-ls);
+  font-weight: 700;
+}
+.h1 {
+  font-family: var(--font-sans);
+  font-size: var(--type-h1-size);
+  line-height: var(--type-h1-lh);
+  letter-spacing: var(--type-h1-ls);
+  font-weight: 700;
+}
+.h2 {
+  font-family: var(--font-sans);
+  font-size: var(--type-h2-size);
+  line-height: var(--type-h2-lh);
+  letter-spacing: var(--type-h2-ls);
+  font-weight: 700;
+}
+.h3 {
+  font-family: var(--font-sans);
+  font-size: var(--type-h3-size);
+  line-height: var(--type-h3-lh);
+  letter-spacing: var(--type-h3-ls);
+  font-weight: 600;
+}
+.h4 {
+  font-family: var(--font-sans);
+  font-size: var(--type-h4-size);
+  line-height: var(--type-h4-lh);
+  letter-spacing: var(--type-h4-ls);
+  font-weight: 600;
+}
+.h5 {
+  font-family: var(--font-sans);
+  font-size: var(--type-h5-size);
+  line-height: var(--type-h5-lh);
+  letter-spacing: var(--type-h5-ls);
+  font-weight: 600;
+}
+.h6 {
+  font-family: var(--font-sans);
+  font-size: var(--type-h6-size);
+  line-height: var(--type-h6-lh);
+  letter-spacing: var(--type-h6-ls);
+  font-weight: 600;
+}
+.label-1 {
+  font-family: var(--font-sans);
+  font-size: var(--type-label-1-size);
+  line-height: var(--type-label-1-lh);
+  letter-spacing: var(--type-label-1-ls);
+  font-weight: 500;
+}
+.label-2 {
+  font-family: var(--font-sans);
+  font-size: var(--type-label-2-size);
+  line-height: var(--type-label-2-lh);
+  letter-spacing: var(--type-label-2-ls);
+  font-weight: 500;
+}
+.label-3 {
+  font-family: var(--font-sans);
+  font-size: var(--type-label-3-size);
+  line-height: var(--type-label-3-lh);
+  letter-spacing: var(--type-label-3-ls);
+  font-weight: 500;
+}
+.body-1 {
+  font-family: var(--font-sans);
+  font-size: var(--type-body-1-size);
+  line-height: var(--type-body-1-lh);
+  letter-spacing: var(--type-body-1-ls);
+  font-weight: 400;
+}
+.body-2 {
+  font-family: var(--font-sans);
+  font-size: var(--type-body-2-size);
+  line-height: var(--type-body-2-lh);
+  letter-spacing: var(--type-body-2-ls);
+  font-weight: 400;
+}
+.body-3 {
+  font-family: var(--font-sans);
+  font-size: var(--type-body-3-size);
+  line-height: var(--type-body-3-lh);
+  letter-spacing: var(--type-body-3-ls);
+  font-weight: 400;
+}
+.body-4 {
+  font-family: var(--font-sans);
+  font-size: var(--type-body-4-size);
+  line-height: var(--type-body-4-lh);
+  letter-spacing: var(--type-body-4-ls);
+  font-weight: 400;
+}
+.caption-1 {
+  font-family: var(--font-sans);
+  font-size: var(--type-caption-1-size);
+  line-height: var(--type-caption-1-lh);
+  letter-spacing: var(--type-caption-1-ls);
+  font-weight: 400;
+}
+.caption-2 {
+  font-family: var(--font-sans);
+  font-size: var(--type-caption-2-size);
+  line-height: var(--type-caption-2-lh);
+  letter-spacing: var(--type-caption-2-ls);
+  font-weight: 400;
+}
+
 /* ═══════════════════════════════════════════════
    LIGHT MODE — Figma "Tailwind Alias / Default"
    ═══════════════════════════════════════════════ */
 :root {
+  /* ── Typography tokens (Figma Typography/Default.tokens.json) ── */
+  --type-title-1-size: 72px;
+  --type-title-1-lh: 88px;
+  --type-title-1-ls: -0.8px;
+  --type-title-2-size: 64px;
+  --type-title-2-lh: 76px;
+  --type-title-2-ls: -0.8px;
+  --type-title-3-size: 56px;
+  --type-title-3-lh: 68px;
+  --type-title-3-ls: -0.6px;
+  --type-h1-size: 56px;
+  --type-h1-lh: 68px;
+  --type-h1-ls: -0.5px;
+  --type-h2-size: 48px;
+  --type-h2-lh: 58px;
+  --type-h2-ls: -0.4px;
+  --type-h3-size: 40px;
+  --type-h3-lh: 48px;
+  --type-h3-ls: -0.3px;
+  --type-h4-size: 32px;
+  --type-h4-lh: 38px;
+  --type-h4-ls: -0.2px;
+  --type-h5-size: 24px;
+  --type-h5-lh: 30px;
+  --type-h5-ls: -0.15px;
+  --type-h6-size: 20px;
+  --type-h6-lh: 24px;
+  --type-h6-ls: 0px;
+  --type-label-1-size: 16px;
+  --type-label-1-lh: 22px;
+  --type-label-1-ls: -0.18px;
+  --type-label-2-size: 14px;
+  --type-label-2-lh: 20px;
+  --type-label-2-ls: -0.16px;
+  --type-label-3-size: 12px;
+  --type-label-3-lh: 16px;
+  --type-label-3-ls: -0.12px;
+  --type-body-1-size: 18px;
+  --type-body-1-lh: 28px;
+  --type-body-1-ls: 0px;
+  --type-body-2-size: 16px;
+  --type-body-2-lh: 24px;
+  --type-body-2-ls: 0px;
+  --type-body-3-size: 14px;
+  --type-body-3-lh: 20px;
+  --type-body-3-ls: 0px;
+  --type-body-4-size: 12px;
+  --type-body-4-lh: 16px;
+  --type-body-4-ls: 0px;
+  --type-caption-1-size: 10px;
+  --type-caption-1-lh: 12px;
+  --type-caption-1-ls: 0px;
+  --type-caption-2-size: 9px;
+  --type-caption-2-lh: 10px;
+  --type-caption-2-ls: 0px;
+
+  /* Font weights */
+  --weight-thin: 100;
+  --weight-extralight: 200;
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+  --weight-black: 900;
+
   /* ── Background aliases ── */
   --bg-primary: #ffffff;
   --bg-secondary: #f8fafc;
@@ -600,7 +795,6 @@
     @apply font-sans;
   }
 }
-
 /* ═══════════════════════════════════════════════════════════
    📜 CUSTOM SCROLLBAR
    ═══════════════════════════════════════════════════════════ */
@@ -609,12 +803,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--scrollbar-thumb);
+  background: #22c55e; /* success-secondary color */
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--scrollbar-track);
+  background: #f0fdf4; /* lighter success-secondary background */
 }
 
 ::-webkit-scrollbar-button {
@@ -622,15 +816,8 @@
   height: 0;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   🔇 SCROLLBAR HIDE
-   ═══════════════════════════════════════════════════════════ */
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+/* Firefox support */
+* {
+  scrollbar-color: #22c55e #f0fdf4;
+  scrollbar-width: thin;
 }
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-
-

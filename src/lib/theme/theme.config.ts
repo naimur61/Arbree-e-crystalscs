@@ -2,9 +2,10 @@
 
 /**
  * Theme configuration for the application.
- * Maps semantic color names to CSS utility class equivalents.
- * Classes: bg-primary, text-primary, border-primary, icon-primary, etc.
- * Actual color values are defined via CSS custom properties in `src/app/globals.css`.
+ * Maps semantic names to CSS utility class equivalents.
+ * Colors: bg-primary, text-primary, border-primary, icon-primary, etc.
+ * Typography: title-1, h1, body-2, label-1, caption-1, etc.
+ * Actual values defined via CSS custom properties in `src/app/globals.css`.
  */
 
 export const themeConfig = {
@@ -145,5 +146,46 @@ export const themeConfig = {
       offerPrimary: 'border-offer-primary',
       offerSecondary: 'border-offer-secondary',
     }
-  }
+  },
+  typography: {
+    title: {
+      '1': 'title-1',
+      '2': 'title-2',
+      '3': 'title-3',
+    },
+    heading: {
+      h1: 'h1',
+      h2: 'h2',
+      h3: 'h3',
+      h4: 'h4',
+      h5: 'h5',
+      h6: 'h6',
+    },
+    label: {
+      '1': 'label-1',
+      '2': 'label-2',
+      '3': 'label-3',
+    },
+    body: {
+      '1': 'body-1',
+      '2': 'body-2',
+      '3': 'body-3',
+      '4': 'body-4',
+    },
+    caption: {
+      '1': 'caption-1',
+      '2': 'caption-2',
+    },
+    weight: {
+      thin: 'font-thin',
+      extralight: 'font-extralight',
+      light: 'font-light',
+      regular: 'font-normal',
+      medium: 'font-medium',
+      semibold: 'font-semibold',
+      bold: 'font-bold',
+      extrabold: 'font-extrabold',
+      black: 'font-black',
+    },
+  },
 };
