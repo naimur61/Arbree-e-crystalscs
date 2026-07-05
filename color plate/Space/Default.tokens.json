@@ -1,0 +1,170 @@
+{
+  "zero": {
+    "$type": "number",
+    "$value": 0,
+    "$description": "Spacing value for zero (tshirt)",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:179:3075",
+      "com.figma.scopes": [
+        "ALL_SCOPES"
+      ]
+    }
+  },
+  "px": {
+    "$type": "number",
+    "$value": 1,
+    "$description": "Spacing value for px (tshirt)",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:179:3076",
+      "com.figma.scopes": [
+        "ALL_SCOPES"
+      ]
+    }
+  },
+  "xxs": {
+    "$type": "number",
+    "$value": 2,
+    "$description": "Spacing value for xxs (tshirt)",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:179:3077",
+      "com.figma.scopes": [
+        "ALL_SCOPES"
+      ]
+    }
+  },
+  "xs2": {
+    "$type": "number",
+    "$value": 4,
+    "$description": "Spacing value for xs2 (tshirt)",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:179:3078",
+      "com.figma.scopes": [
+        "ALL_SCOPES"
+      ]
+    }
+  },
+  "xs": {
+    "$type": "number",
+    "$value": 8,
+    "$description": "Spacing value for xs (tshirt)",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:179:3079",
+      "com.figma.scopes": [
+        "ALL_SCOPES"
+      ]
+    }
+  },
+  "sm": {
+    "$type": "number",
+    "$value": 12,
+    "$description": "Spacing value for sm (tshirt)",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:179:3080",
+      "com.figma.scopes": [
+        "ALL_SCOPES"
+      ]
+    }
+  },
+  "base": {
+    "$type": "number",
+    "$value": 16,
+    "$description": "Spacing value for base (tshirt)",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:179:3081",
+      "com.figma.scopes": [
+        "ALL_SCOPES"
+      ]
+    }
+  },
+  "md": {
+    "$type": "number",
+    "$value": 20,
+    "$description": "Spacing value for md (tshirt)",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:179:3082",
+      "com.figma.scopes": [
+        "ALL_SCOPES"
+      ]
+    }
+  },
+  "lg": {
+    "$type": "number",
+    "$value": 24,
+    "$description": "Spacing value for lg (tshirt)",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:179:3083",
+      "com.figma.scopes": [
+        "ALL_SCOPES"
+      ]
+    }
+  },
+  "xl": {
+    "$type": "number",
+    "$value": 28,
+    "$description": "Spacing value for xl (tshirt)",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:179:3084",
+      "com.figma.scopes": [
+        "ALL_SCOPES"
+      ]
+    }
+  },
+  "xl2": {
+    "$type": "number",
+    "$value": 32,
+    "$description": "Spacing value for xl2 (tshirt)",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:179:3085",
+      "com.figma.scopes": [
+        "ALL_SCOPES"
+      ]
+    }
+  },
+  "xl3": {
+    "$type": "number",
+    "$value": 40,
+    "$description": "Spacing value for xl3 (tshirt)",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:179:3086",
+      "com.figma.scopes": [
+        "ALL_SCOPES"
+      ]
+    }
+  },
+  "xl4": {
+    "$type": "number",
+    "$value": 48,
+    "$description": "Spacing value for xl4 (tshirt)",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:179:3087",
+      "com.figma.scopes": [
+        "ALL_SCOPES"
+      ]
+    }
+  },
+  "xl5": {
+    "$type": "number",
+    "$value": 60,
+    "$description": "Spacing value for xl5 (tshirt)",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:179:3088",
+      "com.figma.scopes": [
+        "ALL_SCOPES"
+      ]
+    }
+  },
+  "xl6": {
+    "$type": "number",
+    "$value": 72,
+    "$description": "Spacing value for xl6 (tshirt)",
+    "$extensions": {
+      "com.figma.variableId": "VariableID:179:3089",
+      "com.figma.scopes": [
+        "ALL_SCOPES"
+      ]
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "Default"
+  }
+}
