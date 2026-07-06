@@ -1,0 +1,3 @@
+echo "🚀 Running pre-push checks..."
+
+npx tsc --noEmit

@@ -1,0 +1,6 @@
+# Auto-add branch name to commit message body (optional)
+# Uncomment if you want branch name in commits:
+# BRANCH=$(git rev-parse --abbrev-ref HEAD)
+# if [ "$BRANCH" != "main" ] && [ "$BRANCH" != "master" ]; then
+#   sed -i.bak "1s/^/[$BRANCH] /" "$1"
+# fi
