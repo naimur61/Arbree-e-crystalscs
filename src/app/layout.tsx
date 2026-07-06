@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import "./globals.css";
 import { AppLayout } from "@/components/layouts/app-layout";
-import { ThemeProvider } from "@/providers/theme-provider";
+import { Providers } from "@/providers";
 import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -42,16 +42,11 @@ export default function RootLayout({
         {/* hot Toaster  */}
         <Toaster />
 
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <Providers>
           <AppLayout>
             {children}
           </AppLayout>
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

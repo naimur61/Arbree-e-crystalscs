@@ -2,9 +2,11 @@
 
 import type { ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
-import { LayoutProvider, useLayout } from '@/providers/layout-provider';
+import { useLayout } from '@/providers/layout-provider';
 import { cn } from '@/lib/utils';
 import { TopNavbar } from './top-navbar';
+import { LeftSidebar } from './left-sidebar';
+import { RightSidebar } from './right-sidebar';
 
 /* ── AppLayout: auth routes get no chrome, app routes get header + sidebar shells ── */
 
@@ -26,15 +28,14 @@ interface AppLayoutProps {
   subtitle?: string;
 }
 
-/** Renders the app chrome (header, sidebar containers). Sidebars commented out — enable when ready. */
+/** Renders the app chrome (header, sidebar containers). */
 function LayoutInner({ children, title, subtitle }: AppLayoutProps) {
   const { state } = useLayout();
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Left Sidebar — uncomment when implementing
-      <LeftSidebar /> */}
-
+      {/* Left Sidebar — uncomment when implementing */}
+      <LeftSidebar /> 
       {/* Main content area — shifts when sidebars open */}
       <div
         className={cn(
@@ -51,8 +52,8 @@ function LayoutInner({ children, title, subtitle }: AppLayoutProps) {
         {children}
       </div>
 
-      {/* Right Sidebar — uncomment when implementing
-      <RightSidebar /> */}
+      {/* Right Sidebar — uncomment when implementing */}
+      <RightSidebar />
     </div>
   );
 }
@@ -66,8 +67,6 @@ export function AppLayout({ children, ...props }: AppLayoutProps) {
   }
 
   return (
-    <LayoutProvider>
-      <LayoutInner {...props}>{children}</LayoutInner>
-    </LayoutProvider>
+    <LayoutInner {...props}>{children}</LayoutInner>
   );
 }
