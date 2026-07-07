@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 gap-10 items-center p-8 bg-success-secondary">
+    <div className="flex flex-col flex-1 gap-10 items-center p-8">
       {/* Hero */}
       <div className="space-y-4 max-w-xl text-center">
         <h1 className="text-4xl font-bold tracking-tight text-primary">

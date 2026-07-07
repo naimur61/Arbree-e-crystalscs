@@ -382,6 +382,9 @@
    ══════════════════════════════════════════════════════════════ */
 
 /* ── Background utilities: bg-primary, bg-secondary, etc. ── */
+.bg-children-body {
+  background-color: var(--bg-children-body);
+}
 .bg-primary {
   background-color: var(--bg-primary);
 }
@@ -987,6 +990,7 @@
   --weight-black: 900;
 
   /* ── Background aliases ── */
+  --bg-children-body: #f0fff0;
   --bg-primary: #ffffff;
   --bg-secondary: #f8fafc;
   --bg-tertiary: #f1f5f9;
@@ -1163,6 +1167,7 @@
    ═══════════════════════════════════════════════ */
 .dark {
   /* ── Background aliases ── */
+  --bg-children-body: #0f1a12;
   --bg-primary: #052e16;
   --bg-secondary: #166534;
   --bg-tertiary: #15803d;
