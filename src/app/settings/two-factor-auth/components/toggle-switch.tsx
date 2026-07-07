@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { ActionButton } from '@/components/common/button/action-button';
+import { ActionButton } from "@/components/common/button/action-button";
 
 interface ToggleSwitchProps {
   enabled: boolean;
@@ -15,33 +15,32 @@ export default function ToggleSwitch({ enabled, onChange }: ToggleSwitchProps) {
       btnSize="sm"
       role="switch"
       aria-checked={enabled}
-      btnStyle={`relative inline-flex h-6 w-14 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:cursor-not-allowed disabled:opacity-50 p-0 min-h-0 h-6 ${
-        enabled ? 'bg-emerald-500' : 'bg-gray-300'
+      btnStyle={`relative inline-flex h-6 w-14 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-success-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-primary)] disabled:cursor-not-allowed disabled:opacity-50 p-0 min-h-0 gap-0 ${
+        enabled ? "bg-success-secondary" : "bg-disabled"
       }`}
       buttonContent={
         <>
-          {/* ON label — visible when enabled */}
-          <span
-            className={`absolute left-2 text-[9px] font-bold uppercase leading-none transition-colors ${
-              enabled ? 'text-white' : 'text-transparent'
-            }`}
-          >
-            On
-          </span>
+          <div className="absolute inset-0 flex items-center text-[9px] font-bold uppercase leading-none">
+            <span
+              className={`flex w-1/2 items-center justify-center transition-colors ${
+                enabled ? "text-success-primary" : "text-transparent"
+              }`}
+            >
+              On
+            </span>
 
-          {/* OFF label — visible when disabled */}
-          <span
-            className={`absolute right-2 text-[9px] font-bold uppercase leading-none transition-colors ${
-              !enabled ? 'text-gray-500' : 'text-transparent'
-            }`}
-          >
-            Off
-          </span>
+            <span
+              className={`flex w-1/2 items-center justify-center transition-colors ${
+                !enabled ? "text-tertiary" : "text-transparent"
+              }`}
+            >
+              Off
+            </span>
+          </div>
 
-          {/* Sliding knob — flexbox-centered so it's perfectly vertical */}
           <span
-            className={`pointer-events-none z-10 h-5 w-5 rounded-full bg-white shadow-lg ring-0 transition-all ${
-              enabled ? 'ml-auto mr-0.5' : 'ml-0.5'
+            className={`pointer-events-none absolute top-0.5 left-0.5 z-10 h-5 w-5 rounded-full bg-white shadow-lg transition-transform duration-200 ${
+              enabled ? "translate-x-8" : "translate-x-0"
             }`}
           />
         </>

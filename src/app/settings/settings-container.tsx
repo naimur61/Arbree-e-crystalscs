@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   UserRound,
   Building2,
@@ -13,7 +13,7 @@ import {
   Bell,
   CreditCard,
   IdCard,
-} from 'lucide-react';
+} from "lucide-react";
 
 interface NavItem {
   label: string;
@@ -23,62 +23,66 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   {
-    label: 'Profile Overview',
-    href: '/settings/profile',
+    label: "Profile Overview",
+    href: "/settings/profile",
     icon: <UserRound size={16} />,
   },
   {
-    label: 'Personal Information',
-    href: '/settings/personal-information',
+    label: "Personal Information",
+    href: "/settings/personal-information",
     icon: <IdCard size={16} />,
   },
   {
-    label: 'Business Information',
-    href: '/settings/business-information',
+    label: "Business Information",
+    href: "/settings/business-information",
     icon: <Building2 size={16} />,
   },
   {
-    label: 'Security',
-    href: '/settings/security',
+    label: "Security",
+    href: "/settings/security",
     icon: <Shield size={16} />,
   },
   {
-    label: 'Change Password',
-    href: '/settings/change-password',
+    label: "Change Password",
+    href: "/settings/change-password",
     icon: <KeyRound size={16} />,
   },
   {
-    label: 'Two-Factor Auth',
-    href: '/settings/two-factor-auth',
+    label: "Two-Factor Auth",
+    href: "/settings/two-factor-auth",
     icon: <Smartphone size={16} />,
   },
   {
-    label: 'Subscription',
-    href: '/settings/subscription',
+    label: "Subscription",
+    href: "/settings/subscription",
     icon: <CreditCard size={16} />,
   },
   {
-    label: 'Notifications',
-    href: '/settings/notifications',
+    label: "Notifications",
+    href: "/settings/notifications",
     icon: <Bell size={16} />,
   },
   {
-    label: 'Team & Roles',
-    href: '/settings/team-roles',
+    label: "Team & Roles",
+    href: "/settings/team-roles",
     icon: <Users size={16} />,
   },
   {
-    label: 'Preferences',
-    href: '/settings/preferences',
+    label: "Preferences",
+    href: "/settings/preferences",
     icon: <Settings size={16} />,
   },
 ];
 
-export default function SettingsContainer({ children }: { children: React.ReactNode }) {
+export default function SettingsContainer({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const pathname = usePathname();
   return (
     <div className="flex min-h-screen">
-      <aside className="w-56 shrink-0 border-r bg-green-50 p-4 lg:w-60">
+      <aside className="w-56 shrink-0 border-r p-4 lg:w-60">
         <h2 className="mb-3 px-2 text-xs font-semibold uppercase tracking-wider text-green-700">
           Settings
         </h2>
@@ -90,8 +94,8 @@ export default function SettingsContainer({ children }: { children: React.ReactN
               href={item.href}
               className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors ${
                 pathname === item.href
-                  ? 'bg-green-600 text-white font-semibold'
-                  : 'text-slate-600 hover:bg-green-600 hover:text-white'
+                  ? "bg-green-600 text-white font-semibold"
+                  : "text-slate-600 hover:bg-green-600 hover:text-white"
               }`}
             >
               {item.icon}

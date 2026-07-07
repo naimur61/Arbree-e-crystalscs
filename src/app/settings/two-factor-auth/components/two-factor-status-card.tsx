@@ -1,10 +1,16 @@
-'use client';
+"use client";
 
-import type { TwoFactorStatus } from './types';
-import ToggleSwitch from './toggle-switch';
-import { Sparkles } from 'lucide-react';
-import { ShieldCheckIcon, SmartphoneIcon, KeyRoundIcon, ClockIcon, RefreshIcon } from './icons';
-import { ActionButton } from '@/components/common/button/action-button';
+import type { TwoFactorStatus } from "./types";
+import ToggleSwitch from "./toggle-switch";
+import { Sparkles } from "lucide-react";
+import {
+  ShieldCheckIcon,
+  SmartphoneIcon,
+  KeyRoundIcon,
+  ClockIcon,
+  RefreshIcon,
+} from "./icons";
+import { ActionButton } from "@/components/common/button/action-button";
 
 interface TwoFactorStatusCardProps {
   status: TwoFactorStatus;
@@ -30,14 +36,15 @@ export default function TwoFactorStatusCard({
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
               <span className="text-sm font-semibold text-gray-900 sm:text-base">
-                {status.enabled ? '2FA is enabled' : '2FA is disabled'}
+                {status.enabled ? "2FA is enabled" : "2FA is disabled"}
               </span>
               <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 sm:text-[11px]">
                 ACTIVE
               </span>
             </div>
             <p className="mt-0.5 text-xs text-gray-500 sm:text-sm">
-              Authenticator app active as of iPhone 15 · Ensuring your codes secure
+              Authenticator app active as of iPhone 15 · Ensuring your codes
+              secure
             </p>
           </div>
         </div>
@@ -99,7 +106,7 @@ export default function TwoFactorStatusCard({
           icon={<RefreshIcon />}
           buttonContent="Regenerate backup codes"
           handleOpen={onRegenerateBackupCodes}
-          btnStyle="rounded-xl border border-gray-200 px-4 py-2.5 text-xs font-medium text-gray-700 hover:bg-gray-50 sm:text-sm"
+          btnStyle="bg-tertiary text-secondary rounded-lg px-[15px] py-1 self-stretch gap-2.5 shadow-[0_2px_0_0_rgba(0,0,0,0.02)] border-0 text-xs font-medium hover:bg-tertiary-hover sm:text-sm"
         />
         <ActionButton
           type="button"
@@ -108,7 +115,7 @@ export default function TwoFactorStatusCard({
           icon={<Sparkles size={14} />}
           buttonContent="Reconfigure 2FA"
           handleOpen={onReconfigure}
-          btnStyle="rounded-xl bg-green-700 px-4 py-2.5 text-xs font-medium text-white hover:bg-emerald-600 sm:text-sm"
+          btnStyle="bg-success-secondary-hover text-white rounded-lg px-4 py-1 self-stretch text-xs font-medium hover:bg-success-secondary sm:text-sm"
         />
       </div>
     </div>
