@@ -1,3 +1,7 @@
 echo "🔍 Running pre-commit checks..."
 
+# TypeScript check — must run with tsconfig.json context for path aliases & JSX
+npx tsc --noEmit --pretty
+
+# Lint & format staged files
 npx lint-staged
