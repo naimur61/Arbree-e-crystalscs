@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import { FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
+import { ActionButton } from '@/components/common/button/action-button';
 import { Paperclip, X, Eye } from 'lucide-react';
 import Image from 'next/image';
 import type { ControllerRenderProps, FieldValues, FieldPath, UseFormReturn } from 'react-hook-form';
@@ -122,20 +123,19 @@ export const TextAreaWithFile = ({
                   <span className="truncate max-w-[100px]">{item.name}</span>
                 </div>
               )}
-              <button type="button" onClick={() => handleRemoveFile(item.id)}
-                className="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                <X className="h-3 w-3 text-destructive" />
-              </button>
+              <ActionButton type="button" variant="ghost" btnSize="icon"
+                icon={<X className="h-3 w-3 text-destructive" />}
+                handleOpen={() => handleRemoveFile(item.id)}
+                btnStyle="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
           ))}
         </div>
       )}
 
       {onSend && (
-        <Button type="button" size="sm"
-          onClick={() => onSend({ text: form.watch(name), files: fileItems })}>
-          Send
-        </Button>
+        <ActionButton type="button" variant="default" btnSize="sm"
+          buttonContent="Send"
+          handleOpen={() => onSend({ text: form.watch(name), files: fileItems })} />
       )}
     </div>
   );

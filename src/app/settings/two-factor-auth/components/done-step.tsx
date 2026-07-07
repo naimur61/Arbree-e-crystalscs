@@ -1,5 +1,7 @@
 'use client';
 
+import { ActionButton } from '@/components/common/button/action-button';
+
 interface DoneStepProps {
   onClose?: () => void;
 }
@@ -28,13 +30,14 @@ export default function DoneStep({ onClose }: DoneStepProps) {
         Your account now requires a code from your authenticator app at sign-in.
       </p>
 
-      <button
+      <ActionButton
         type="button"
-        onClick={onClose}
-        className="mt-5 w-full rounded-xl bg-emerald-500 px-8 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-600 sm:mt-6 sm:w-auto"
-      >
-        Close
-      </button>
+        variant="default"
+        btnSize="default"
+        buttonContent="Close"
+        handleOpen={onClose}
+        btnStyle="mt-5 w-full rounded-xl bg-emerald-500 px-8 py-2.5 text-sm font-medium text-white hover:bg-emerald-600 sm:mt-6 sm:w-auto"
+      />
     </div>
   );
 }
