@@ -34,3 +34,6 @@ pnpm-debug.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# compiled js output alongside ts/tsx (from accidental tsc runs)
+src/**/*.js

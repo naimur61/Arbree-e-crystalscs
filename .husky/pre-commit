@@ -4,4 +4,5 @@ echo "🔍 Running pre-commit checks..."
 npx tsc --noEmit
 
 # Lint & format staged files
+
 npx lint-staged

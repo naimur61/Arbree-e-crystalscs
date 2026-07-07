@@ -22,8 +22,8 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: 'E-Crystal',
-  description: 'E-Crystal - Your Premium Crystal E-Commerce Platform',
+  title: "E-Crystal",
+  description: "E-Crystal - Your Premium Crystal E-Commerce Platform",
 };
 
 export default function RootLayout({
@@ -38,14 +38,11 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body suppressHydrationWarning>
-
         {/* hot Toaster  */}
         <Toaster />
 
         <Providers>
-          <AppLayout>
-            {children}
-          </AppLayout>
+          <AppLayout>{children}</AppLayout>
         </Providers>
       </body>
     </html>
