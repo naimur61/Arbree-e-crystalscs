@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { CopyIcon, DownloadIcon } from './icons';
+import { ActionButton } from '@/components/common/button/action-button';
 
 interface RecoveryStepProps {
   codes: string[];
@@ -53,22 +54,24 @@ export default function RecoveryStep({ codes, confirmed, onConfirmedChange }: Re
 
       <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
         <div className="flex flex-col gap-2 sm:flex-row">
-          <button
+          <ActionButton
             type="button"
-            onClick={handleCopyAll}
-            className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-gray-200 px-3 py-2 text-xs font-medium text-gray-600 transition hover:bg-gray-50 sm:w-auto"
-          >
-            <CopyIcon />
-            {copiedAll ? 'Copied all' : 'Copy all'}
-          </button>
-          <button
+            variant="outline"
+            btnSize="sm"
+            icon={<CopyIcon />}
+            buttonContent={copiedAll ? 'Copied all' : 'Copy all'}
+            handleOpen={handleCopyAll}
+            btnStyle="rounded-lg border border-gray-200 px-3 py-2 text-xs font-medium text-gray-600 hover:bg-gray-50"
+          />
+          <ActionButton
             type="button"
-            onClick={handleDownload}
-            className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-gray-200 px-3 py-2 text-xs font-medium text-gray-600 transition hover:bg-gray-50 sm:w-auto"
-          >
-            <DownloadIcon />
-            Download .txt
-          </button>
+            variant="outline"
+            btnSize="sm"
+            icon={<DownloadIcon />}
+            buttonContent="Download .txt"
+            handleOpen={handleDownload}
+            btnStyle="rounded-lg border border-gray-200 px-3 py-2 text-xs font-medium text-gray-600 hover:bg-gray-50"
+          />
         </div>
 
         <label className="flex cursor-pointer items-center justify-end gap-2 text-xs font-medium text-gray-700 sm:shrink-0">

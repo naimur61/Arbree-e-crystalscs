@@ -4,6 +4,7 @@ import type { TwoFactorStatus } from './types';
 import ToggleSwitch from './toggle-switch';
 import { Sparkles } from 'lucide-react';
 import { ShieldCheckIcon, SmartphoneIcon, KeyRoundIcon, ClockIcon, RefreshIcon } from './icons';
+import { ActionButton } from '@/components/common/button/action-button';
 
 interface TwoFactorStatusCardProps {
   status: TwoFactorStatus;
@@ -91,22 +92,24 @@ export default function TwoFactorStatusCard({
 
       {/* Actions row */}
       <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap md:gap-3">
-        <button
+        <ActionButton
           type="button"
-          onClick={onRegenerateBackupCodes}
-          className="flex w-full items-center justify-center gap-2 rounded-xl border border-gray-200 px-4 py-2.5 text-xs font-medium text-gray-700 transition hover:bg-gray-50 sm:w-auto sm:text-sm"
-        >
-          <RefreshIcon />
-          Regenerate backup codes
-        </button>
-        <button
+          variant="outline"
+          btnSize="sm"
+          icon={<RefreshIcon />}
+          buttonContent="Regenerate backup codes"
+          handleOpen={onRegenerateBackupCodes}
+          btnStyle="rounded-xl border border-gray-200 px-4 py-2.5 text-xs font-medium text-gray-700 hover:bg-gray-50 sm:text-sm"
+        />
+        <ActionButton
           type="button"
-          onClick={onReconfigure}
-          className="flex w-full items-center justify-center gap-2 rounded-xl bg-green-700 px-4 py-2.5 text-xs font-medium text-white transition hover:bg-emerald-600 sm:w-auto sm:text-sm"
-        >
-          <Sparkles size={16} />
-          Reconfigure 2FA
-        </button>
+          variant="default"
+          btnSize="sm"
+          icon={<Sparkles size={14} />}
+          buttonContent="Reconfigure 2FA"
+          handleOpen={onReconfigure}
+          btnStyle="rounded-xl bg-green-700 px-4 py-2.5 text-xs font-medium text-white hover:bg-emerald-600 sm:text-sm"
+        />
       </div>
     </div>
   );

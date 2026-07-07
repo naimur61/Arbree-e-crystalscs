@@ -3,6 +3,7 @@
 import { X, PieChart, Zap, Shield, RefreshCw } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '../ui/button';
+import { ActionButton } from '@/components/common/button/action-button';
 import { useLayout } from '@/providers/layout-provider';
 
 interface AIAgent {
@@ -68,12 +69,14 @@ export function RightSidebar() {
             <h2 className="text-sm font-bold text-foreground">e-CRYSTAL AI AGENTS</h2>
             <p className="text-xs text-muted-foreground">Intelligence working for you, 24/7.</p>
           </div>
-          <button
-            onClick={toggleRightSidebar}
-            className="p-1 rounded transition-colors text-muted-foreground hover:bg-accent"
-          >
-            <X className="w-4 h-4" />
-          </button>
+          <ActionButton
+            type="button"
+            variant="ghost"
+            btnSize="icon"
+            icon={<X className="w-4 h-4" />}
+            handleOpen={toggleRightSidebar}
+            btnStyle="p-1 rounded text-muted-foreground hover:bg-accent"
+          />
         </div>
 
         {/* AI Agents List */}

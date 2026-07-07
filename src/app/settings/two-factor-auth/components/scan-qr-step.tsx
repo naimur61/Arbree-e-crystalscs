@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import QrCodePlaceholder from './qr-code-placeholder';
 import { CopyIcon, AlertTriangleIcon } from './icons';
+import { ActionButton } from '@/components/common/button/action-button';
 
 interface ScanQrStepProps {
   appName: string;
@@ -47,14 +48,15 @@ export default function ScanQrStep({ appName, setupKey }: ScanQrStepProps) {
           <code className="w-full truncate rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-xs font-mono text-gray-700 sm:flex-1 sm:text-sm">
             {setupKey}
           </code>
-          <button
+          <ActionButton
             type="button"
-            onClick={handleCopy}
-            className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-gray-200 px-3 py-2 text-xs font-medium text-gray-600 transition hover:bg-gray-50 sm:w-auto sm:shrink-0"
-          >
-            <CopyIcon />
-            {copied ? 'Copied' : 'Copy'}
-          </button>
+            variant="outline"
+            btnSize="sm"
+            icon={<CopyIcon />}
+            buttonContent={copied ? 'Copied' : 'Copy'}
+            handleOpen={handleCopy}
+            btnStyle="rounded-lg border border-gray-200 px-3 py-2 text-xs font-medium text-gray-600 hover:bg-gray-50 sm:shrink-0"
+          />
         </div>
 
         <div className="mt-3 flex items-start gap-2 rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-700 sm:mt-4">

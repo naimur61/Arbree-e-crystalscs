@@ -8,6 +8,7 @@ import VerifyStep from './verify-step';
 import RecoveryStep from './recovery-step';
 import DoneStep from './done-step';
 import { ArrowLeftIcon } from './icons';
+import { ActionButton } from '@/components/common/button/action-button';
 
 interface SetupTwoFactorCardProps {
   steps: SetupStep[];
@@ -56,13 +57,11 @@ export default function SetupTwoFactorCard({
 
   return (
     <div className="rounded-2xl bg-white px-3 py-4 shadow-sm sm:px-5 sm:py-5 md:px-6">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-x-3">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-x-4">
         <h2 className="shrink-0 text-sm font-semibold text-gray-900 sm:text-base">
           Setup Two-Factor Authentication
         </h2>
-        <div className="sm:ml-auto">
-          <SetupStepper steps={steps} />
-        </div>
+        <SetupStepper steps={steps} />
       </div>
 
       {currentStepId === 'method' && (
@@ -104,22 +103,24 @@ export default function SetupTwoFactorCard({
 
       {!isDone && (
         <div className="mt-5 flex flex-col-reverse items-center gap-3 sm:mt-6 sm:flex-row sm:justify-between md:gap-4">
-          <button
+          <ActionButton
             type="button"
-            onClick={onCancel}
-            className="flex w-full items-center justify-center gap-1.5 text-sm font-medium text-gray-500 hover:text-gray-700 sm:w-auto"
-          >
-            <ArrowLeftIcon />
-            Cancel
-          </button>
-          <button
+            variant="ghost"
+            btnSize="sm"
+            icon={<ArrowLeftIcon />}
+            buttonContent="Cancel"
+            handleOpen={onCancel}
+            btnStyle="text-gray-500 hover:text-gray-700"
+          />
+          <ActionButton
             type="button"
-            onClick={onContinue}
+            variant="default"
+            btnSize="default"
+            buttonContent={continueLabel}
+            handleOpen={onContinue}
             disabled={continueDisabled}
-            className="w-full rounded-xl bg-emerald-500 px-6 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-600 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-gray-200 sm:w-auto"
-          >
-            {continueLabel}
-          </button>
+            btnStyle="rounded-xl bg-emerald-500 px-6 py-2.5 text-sm font-medium text-white hover:bg-emerald-600 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-gray-200"
+          />
         </div>
       )}
     </div>
