@@ -4,7 +4,7 @@ echo "🚀 Running pre-push checks..."
 npx tsc --noEmit
 
 # Full ESLint check (entire project)
-npx eslint src/ --max-warnings=0
+npx eslint src/ --max-warnings=0 --format codeframe
 
 # Production build (catch build errors early)
 npx next build
