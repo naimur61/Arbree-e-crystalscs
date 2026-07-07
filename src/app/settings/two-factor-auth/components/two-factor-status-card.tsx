@@ -3,13 +3,8 @@
 import type { TwoFactorStatus } from "./types";
 import ToggleSwitch from "./toggle-switch";
 import { Sparkles } from "lucide-react";
-import {
-  ShieldCheckIcon,
-  SmartphoneIcon,
-  KeyRoundIcon,
-  ClockIcon,
-  RefreshIcon,
-} from "./icons";
+import { ShieldCheckIcon, SmartphoneIcon, RefreshIcon } from "./icons";
+import { KeyRound, Check } from "lucide-react";
 import { ActionButton } from "@/components/common/button/action-button";
 
 interface TwoFactorStatusCardProps {
@@ -70,8 +65,8 @@ export default function TwoFactorStatusCard({
           </div>
         </div>
         <div className="flex items-center gap-2 sm:gap-2.5">
-          <span className="shrink-0 text-emerald-600">
-            <KeyRoundIcon />
+          <span className="shrink-0">
+            <KeyRound />
           </span>
           <div className="min-w-0 leading-tight">
             <p className="text-[10px] uppercase tracking-wide text-gray-400 sm:text-[11px]">
@@ -84,7 +79,7 @@ export default function TwoFactorStatusCard({
         </div>
         <div className="flex items-center gap-2 sm:gap-2.5">
           <span className="shrink-0 text-emerald-600">
-            <ClockIcon />
+            <Check />
           </span>
           <div className="min-w-0 leading-tight">
             <p className="text-[10px] uppercase tracking-wide text-gray-400 sm:text-[11px]">
