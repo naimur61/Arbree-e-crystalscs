@@ -20,7 +20,6 @@ export default function Home() {
 
       {/* Cards demo */}
       <ActionButton
-        size="icon"
         variant="gradient"
         tooltipContent="Click to copy"
         // icon={<Copy className="w-4 h-4" />}
