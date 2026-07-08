@@ -1,45 +1,70 @@
-'use client';
+"use client";
 
-import { FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
-import { LabelAndPlaceholderTextFormat, maskString } from '@/lib/utils';
-import PhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/lib/style.css';
-import type { ControllerRenderProps, FieldValues, FieldPath, UseFormReturn } from 'react-hook-form';
-import type { InputInterface } from '../interface/input-props.type';
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+import { LabelAndPlaceholderTextFormat, maskString } from "@/lib/utils";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import type {
+  ControllerRenderProps,
+  FieldValues,
+  FieldPath,
+} from "react-hook-form";
+import type { InputInterface } from "../interface/input-props.type";
 
 export const PhoneNumber = ({
-  form, name, labelName, placeholder, required = false, disabled = false,
-  viewOnly = false, disableLabelFormatting = false, customMessage, defaultCountry = 'us',
-  disableCountryCode = true, disableDropdown = false, onValueChange, isLoading = false,
+  form,
+  name,
+  labelName,
+  placeholder,
+  required = false,
+  disabled = false,
+  viewOnly = false,
+  disableLabelFormatting = false,
+  customMessage,
+  defaultCountry = "us",
+  disableCountryCode = true,
+  disableDropdown = false,
+  onValueChange,
+  isLoading = false,
   hasPhone = false,
-}: InputInterface['PhoneNumber']) => {
+}: InputInterface["PhoneNumber"]) => {
   const placeholderText = disableLabelFormatting
     ? placeholder || labelName
-    : LabelAndPlaceholderTextFormat(placeholder || labelName || '');
-
-  const LabelEl = () =>
-    labelName ? (
-      <label className="font-semibold leading-6 text-[14px] tracking-[0.02em]">
-        {disableLabelFormatting ? labelName : LabelAndPlaceholderTextFormat(labelName)}
-        {required && <span className="text-destructive">&nbsp;*</span>}
-      </label>
-    ) : null;
+    : LabelAndPlaceholderTextFormat(placeholder || labelName || "");
 
   if (form) {
     return (
       <FormField
         control={form.control}
-        name={name || 'phone'}
-        render={({ field }: { field: ControllerRenderProps<FieldValues, FieldPath<FieldValues>> }) => {
-          const error = form.formState.errors?.[name || ''];
+        name={name || "phone"}
+        render={({
+          field,
+        }: {
+          field: ControllerRenderProps<FieldValues, FieldPath<FieldValues>>;
+        }) => {
+          const error = form.formState.errors?.[name || ""];
           const isError = !!error;
 
           return (
             <FormItem>
-              <LabelEl />
+              {labelName ? (
+                <label className="font-semibold leading-6 text-[14px] tracking-[0.02em]">
+                  {disableLabelFormatting
+                    ? labelName
+                    : LabelAndPlaceholderTextFormat(labelName)}
+                  {required && (
+                    <span className="text-destructive">&nbsp;*</span>
+                  )}
+                </label>
+              ) : null}
               {viewOnly ? (
                 <div className="py-2 px-3 text-sm text-foreground bg-background rounded-md border border-border min-h-10">
-                  {hasPhone ? maskString(field.value) : field.value || ''}
+                  {hasPhone ? maskString(field.value) : field.value || ""}
                 </div>
               ) : (
                 <>
@@ -51,19 +76,25 @@ export const PhoneNumber = ({
                         disabled={disabled || isLoading}
                         disableCountryCode={disableCountryCode}
                         disableDropdown={disableDropdown}
-                        placeholder={LabelAndPlaceholderTextFormat(placeholder || 'Enter phone number')}
-                        inputStyle={isError ? { borderColor: '#dc2626' } : undefined}
+                        placeholder={LabelAndPlaceholderTextFormat(
+                          placeholder || "Enter phone number",
+                        )}
+                        inputStyle={
+                          isError ? { borderColor: "#dc2626" } : undefined
+                        }
                         onChange={(value: string) => {
                           field.onChange(value);
                           onValueChange?.(value);
                         }}
                         onBlur={field.onBlur}
-                        searchStyle={{ width: '100%' }}
+                        searchStyle={{ width: "100%" }}
                       />
                     </div>
                   </FormControl>
                   <FormMessage>
-                    {isError ? String(error?.message || '') : customMessage || ''}
+                    {isError
+                      ? String(error?.message || "")
+                      : customMessage || ""}
                   </FormMessage>
                 </>
               )}
@@ -76,7 +107,14 @@ export const PhoneNumber = ({
 
   return (
     <div>
-      <LabelEl />
+      {labelName ? (
+        <label className="font-semibold leading-6 text-[14px] tracking-[0.02em]">
+          {disableLabelFormatting
+            ? labelName
+            : LabelAndPlaceholderTextFormat(labelName)}
+          {required && <span className="text-destructive">&nbsp;*</span>}
+        </label>
+      ) : null}
       <PhoneInput
         country={defaultCountry}
         disabled={disabled}

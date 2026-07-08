@@ -1,12 +1,19 @@
-'use client';
+"use client";
 
 /* ── TopNavbar: sticky header with title, search, theme toggle, avatar, sidebar toggle ── */
 
-import { useState, useEffect } from 'react';
-import { useTheme } from 'next-themes';
-import { Sun, Moon, Bell, Search, PanelRightClose, PanelRightOpen } from 'lucide-react';
-import { useLayout } from '@/providers/layout-provider';
-import { Button } from '../ui/button';
+import { useState, useEffect } from "react";
+import { useTheme } from "next-themes";
+import {
+  Sun,
+  Moon,
+  Bell,
+  Search,
+  PanelRightClose,
+  PanelRightOpen,
+} from "lucide-react";
+import { useLayout } from "@/providers/layout-provider";
+import { Button } from "../ui/button";
 
 interface TopNavProps {
   title: string;
@@ -18,7 +25,10 @@ export function TopNavbar({ title, subtitle }: TopNavProps) {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    const id = setTimeout(() => setMounted(true), 0);
+    return () => clearTimeout(id);
+  }, []);
 
   return (
     <header className="sticky top-0 z-30 w-full border-b border-border bg-background/80 backdrop-blur-lg supports-backdrop-filter:bg-background/60">
@@ -48,10 +58,10 @@ export function TopNavbar({ title, subtitle }: TopNavProps) {
           {/* Theme Toggle — placeholder box until mounted to avoid hydration mismatch */}
           {mounted ? (
             <Button
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               className="p-2 transition-colors text-muted-foreground"
             >
-              {theme === 'dark' ? (
+              {theme === "dark" ? (
                 <Sun className="w-5 h-5" />
               ) : (
                 <Moon className="w-5 h-5" />
@@ -68,7 +78,7 @@ export function TopNavbar({ title, subtitle }: TopNavProps) {
 
           {/* Toggle Right Sidebar */}
           <Button
-            variant={state.isRightSidebarOpen ? 'default' : 'outline'}
+            variant={state.isRightSidebarOpen ? "default" : "outline"}
             size="sm"
             onClick={toggleRightSidebar}
             className="ml-2"

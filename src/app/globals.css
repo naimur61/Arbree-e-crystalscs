@@ -919,6 +919,171 @@
 }
 
 /* ═══════════════════════════════════════════════
+   TYPOGRAPHY UTILITY CLASSES
+   Maps Figma typography tokens to reusable classes.
+   ═══════════════════════════════════════════════ */
+
+/* ── Titles ── */
+.title-1 {
+  font-family: var(--font-montserrat);
+  font-size: var(--type-title-1-size);
+  line-height: var(--type-title-1-lh);
+  letter-spacing: var(--type-title-1-ls);
+  font-weight: var(--weight-bold);
+  color: var(--text-primary);
+}
+.title-2 {
+  font-family: var(--font-montserrat);
+  font-size: var(--type-title-2-size);
+  line-height: var(--type-title-2-lh);
+  letter-spacing: var(--type-title-2-ls);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+}
+.title-3 {
+  font-family: var(--font-montserrat);
+  font-size: var(--type-title-3-size);
+  line-height: var(--type-title-3-lh);
+  letter-spacing: var(--type-title-3-ls);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+}
+
+/* ── Headings ── */
+.h1,
+h1 {
+  font-family: var(--font-montserrat);
+  font-size: var(--type-h1-size);
+  line-height: var(--type-h1-lh);
+  letter-spacing: var(--type-h1-ls);
+  font-weight: var(--weight-bold);
+  color: var(--text-primary);
+}
+.h2,
+h2 {
+  font-family: var(--font-montserrat);
+  font-size: var(--type-h2-size);
+  line-height: var(--type-h2-lh);
+  letter-spacing: var(--type-h2-ls);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+}
+.h3,
+h3 {
+  font-family: var(--font-montserrat);
+  font-size: var(--type-h3-size);
+  line-height: var(--type-h3-lh);
+  letter-spacing: var(--type-h3-ls);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+}
+.h4,
+h4 {
+  font-family: var(--font-montserrat);
+  font-size: var(--type-h4-size);
+  line-height: var(--type-h4-lh);
+  letter-spacing: var(--type-h4-ls);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+}
+.h5,
+h5 {
+  font-family: var(--font-montserrat);
+  font-size: var(--type-h5-size);
+  line-height: var(--type-h5-lh);
+  letter-spacing: var(--type-h5-ls);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+}
+.h6,
+h6 {
+  font-family: var(--font-montserrat);
+  font-size: var(--type-h6-size);
+  line-height: var(--type-h6-lh);
+  letter-spacing: var(--type-h6-ls);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+}
+
+/* ── Body ── */
+.body-1 {
+  font-family: var(--font-montserrat);
+  font-size: var(--type-body-1-size);
+  line-height: var(--type-body-1-lh);
+  letter-spacing: var(--type-body-1-ls);
+  font-weight: var(--weight-regular);
+  color: var(--text-primary);
+}
+.body-2 {
+  font-family: var(--font-montserrat);
+  font-size: var(--type-body-2-size);
+  line-height: var(--type-body-2-lh);
+  letter-spacing: var(--type-body-2-ls);
+  font-weight: var(--weight-regular);
+  color: var(--text-primary);
+}
+.body-3 {
+  font-family: var(--font-montserrat);
+  font-size: var(--type-body-3-size);
+  line-height: var(--type-body-3-lh);
+  letter-spacing: var(--type-body-3-ls);
+  font-weight: var(--weight-regular);
+  color: var(--text-primary);
+}
+.body-4 {
+  font-family: var(--font-montserrat);
+  font-size: var(--type-body-4-size);
+  line-height: var(--type-body-4-lh);
+  letter-spacing: var(--type-body-4-ls);
+  font-weight: var(--weight-regular);
+  color: var(--text-primary);
+}
+
+/* ── Labels ── */
+.label-1 {
+  font-family: var(--font-montserrat);
+  font-size: var(--type-label-1-size);
+  line-height: var(--type-label-1-lh);
+  letter-spacing: var(--type-label-1-ls);
+  font-weight: var(--weight-medium);
+  color: var(--text-secondary);
+}
+.label-2 {
+  font-family: var(--font-montserrat);
+  font-size: var(--type-label-2-size);
+  line-height: var(--type-label-2-lh);
+  letter-spacing: var(--type-label-2-ls);
+  font-weight: var(--weight-medium);
+  color: var(--text-secondary);
+}
+.label-3 {
+  font-family: var(--font-montserrat);
+  font-size: var(--type-label-3-size);
+  line-height: var(--type-label-3-lh);
+  letter-spacing: var(--type-label-3-ls);
+  font-weight: var(--weight-medium);
+  color: var(--text-secondary);
+}
+
+/* ── Captions ── */
+.caption-1 {
+  font-family: var(--font-montserrat);
+  font-size: var(--type-caption-1-size);
+  line-height: var(--type-caption-1-lh);
+  letter-spacing: var(--type-caption-1-ls);
+  font-weight: var(--weight-regular);
+  color: var(--text-tertiary);
+}
+.caption-2 {
+  font-family: var(--font-montserrat);
+  font-size: var(--type-caption-2-size);
+  line-height: var(--type-caption-2-lh);
+  letter-spacing: var(--type-caption-2-ls);
+  font-weight: var(--weight-regular);
+  color: var(--text-tertiary);
+}
+
+/* ═══════════════════════════════════════════════
    LIGHT MODE — Figma "Tailwind Alias / Default"
    ═══════════════════════════════════════════════ */
 :root {

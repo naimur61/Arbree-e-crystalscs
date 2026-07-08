@@ -1,10 +1,19 @@
-'use client';
+"use client";
 
-import { FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { LabelAndPlaceholderTextFormat } from '@/lib/utils';
-import type { ControllerRenderProps, FieldValues, FieldPath, UseFormReturn } from 'react-hook-form';
-import type { InputInterface } from '../interface/input-props.type';
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { LabelAndPlaceholderTextFormat } from "@/lib/utils";
+import type {
+  ControllerRenderProps,
+  FieldValues,
+  FieldPath,
+} from "react-hook-form";
+import type { InputInterface } from "../interface/input-props.type";
 
 /**
  * Number — A robust numeric input field with:
@@ -16,56 +25,73 @@ import type { InputInterface } from '../interface/input-props.type';
  * - Dual-mode: with or without react-hook-form
  */
 export const Number = ({
-  form, name, labelName, placeholder, required = false, disabled = false,
-  viewOnly = false, disableLabelFormatting = false, numberType = 'integer', customMessage,
-}: InputInterface['Number']) => {
+  form,
+  name,
+  labelName,
+  placeholder,
+  required = false,
+  disabled = false,
+  viewOnly = false,
+  disableLabelFormatting = false,
+  numberType = "integer",
+  customMessage,
+}: InputInterface["Number"]) => {
   const placeholderText = disableLabelFormatting
     ? placeholder || labelName
-    : LabelAndPlaceholderTextFormat(placeholder || labelName || '');
-
-  const LabelEl = () =>
-    labelName ? (
-      <label className="font-semibold leading-6 text-[14px] tracking-[0.02em]">
-        {disableLabelFormatting ? labelName : LabelAndPlaceholderTextFormat(labelName)}
-        {required && <span className="text-destructive">&nbsp;*</span>}
-      </label>
-    ) : null;
+    : LabelAndPlaceholderTextFormat(placeholder || labelName || "");
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     // Allow: backspace, delete, tab, escape, enter, arrows
     const allowedKeys = [
-      'Backspace', 'Delete', 'Tab', 'Escape', 'Enter',
-      'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End',
+      "Backspace",
+      "Delete",
+      "Tab",
+      "Escape",
+      "Enter",
+      "ArrowLeft",
+      "ArrowRight",
+      "ArrowUp",
+      "ArrowDown",
+      "Home",
+      "End",
     ];
     if (allowedKeys.includes(e.key)) return;
     // Allow Ctrl/Cmd shortcuts
     if (e.ctrlKey || e.metaKey) return;
 
     // For integers: only digits
-    if (numberType === 'integer') {
-      if (!/^\d$/.test(e.key)) { e.preventDefault(); }
+    if (numberType === "integer") {
+      if (!/^\d$/.test(e.key)) {
+        e.preventDefault();
+      }
       return;
     }
 
     // For floats: digits and single decimal point
-    if (numberType === 'float') {
+    if (numberType === "float") {
       const currentValue = (e.target as HTMLInputElement).value;
-      if (e.key === '.' && !currentValue.includes('.')) return;
-      if (!/^\d$/.test(e.key)) { e.preventDefault(); }
+      if (e.key === "." && !currentValue.includes(".")) return;
+      if (!/^\d$/.test(e.key)) {
+        e.preventDefault();
+      }
     }
   };
 
-  const handleChange = (value: string, onChange: (val: string | number) => void) => {
-    if (value === '') {
-      onChange('');
+  const handleChange = (
+    value: string,
+    onChange: (val: string | number) => void,
+  ) => {
+    if (value === "") {
+      onChange("");
       return;
     }
 
-    const parsed = numberType === 'float' ? parseFloat(value) : parseInt(value, 10);
+    const parsed =
+      numberType === "float" ? parseFloat(value) : parseInt(value, 10);
     if (!isNaN(parsed) && parsed >= 0) {
       onChange(parsed);
     } else {
-      onChange('');
+      onChange("");
     }
   };
 
@@ -73,33 +99,52 @@ export const Number = ({
     return (
       <FormField
         control={form.control}
-        name={name || 'number'}
-        render={({ field }: { field: ControllerRenderProps<FieldValues, FieldPath<FieldValues>> }) => {
-          const error = form.formState.errors?.[name || ''];
+        name={name || "number"}
+        render={({
+          field,
+        }: {
+          field: ControllerRenderProps<FieldValues, FieldPath<FieldValues>>;
+        }) => {
+          const error = form.formState.errors?.[name || ""];
           return (
             <FormItem>
-              <LabelEl />
+              {labelName ? (
+                <label className="font-semibold leading-6 text-[14px] tracking-[0.02em]">
+                  {disableLabelFormatting
+                    ? labelName
+                    : LabelAndPlaceholderTextFormat(labelName)}
+                  {required && (
+                    <span className="text-destructive">&nbsp;*</span>
+                  )}
+                </label>
+              ) : null}
               {viewOnly ? (
                 <div className="py-2 px-3 text-sm text-foreground bg-background rounded-md border border-border min-h-10">
-                  {field.value ?? ''}
+                  {field.value ?? ""}
                 </div>
               ) : (
                 <>
                   <FormControl>
                     <Input
                       type="number"
-                      step={numberType === 'float' ? 'any' : '0'}
+                      step={numberType === "float" ? "any" : "0"}
                       min={0}
                       placeholder={placeholderText}
                       disabled={disabled}
-                      value={field.value ?? ''}
-                      onWheel={(e: React.WheelEvent<HTMLInputElement>) => (e.target as HTMLInputElement).blur()}
+                      value={field.value ?? ""}
+                      onWheel={(e: React.WheelEvent<HTMLInputElement>) =>
+                        (e.target as HTMLInputElement).blur()
+                      }
                       onKeyDown={handleKeyDown}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e.target.value, field.onChange)}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        handleChange(e.target.value, field.onChange)
+                      }
                       className="[&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [appearance:textfield]"
                     />
                   </FormControl>
-                  <FormMessage>{error ? String(error?.message || '') : customMessage || ''}</FormMessage>
+                  <FormMessage>
+                    {error ? String(error?.message || "") : customMessage || ""}
+                  </FormMessage>
                 </>
               )}
             </FormItem>
@@ -111,12 +156,21 @@ export const Number = ({
 
   return (
     <>
-      <LabelEl />
+      {labelName ? (
+        <label className="font-semibold leading-6 text-[14px] tracking-[0.02em]">
+          {disableLabelFormatting
+            ? labelName
+            : LabelAndPlaceholderTextFormat(labelName)}
+          {required && <span className="text-destructive">&nbsp;*</span>}
+        </label>
+      ) : null}
       <Input
         type="number"
-        step={numberType === 'float' ? 'any' : '0'}
+        step={numberType === "float" ? "any" : "0"}
         placeholder={placeholderText}
-        onWheel={(e: React.WheelEvent<HTMLInputElement>) => (e.target as HTMLInputElement).blur()}
+        onWheel={(e: React.WheelEvent<HTMLInputElement>) =>
+          (e.target as HTMLInputElement).blur()
+        }
         onKeyDown={handleKeyDown}
       />
     </>
