@@ -14,8 +14,8 @@ import {
 import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import { forwardRef } from "react";
-import type { ActionButtonProps } from "./button-type";
 import {
+  type ActionButtonProps,
   buttonVariants,
   typographyConfig,
   iconSizeConfig,
@@ -121,4 +121,31 @@ const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
 
 ActionButton.displayName = "ActionButton";
 
+// ── Named Exports ──
 export { ActionButton };
+
+// ── Re-export all types and configs ──
+export type {
+  ActionButtonProps,
+  ButtonVariant,
+  ButtonSize,
+  ButtonTypography,
+  IconSize,
+  ButtonShadow,
+  ButtonRadius,
+  ButtonAnimation,
+  TooltipSide,
+  ButtonVariants,
+} from "./button-config";
+
+export {
+  buttonVariants,
+  typographyConfig,
+  iconSizeConfig,
+  variantLabels,
+  sizeLabels,
+  getVariantOptions,
+  getSizeOptions,
+  getTypographyOptions,
+  getIconSizeOptions,
+} from "./button-config";

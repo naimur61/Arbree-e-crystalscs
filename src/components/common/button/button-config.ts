@@ -1,17 +1,69 @@
 // ═══════════════════════════════════════════════════════════
 // BUTTON CONFIGURATION
-// CVA variants + config objects + utility helpers
+// Types + CVA variants + Configs + Helpers
 // ═══════════════════════════════════════════════════════════
 
 import { cva, type VariantProps } from "class-variance-authority";
-import type {
-  ButtonVariant,
-  ButtonSize,
-  ButtonTypography,
-  IconSize,
-  TypographyConfig,
-  IconSizeConfig,
-} from "./button-type";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
+
+// ─────────────────────────────────────────────────────────
+// TYPES
+// ─────────────────────────────────────────────────────────
+
+export type ButtonVariant =
+  | "default"
+  | "destructive"
+  | "outline"
+  | "secondary"
+  | "ghost"
+  | "link"
+  | "gradient";
+
+export type ButtonSize =
+  | "xs"
+  | "sm"
+  | "default"
+  | "lg"
+  | "xl"
+  | "icon-xs"
+  | "icon-sm"
+  | "icon"
+  | "icon-lg"
+  | "icon-xl";
+
+export type ButtonTypography =
+  "caption" | "body-sm" | "body" | "body-lg" | "label" | "heading";
+
+export type IconSize = "xs" | "sm" | "md" | "lg" | "xl";
+
+export type ButtonShadow = "none" | "sm" | "md" | "lg" | "xl" | "glow";
+
+export type ButtonRadius = "none" | "sm" | "md" | "lg" | "xl" | "full";
+
+export type ButtonAnimation = "none" | "pulse" | "bounce" | "spin" | "shake";
+
+export type TooltipSide = "top" | "right" | "bottom" | "left";
+
+export interface ActionButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  type?: "submit" | "button" | "reset";
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  typography?: ButtonTypography;
+  iconSize?: IconSize;
+  shadow?: ButtonShadow;
+  radius?: ButtonRadius;
+  animation?: ButtonAnimation;
+  btnStyle?: string;
+  tooltipStyle?: string;
+  tooltipContent?: string;
+  buttonContent?: ReactNode;
+  icon?: ReactNode;
+  lastIcon?: ReactNode;
+  isPending?: boolean;
+  handleOpen?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
+  side?: TooltipSide;
+  loadingContent?: ReactNode;
+}
 
 // ─────────────────────────────────────────────────────────
 // CVA VARIANT DEFINITIONS
@@ -21,7 +73,6 @@ export const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap transition-all duration-200 disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
   {
     variants: {
-      // ── Variant ──
       variant: {
         default:
           "bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm",
@@ -36,8 +87,6 @@ export const buttonVariants = cva(
         gradient:
           "bg-gradient-to-br from-[#004706] via-[#009D36] to-[#004706] text-white hover:opacity-90 shadow-md",
       },
-
-      // ── Size ──
       size: {
         xs: "h-6 rounded-md px-2 text-xs gap-1.5",
         sm: "h-8 rounded-md px-3 text-sm gap-1.5",
@@ -50,8 +99,6 @@ export const buttonVariants = cva(
         "icon-lg": "size-10 rounded-md [&_svg:not([class*='size-'])]:size-5",
         "icon-xl": "size-12 rounded-lg [&_svg:not([class*='size-'])]:size-6",
       },
-
-      // ── Shadow ──
       shadow: {
         none: "",
         sm: "shadow-sm",
@@ -60,8 +107,6 @@ export const buttonVariants = cva(
         xl: "shadow-xl",
         glow: "shadow-[0_0_20px_rgba(0,157,54,0.4)]",
       },
-
-      // ── Radius ──
       radius: {
         none: "rounded-none",
         sm: "rounded-sm",
@@ -70,8 +115,6 @@ export const buttonVariants = cva(
         xl: "rounded-xl",
         full: "rounded-full",
       },
-
-      // ── Animation ──
       animation: {
         none: "",
         pulse: "animate-pulse",
@@ -80,7 +123,6 @@ export const buttonVariants = cva(
         shake: "animate-shake",
       },
     },
-
     defaultVariants: {
       variant: "default",
       size: "default",
@@ -92,7 +134,7 @@ export const buttonVariants = cva(
 // TYPOGRAPHY CONFIG
 // ─────────────────────────────────────────────────────────
 
-export const typographyConfig: TypographyConfig = {
+export const typographyConfig: Record<ButtonTypography, string> = {
   caption: "text-xs leading-tight",
   "body-sm": "text-sm leading-normal",
   body: "text-base leading-normal",
@@ -105,7 +147,7 @@ export const typographyConfig: TypographyConfig = {
 // ICON SIZE CONFIG
 // ─────────────────────────────────────────────────────────
 
-export const iconSizeConfig: IconSizeConfig = {
+export const iconSizeConfig: Record<IconSize, string> = {
   xs: "size-3",
   sm: "size-3.5",
   md: "size-4",
@@ -114,7 +156,7 @@ export const iconSizeConfig: IconSizeConfig = {
 };
 
 // ─────────────────────────────────────────────────────────
-// VARIANT LABELS (for display/documentation)
+// LABELS
 // ─────────────────────────────────────────────────────────
 
 export const variantLabels: Record<ButtonVariant, string> = {
@@ -141,7 +183,7 @@ export const sizeLabels: Record<ButtonSize, string> = {
 };
 
 // ─────────────────────────────────────────────────────────
-// HELPER: Get all variant options
+// HELPERS
 // ─────────────────────────────────────────────────────────
 
 export const getVariantOptions = () =>
@@ -168,5 +210,5 @@ export const getIconSizeOptions = () =>
     label: value.toUpperCase(),
   }));
 
-// ── Export types ──
+// ── CVA Types ──
 export type ButtonVariants = VariantProps<typeof buttonVariants>;
