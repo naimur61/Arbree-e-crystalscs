@@ -1,23 +1,27 @@
 // ═══════════════════════════════════════════════════════════
 // BUTTON MODULE EXPORTS
+// Clean imports for the button system
 // ═══════════════════════════════════════════════════════════
 
-// Component + Types + Configs (all re-exported from action-button)
+// ── Component ──
+export { ActionButton } from "./action-button";
+
+// ── Types ──
+export type {
+  ActionButtonProps,
+  ButtonVariant,
+  ButtonSize,
+  ButtonTypography,
+  IconSize,
+  ButtonShadow,
+  ButtonRadius,
+  ButtonAnimation,
+  TooltipSide,
+  ButtonVariants,
+} from "./button-config";
+
+// ── Configs & Helpers ──
 export {
-  // Component
-  ActionButton,
-  // Types
-  type ActionButtonProps,
-  type ButtonVariant,
-  type ButtonSize,
-  type ButtonTypography,
-  type IconSize,
-  type ButtonShadow,
-  type ButtonRadius,
-  type ButtonAnimation,
-  type TooltipSide,
-  type ButtonVariants,
-  // Configs
   buttonVariants,
   typographyConfig,
   iconSizeConfig,
@@ -27,4 +31,4 @@ export {
   getSizeOptions,
   getTypographyOptions,
   getIconSizeOptions,
-} from "./action-button";
+} from "./button-config";
