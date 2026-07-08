@@ -19,9 +19,9 @@ const impactColors = {
 export function StrategicRisks({ risks }: StrategicRisksProps) {
   return (
     <div className="bg-white rounded-[8px] border border-gray-200 p-6 h-full">
-      <h2 className="text-sm font-bold text-emerald-700 mb-5">
+      <p className="text-sm font-bold text-emerald-700 mb-5">
         Top Strategic Risks
-      </h2>
+      </p>
 
       <div className="space-y-4">
         {risks.map((risk, idx) => {

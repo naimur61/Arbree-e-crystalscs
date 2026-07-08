@@ -27,7 +27,7 @@ export function ConcentrationRisk({ risks, summary }: ConcentrationRiskProps) {
   return (
     <div className="bg-white rounded-[8px] border border-gray-200 p-6">
       <div className="flex items-center justify-between mb-1">
-        <h3 className="text-gray-900 font-bold text-sm">Concentration Risk</h3>
+        <p className="text-gray-900 font-bold text-sm">Concentration Risk</p>
         <button className="text-gray-400 hover:text-gray-600">
           <MoreHorizontal className="w-5 h-5" />
         </button>

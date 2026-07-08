@@ -32,9 +32,9 @@ export function RecommendationsCard({
       <div className="flex items-start gap-3 mb-6">
         <Zap className="w-6 h-6 text-emerald-600 fill-emerald-600 flex-shrink-0 mt-1" />
         <div>
-          <h2 className="text-sm font-bold text-gray-900">
+          <p className="text-sm font-bold text-gray-900">
             Strategic Recommendations
-          </h2>
+          </p>
           <p className="text-gray-500 text-xs mt-0.5">
             Operational response queue
           </p>
@@ -52,9 +52,7 @@ export function RecommendationsCard({
               />
               <div className="flex-1 min-w-0">
                 <div className="flex items-start justify-between gap-2">
-                  <h3 className="text-gray-900 font-bold text-xs">
-                    {rec.title}
-                  </h3>
+                  <p className="text-gray-900 font-bold text-xs">{rec.title}</p>
                   <span
                     className={`text-[9px] font-bold px-2 py-0.5 rounded whitespace-nowrap flex-shrink-0 ${style.badge}`}
                   >

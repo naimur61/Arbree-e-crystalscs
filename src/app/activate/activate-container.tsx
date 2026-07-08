@@ -313,9 +313,9 @@ export default function ActivateContainer() {
           <div className="mb-12">
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h2 className="text-sm font-bold text-gray-900 mb-1">
+                <p className="text-sm font-bold text-gray-900 mb-1">
                   Ecosystem Map
-                </h2>
+                </p>
                 <p className="text-gray-600 text-xs">
                   Your business. Connected.
                 </p>
@@ -359,9 +359,9 @@ export default function ActivateContainer() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {/* Heatmap */}
             <div className="lg:col-span-1 p-4">
-              <h3 className="text-sm font-bold text-gray-900 mb-2">
+              <p className="text-sm font-bold text-gray-900 mb-2">
                 Ecosystem Risk Heatmap
-              </h3>
+              </p>
               <p className="text-gray-600 text-xs mb-6">
                 Suppliers by criticality and risk
               </p>

@@ -74,7 +74,7 @@ export function ImpactCard({
 
   return (
     <div className="bg-white rounded-[8px] border border-gray-100 p-6 text-center shadow-sm">
-      <h3 className="text-gray-800 text-xs font-semibold mb-5">{title}</h3>
+      <p className="text-gray-800 text-xs font-semibold mb-5">{title}</p>
 
       <div className="flex items-center justify-center gap-3 mb-5">
         <div

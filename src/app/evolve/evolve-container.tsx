@@ -88,9 +88,9 @@ export default function EvolveContainer() {
 
           <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-4 mb-4">
             <div className="bg-white rounded-[8px] border border-gray-200 p-4 shadow-sm">
-              <h3 className="text-sm font-bold text-gray-900 mb-6">
+              <p className="text-sm font-bold text-gray-900 mb-6">
                 Business Impact
-              </h3>
+              </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <ImpactCard
                   title="Financial Impact"
@@ -120,9 +120,9 @@ export default function EvolveContainer() {
 
           <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-4">
             <div className="bg-white rounded-[8px] border border-gray-200 p-4">
-              <h3 className="text-sm font-bold text-gray-900 mb-6">
+              <p className="text-sm font-bold text-gray-900 mb-6">
                 e-Crystal Recommended Actions
-              </h3>
+              </p>
               <div className="space-y-3">
                 {recommendations.map((rec, index) => {
                   const impactColorMap: Record<string, string> = {

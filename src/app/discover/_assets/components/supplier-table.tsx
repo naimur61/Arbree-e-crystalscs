@@ -122,9 +122,9 @@ function SortableHeader({ label }: { label: string }) {
 export function SupplierTable() {
   return (
     <div className="overflow-x-auto bg-white rounded-[8px] border border-gray-200 shadow-sm">
-      <h2 className="text-xl font-bold text-slate-900 mb-3 p-3">
+      <p className="text-xl font-bold text-slate-900 mb-3 p-3">
         Supplier Oversight
-      </h2>
+      </p>
 
       <div className="">
         <table className="w-full">

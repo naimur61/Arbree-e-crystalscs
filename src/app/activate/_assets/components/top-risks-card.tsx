@@ -28,7 +28,7 @@ export function TopRisksCard({ risks }: TopRisksCardProps) {
   return (
     <div className="w-full bg-white rounded-lg border border-gray-200 p-6">
       <div className="mb-6">
-        <h2 className="text-sm font-bold text-gray-900">Top Ecosystem Risks</h2>
+        <p className="text-sm font-bold text-gray-900">Top Ecosystem Risks</p>
         <p className="text-xs text-gray-500 mt-0.5">
           Ranked by potential impact
         </p>
@@ -59,9 +59,9 @@ export function TopRisksCard({ risks }: TopRisksCardProps) {
                     {risk.severity}
                   </span>
                 </div>
-                <h3 className="font-semibold text-sm text-gray-900 mt-0.5 mb-1">
+                <p className="font-semibold text-sm text-gray-900 mt-0.5 mb-1">
                   {risk.title}
-                </h3>
+                </p>
                 <p className="text-xs text-gray-600 leading-snug">
                   {risk.description}
                 </p>

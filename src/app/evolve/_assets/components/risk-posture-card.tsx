@@ -23,13 +23,13 @@ export function RiskPostureCard({
 }: RiskPostureCardProps) {
   return (
     <div className="bg-emerald-50 rounded-[8px] p-4 h-full border border-emerald-200 shadow-sm">
-      <h3 className="text-gray-900 text-xs font-bold tracking-wide mb-5">
+      <p className="text-gray-900 text-xs font-bold tracking-wide mb-5">
         RISK POSTURE
-      </h3>
+      </p>
 
-      <h2 className="text-2xl font-extrabold text-red-600 flex items-center gap-1.5 mb-8">
+      <p className="text-2xl font-extrabold text-red-600 flex items-center gap-1.5 mb-8">
         Elevated <ArrowUpRight className="w-6 h-6" strokeWidth={2.5} />
-      </h2>
+      </p>
 
       <div className="space-y-6 text-base">
         <p className="text-gray-600 text-xs py-2">

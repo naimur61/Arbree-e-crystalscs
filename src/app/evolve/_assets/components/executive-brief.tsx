@@ -35,15 +35,13 @@ function WaveChart() {
 export function ExecutiveBrief() {
   return (
     <div className="bg-white rounded-[8px] border border-gray-200 p-4 shadow-sm">
-      <h3 className="text-gray-900 text-sm font-bold mb-4">
+      <p className="text-gray-900 text-sm font-bold mb-4">
         Quarterly Executive Brief
-      </h3>
+      </p>
 
       <div className="border-2 border-emerald-500 rounded-xl p-5 pt-5 pb-0 overflow-hidden">
         <p className="text-gray-500 text-xs mb-1">e-Crystal</p>
-        <h2 className="text-sm font-bold text-gray-900 mb-4">
-          Executive Report
-        </h2>
+        <p className="text-sm font-bold text-gray-900 mb-4">Executive Report</p>
 
         <WaveChart />
       </div>

@@ -45,9 +45,7 @@ export function FlowBanner({ currentPage }: FlowBannerProps) {
     <div className="space-y-4 mb-4">
       <div className="flex justify-between">
         <div>
-          <h6 className="text-xl font-bold text-gray-900 mb-2">
-            {config.title}
-          </h6>
+          <p className="text-xl font-bold text-gray-900 mb-2">{config.title}</p>
           <p className="text-gray-600 text-xs">{config.subtitle}</p>
         </div>
         {/* Export Button */}
@@ -62,9 +60,9 @@ export function FlowBanner({ currentPage }: FlowBannerProps) {
       </div>
 
       <div className="bg-white rounded-[8px] border border-gray-200 p-4 shadow-sm">
-        <h2 className="text-center text-xl font-semibold text-emerald-700 mb-2">
+        <p className="text-center text-xl font-semibold text-emerald-700 mb-2">
           e-CRYSTAL FLOW™
-        </h2>
+        </p>
         <p className="text-center text-gray-600 text-sm mb-6">
           A continuous journey from insight to impact
         </p>
@@ -122,9 +120,7 @@ export function FlowBanner({ currentPage }: FlowBannerProps) {
               />
             </div>
             <div className="flex-1">
-              <h3 className="font-semibold text-gray-900 text-base">
-                ACTIVATE
-              </h3>
+              <p className="font-semibold text-gray-900 text-base">ACTIVATE</p>
               <p className="text-[9px] text-gray-600">
                 Prioritize relationships Assess criticality and map dependencies
               </p>
