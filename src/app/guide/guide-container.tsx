@@ -6,6 +6,7 @@
    All data sourced dynamically from global CSS and theme.config.ts
    ══════════════════════════════════════════════════════════════ */
 
+import { Typography } from "@/components/common/Typography/Typography";
 import { themeConfig } from "@/lib/theme/theme.config";
 import { useEffect, useState } from "react";
 
@@ -470,6 +471,7 @@ export default function GuideContainer() {
               ["colors-border", "Border Colors"],
               ["tailwind-used", "Tailwind Color Palette"],
               ["typography", "Typography Scale"],
+              ["typography-component", "Typography Component"],
               ["fonts", "Fonts"],
               ["weights", "Font Weights"],
               ["radius", "Border Radius"],
@@ -784,8 +786,389 @@ export default function GuideContainer() {
         </Section>
 
         {/* ════════════════════════════════════════════════════════
-            FONTS
+            TYPOGRAPHY COMPONENT — Usage Guide
             ════════════════════════════════════════════════════════ */}
+        <Section id="typography-component" title="Typography Component">
+          <p className="text-sm text-secondary">
+            Use the{" "}
+            <code className="py-0.5 px-1.5 text-xs rounded bg-tertiary">
+              &lt;Typography&gt;
+            </code>{" "}
+            component to render text with consistent design tokens. Pick a{" "}
+            <code className="py-0.5 px-1.5 text-xs rounded bg-tertiary">
+              variant
+            </code>{" "}
+            and{" "}
+            <code className="py-0.5 px-1.5 text-xs rounded bg-tertiary">
+              level
+            </code>
+            , optionally override the HTML element with{" "}
+            <code className="py-0.5 px-1.5 text-xs rounded bg-tertiary">
+              as
+            </code>
+            , and adjust the weight with{" "}
+            <code className="py-0.5 px-1.5 text-xs rounded bg-tertiary">
+              weight
+            </code>
+            .
+          </p>
+
+          {/* ── Props Table ── */}
+          <div className="p-4 space-y-3 rounded-xl border border-border bg-background">
+            <p className="text-sm font-bold text-primary">Props API</p>
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs sm:text-sm">
+                <thead>
+                  <tr className="border-b border-border">
+                    <th className="py-2 pr-4 font-semibold text-left text-secondary">
+                      Prop
+                    </th>
+                    <th className="py-2 pr-4 font-semibold text-left text-secondary">
+                      Type
+                    </th>
+                    <th className="py-2 font-semibold text-left text-secondary">
+                      Description
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border">
+                  <tr>
+                    <td className="py-2 pr-4 font-mono text-accent-primary">
+                      variant
+                    </td>
+                    <td className="py-2 pr-4 text-secondary">
+                      <code>title | heading | body | label | caption</code>
+                    </td>
+                    <td className="py-2 text-secondary">
+                      Typographic category
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 pr-4 font-mono text-accent-primary">
+                      level
+                    </td>
+                    <td className="py-2 pr-4 text-secondary">
+                      <code>string literal</code>
+                    </td>
+                    <td className="py-2 text-secondary">
+                      Size rank within the variant (e.g. <code>{'"1"'}</code>,{" "}
+                      <code>{'"h2"'}</code>)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 pr-4 font-mono text-accent-primary">
+                      as
+                    </td>
+                    <td className="py-2 pr-4 text-secondary">
+                      <code>React.ElementType</code>
+                    </td>
+                    <td className="py-2 text-secondary">
+                      Override rendered HTML tag (defaults per variant)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 pr-4 font-mono text-accent-primary">
+                      weight
+                    </td>
+                    <td className="py-2 pr-4 text-secondary">
+                      <code>TypographyWeight</code>
+                    </td>
+                    <td className="py-2 text-secondary">
+                      Font weight (thin → black)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 pr-4 font-mono text-accent-primary">
+                      className
+                    </td>
+                    <td className="py-2 pr-4 text-secondary">
+                      <code>string</code>
+                    </td>
+                    <td className="py-2 text-secondary">
+                      Additional Tailwind / utility classes
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 pr-4 font-mono text-accent-primary">
+                      children
+                    </td>
+                    <td className="py-2 pr-4 text-secondary">
+                      <code>React.ReactNode</code>
+                    </td>
+                    <td className="py-2 text-secondary">Content</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* ── Default HTML tags per variant ── */}
+          <div className="p-4 space-y-3 rounded-xl border border-border bg-background">
+            <p className="text-sm font-bold text-primary">Default HTML Tags</p>
+            <p className="text-xs text-secondary">
+              When no <code>as</code> prop is provided, the component renders
+              these elements:
+            </p>
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+              {(
+                [
+                  {
+                    variant: "title",
+                    levels: "1, 2, 3",
+                    tag: "&lt;h1&gt;, &lt;h2&gt;, &lt;h3&gt;",
+                  },
+                  {
+                    variant: "heading",
+                    levels: "h1–h6",
+                    tag: "&lt;h1&gt;–&lt;h6&gt;",
+                  },
+                  { variant: "body", levels: "1, 2, 3, 4", tag: "&lt;p&gt;" },
+                  { variant: "label", levels: "1, 2, 3", tag: "&lt;label&gt;" },
+                  { variant: "caption", levels: "1, 2", tag: "&lt;span&gt;" },
+                ] as const
+              ).map((row) => (
+                <div
+                  key={row.variant}
+                  className="flex gap-3 items-baseline p-3 rounded-lg bg-tertiary/50"
+                >
+                  <code className="text-xs font-semibold text-accent-primary shrink-0">
+                    {row.variant}
+                  </code>
+                  <span className="text-xs text-secondary">
+                    levels {row.levels} →{" "}
+                    <code dangerouslySetInnerHTML={{ __html: row.tag }} />
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ── Title Variant ── */}
+          <div className="space-y-3">
+            <p className="text-sm font-bold text-primary">
+              Variant: <code className="text-accent-primary">title</code> —
+              levels <code className="text-tertiary">1 / 2 / 3</code>
+            </p>
+            {(["1", "2", "3"] as const).map((level) => (
+              <div
+                key={level}
+                className="p-4 space-y-1 rounded-xl border border-border bg-background"
+              >
+                <Typography variant="title" level={level}>
+                  Title {level} — The quick brown fox jumps over the lazy dog
+                </Typography>
+                <code className="text-xs text-tertiary">
+                  {'<Typography variant="title" level="' + level + '" />'}
+                </code>
+              </div>
+            ))}
+          </div>
+
+          {/* ── Heading Variant ── */}
+          <div className="space-y-3">
+            <p className="text-sm font-bold text-primary">
+              Variant: <code className="text-accent-primary">heading</code> —
+              levels{" "}
+              <code className="text-tertiary">h1 / h2 / h3 / h4 / h5 / h6</code>
+            </p>
+            {(["h1", "h2", "h3", "h4", "h5", "h6"] as const).map((level) => (
+              <div
+                key={level}
+                className="p-4 space-y-1 rounded-xl border border-border bg-background"
+              >
+                <Typography variant="heading" level={level}>
+                  Heading {level} — The quick brown fox jumps over the lazy dog
+                </Typography>
+                <code className="text-xs text-tertiary">
+                  {'<Typography variant="heading" level="' + level + '" />'}
+                </code>
+              </div>
+            ))}
+          </div>
+
+          {/* ── Body Variant ── */}
+          <div className="space-y-3">
+            <p className="text-sm font-bold text-primary">
+              Variant: <code className="text-accent-primary">body</code> —
+              levels <code className="text-tertiary">1 / 2 / 3 / 4</code>
+            </p>
+            {(["1", "2", "3", "4"] as const).map((level) => (
+              <div
+                key={level}
+                className="p-4 space-y-1 rounded-xl border border-border bg-background"
+              >
+                <Typography variant="body" level={level}>
+                  Body {level} — The quick brown fox jumps over the lazy dog
+                </Typography>
+                <code className="text-xs text-tertiary">
+                  {'<Typography variant="body" level="' + level + '" />'}
+                </code>
+              </div>
+            ))}
+          </div>
+
+          {/* ── Label Variant ── */}
+          <div className="space-y-3">
+            <p className="text-sm font-bold text-primary">
+              Variant: <code className="text-accent-primary">label</code> —
+              levels <code className="text-tertiary">1 / 2 / 3</code>
+            </p>
+            {(["1", "2", "3"] as const).map((level) => (
+              <div
+                key={level}
+                className="p-4 space-y-1 rounded-xl border border-border bg-background"
+              >
+                <Typography variant="label" level={level}>
+                  Label {level} — The quick brown fox jumps over the lazy dog
+                </Typography>
+                <code className="text-xs text-tertiary">
+                  {'<Typography variant="label" level="' + level + '" />'}
+                </code>
+              </div>
+            ))}
+          </div>
+
+          {/* ── Caption Variant ── */}
+          <div className="space-y-3">
+            <p className="text-sm font-bold text-primary">
+              Variant: <code className="text-accent-primary">caption</code> —
+              levels <code className="text-tertiary">1 / 2</code>
+            </p>
+            {(["1", "2"] as const).map((level) => (
+              <div
+                key={level}
+                className="p-4 space-y-1 rounded-xl border border-border bg-background"
+              >
+                <Typography variant="caption" level={level}>
+                  Caption {level} — The quick brown fox jumps over the lazy dog
+                </Typography>
+                <code className="text-xs text-tertiary">
+                  {'<Typography variant="caption" level="' + level + '" />'}
+                </code>
+              </div>
+            ))}
+          </div>
+
+          {/* ── Weight Examples ── */}
+          <div className="space-y-3">
+            <p className="text-sm font-bold text-primary">
+              Font Weight: <code className="text-accent-primary">weight</code>{" "}
+              prop
+            </p>
+            <p className="text-xs text-secondary">
+              Override the default weight with any value from <code>thin</code>{" "}
+              to <code>black</code>.
+            </p>
+            <div className="space-y-2">
+              {(
+                [
+                  ["thin", "100"],
+                  ["extralight", "200"],
+                  ["light", "300"],
+                  ["regular", "400"],
+                  ["medium", "500"],
+                  ["semibold", "600"],
+                  ["bold", "700"],
+                  ["extrabold", "800"],
+                  ["black", "900"],
+                ] as const
+              ).map(([name, value]) => (
+                <div
+                  key={name}
+                  className="p-4 rounded-xl border border-border bg-background"
+                >
+                  <Typography variant="body" level="2" weight={name}>
+                    {name} ({value}) — The quick brown fox jumps over the lazy
+                    dog
+                  </Typography>
+                  <code className="text-xs text-tertiary">
+                    {'<Typography variant="body" level="2" weight="' +
+                      name +
+                      '" />'}
+                  </code>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ── `as` Prop Override ── */}
+          <div className="space-y-3">
+            <p className="text-sm font-bold text-primary">
+              Element Override: <code className="text-accent-primary">as</code>{" "}
+              prop
+            </p>
+            <p className="text-xs text-secondary">
+              Change the rendered HTML element while keeping the same typography
+              token.
+            </p>
+            <div className="space-y-2">
+              <div className="p-4 rounded-xl border border-border bg-background">
+                <Typography variant="heading" level="h3" as="div">
+                  This heading renders as a &lt;div&gt;, not &lt;h3&gt;
+                </Typography>
+                <code className="text-xs text-tertiary">
+                  {'<Typography variant="heading" level="h3" as="div" />'}
+                </code>
+              </div>
+              <div className="p-4 rounded-xl border border-border bg-background">
+                <Typography variant="title" level="1" as="span">
+                  This title renders as a &lt;span&gt;, not &lt;h1&gt;
+                </Typography>
+                <code className="text-xs text-tertiary">
+                  {'<Typography variant="title" level="1" as="span" />'}
+                </code>
+              </div>
+              <div className="p-4 rounded-xl border border-border bg-background">
+                <Typography variant="body" level="2" as="li">
+                  This body renders as an &lt;li&gt;, not &lt;p&gt;
+                </Typography>
+                <code className="text-xs text-tertiary">
+                  {'<Typography variant="body" level="2" as="li" />'}
+                </code>
+              </div>
+            </div>
+          </div>
+
+          {/* ── className Composition ── */}
+          <div className="space-y-3">
+            <p className="text-sm font-bold text-primary">
+              Utility Composition:{" "}
+              <code className="text-accent-primary">className</code> prop
+            </p>
+            <p className="text-xs text-secondary">
+              Merge additional Tailwind classes on top of the token styles.
+            </p>
+            <div className="space-y-2">
+              <div className="p-4 rounded-xl border border-border bg-background">
+                <Typography
+                  variant="heading"
+                  level="h2"
+                  className="text-accent-primary truncate"
+                >
+                  Truncated heading with accent color
+                </Typography>
+                <code className="text-xs text-tertiary">
+                  {'<Typography variant="heading" level="h2" className="text-accent-primary truncate">' +
+                    "..."}
+                </code>
+              </div>
+              <div className="p-4 rounded-xl border border-border bg-background">
+                <Typography
+                  variant="body"
+                  level="3"
+                  className="text-tertiary italic"
+                >
+                  Muted italic body text
+                </Typography>
+                <code className="text-xs text-tertiary">
+                  {'<Typography variant="body" level="3" className="text-tertiary italic">' +
+                    "..."}
+                </code>
+              </div>
+            </div>
+          </div>
+        </Section>
+
         <Section id="fonts" title="Fonts">
           <div className="grid gap-4 sm:grid-cols-2">
             {[
