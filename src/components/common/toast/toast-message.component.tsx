@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import toast, { ToastOptions } from 'react-hot-toast';
-import { LabelAndPlaceholderTextFormat } from '@/lib/utils';
-import { ToastMessageChange } from './custom-message.component';
+import toast, { ToastOptions } from "react-hot-toast";
+import { LabelAndPlaceholderTextFormat } from "@/lib/utils";
+import { ToastMessageChange } from "./custom-message.component";
 
 /**
  * Available toast notification types
  */
-type ToastType = 'success' | 'error' | 'loading' | 'custom';
+type ToastType = "success" | "error" | "loading" | "custom";
 
 /**
  * Extended toast options including custom flags
@@ -22,10 +22,31 @@ type ExtendedToastOptions = ToastOptions & {
  */
 const defaultOptions: ExtendedToastOptions = {
   duration: 3000,
-  position: 'top-center',
+  position: "top-center",
   textFormat: true,
   changeMessage: false,
 };
+
+/**
+ * Extracts a string message from various error/response shapes.
+ */
+function resolveMessage(msg: unknown, fallback: string): string {
+  if (typeof msg === "string") return msg;
+  if (msg && typeof msg === "object") {
+    const obj = msg as Record<string, unknown>;
+    const data = obj.data as Record<string, unknown> | undefined;
+    const response = obj.response as Record<string, unknown> | undefined;
+    const responseData = response?.data as Record<string, unknown> | undefined;
+    return (
+      (responseData?.message as string) ||
+      (response?.message as string) ||
+      (data?.message as string) ||
+      (obj.message as string) ||
+      fallback
+    );
+  }
+  return fallback;
+}
 
 /**
  * ToastMessageShow — Unified toast notification system.
@@ -43,7 +64,7 @@ const defaultOptions: ExtendedToastOptions = {
  */
 export const ToastMessageShow = (
   type: ToastType,
-  message: any,
+  message: unknown,
   options: ExtendedToastOptions = {},
 ) => {
   const { textFormat, changeMessage, ...toastOptions } = {
@@ -58,54 +79,50 @@ export const ToastMessageShow = (
     return finalMessage;
   };
 
+  const resolvedMessage = resolveMessage(
+    message,
+    type === "error" ? "Something went wrong" : "Successfully updated",
+  );
+  const formattedMessage = MessageHandler(resolvedMessage);
+
   switch (type) {
-    case 'success': {
-      if (typeof message !== 'string') {
-        message = message?.data?.message || message?.message || 'Successfully updated';
-      }
-      message = MessageHandler(message);
-      toast.success(message, toastOptions);
+    case "success":
+      toast.success(formattedMessage, toastOptions);
       break;
-    }
-    case 'error': {
-      if (typeof message !== 'string') {
-        message =
-          message?.response?.data?.message ||
-          message?.response?.message ||
-          message?.data?.message ||
-          message?.message ||
-          'Something went wrong';
-      }
-      message = MessageHandler(message);
-      toast.error(message, toastOptions);
+    case "error":
+      toast.error(formattedMessage, toastOptions);
       break;
-    }
-    case 'loading':
-      message = MessageHandler(message);
-      toast.loading(message, toastOptions);
+    case "loading":
+      toast.loading(formattedMessage, toastOptions);
       break;
-    case 'custom':
-      message = MessageHandler(message);
-      toast(message, toastOptions);
+    case "custom":
+      toast(formattedMessage, toastOptions);
       break;
     default:
-      message = MessageHandler(message);
-      toast(message, toastOptions);
+      toast(formattedMessage, toastOptions);
   }
 };
 
 /** Shortcut: Show a success toast */
-export const toastSuccessMessage = (msg: any, options?: ExtendedToastOptions) =>
-  ToastMessageShow('success', msg, options);
+export const toastSuccessMessage = (
+  msg: unknown,
+  options?: ExtendedToastOptions,
+) => ToastMessageShow("success", msg, options);
 
 /** Shortcut: Show an error toast */
-export const toastErrorMessage = (msg: any, options?: ExtendedToastOptions) =>
-  ToastMessageShow('error', msg, options);
+export const toastErrorMessage = (
+  msg: unknown,
+  options?: ExtendedToastOptions,
+) => ToastMessageShow("error", msg, options);
 
 /** Shortcut: Show a loading toast */
-export const toastLoadingMessage = (msg: any, options?: ExtendedToastOptions) =>
-  ToastMessageShow('loading', msg, options);
+export const toastLoadingMessage = (
+  msg: unknown,
+  options?: ExtendedToastOptions,
+) => ToastMessageShow("loading", msg, options);
 
 /** Shortcut: Show a custom toast */
-export const toastCustomMessage = (msg: any, options?: ExtendedToastOptions) =>
-  ToastMessageShow('custom', msg, options);
+export const toastCustomMessage = (
+  msg: unknown,
+  options?: ExtendedToastOptions,
+) => ToastMessageShow("custom", msg, options);

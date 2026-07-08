@@ -1,5 +1,7 @@
+import type { UseFormReturn, FieldValues } from "react-hook-form";
+
 export interface TextInputProps {
-  form?: any;
+  form?: UseFormReturn<FieldValues>;
   name?: string;
   placeholder?: string;
   labelName?: string;
@@ -17,7 +19,7 @@ export interface TextInputProps {
 }
 
 export interface TextAreaInputProps {
-  form?: any;
+  form?: UseFormReturn<FieldValues>;
   name?: string;
   labelName?: string;
   placeholder?: string;
@@ -33,7 +35,7 @@ export interface TextAreaInputProps {
 }
 
 export interface NumberInputProps {
-  form?: any;
+  form?: UseFormReturn<FieldValues>;
   name?: string;
   labelName?: string;
   placeholder?: string;
@@ -42,14 +44,14 @@ export interface NumberInputProps {
   disabled?: boolean;
   viewOnly?: boolean;
   disableLabelFormatting?: boolean;
-  numberType?: 'float' | 'integer';
+  numberType?: "float" | "integer";
   customMessage?: React.ReactNode;
   value?: string;
   setValue?: (value: string) => void;
 }
 
 export interface PasswordInputProps {
-  form?: any;
+  form?: UseFormReturn<FieldValues>;
   name?: string;
   labelName?: string;
   placeholder?: string;
@@ -58,12 +60,12 @@ export interface PasswordInputProps {
   disabled?: boolean;
   viewOnly?: boolean;
   disableLabelFormatting?: boolean;
-  mode?: 'normal' | 'validate';
+  mode?: "normal" | "validate";
   customMessage?: React.ReactNode;
 }
 
 export interface SingleSelectProps {
-  form?: any;
+  form?: UseFormReturn<FieldValues>;
   name?: string;
   labelName?: string;
   placeholder?: string;
@@ -73,23 +75,31 @@ export interface SingleSelectProps {
   options?: string[];
   viewOnly?: boolean;
   isLoading?: boolean;
-  defaultValue?: any;
-  onValueChange?: (value: any) => void;
+  defaultValue?: string;
+  onValueChange?: (value: string) => void;
   disableLabelFormatting?: boolean;
   customMessage?: string;
 }
 
 export interface SelectFieldProps {
-  form: any;
+  form: UseFormReturn<FieldValues>;
   name: string;
   labelName?: string;
   required?: boolean;
   optional?: boolean;
   disabled?: boolean;
-  options?: { value: string; label: string; image?: string; flag?: string; disabled?: boolean }[] | string[];
+  options?:
+    | {
+        value: string;
+        label: string;
+        image?: string;
+        flag?: string;
+        disabled?: boolean;
+      }[]
+    | string[];
   placeholder?: string;
   showSearch?: boolean;
-  type?: 'single' | 'multiple';
+  type?: "single" | "multiple";
   viewOnly?: boolean;
   onValueChange?: (value: string | string[]) => void;
   isLoading?: boolean;
@@ -98,7 +108,7 @@ export interface SelectFieldProps {
 }
 
 export interface SwitchProps {
-  form?: any;
+  form?: UseFormReturn<FieldValues>;
   name?: string;
   labelName?: string;
   required?: boolean;
@@ -115,7 +125,7 @@ export interface SwitchProps {
 }
 
 export interface CheckboxProps {
-  form?: any;
+  form?: UseFormReturn<FieldValues>;
   name: string;
   labelName?: string;
   required?: boolean;
@@ -126,7 +136,7 @@ export interface CheckboxProps {
 }
 
 export interface RadioProps {
-  form?: any;
+  form?: UseFormReturn<FieldValues>;
   name: string;
   labelName?: string;
   required?: boolean;
@@ -137,7 +147,7 @@ export interface RadioProps {
 }
 
 export interface DatePickerProps {
-  form?: any;
+  form?: UseFormReturn<FieldValues>;
   name?: string;
   labelName?: string;
   placeholder?: string;
@@ -150,7 +160,7 @@ export interface DatePickerProps {
 }
 
 export interface PhoneNumberProps {
-  form?: any;
+  form?: UseFormReturn<FieldValues>;
   name?: string;
   labelName?: string;
   placeholder?: string;
@@ -169,7 +179,7 @@ export interface PhoneNumberProps {
 }
 
 export interface SearchFieldProps {
-  form?: any;
+  form?: UseFormReturn<FieldValues>;
   name?: string;
   placeholder?: string;
   optional?: boolean;
@@ -191,7 +201,7 @@ export interface InputInterface {
 }
 
 export interface FieldPropsInterface {
-  form?: any;
+  form?: UseFormReturn<FieldValues>;
   name: string;
   placeholder?: string;
   labelName?: string;
@@ -203,14 +213,14 @@ export interface FieldPropsInterface {
   disabled?: boolean;
   isArray?: boolean;
   style?: string;
-  defaultValue?: any;
+  defaultValue?: string;
   viewOnly?: boolean;
   rows?: number;
   disableLabelFormatting?: boolean;
   maxLength?: number;
   suffix?: string;
-  mode?: 'normal' | 'validate';
+  mode?: "normal" | "validate";
   customMessage?: React.ReactNode;
-  onValueChange?: (value: any) => void;
+  onValueChange?: (value: string) => void;
   isLoading?: boolean;
 }

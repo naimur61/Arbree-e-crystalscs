@@ -1,12 +1,13 @@
-'use client';
+"use client";
 
-import { FormField, FormItem, FormMessage } from '@/components/ui/form';
-import { Button } from '@/components/ui/button';
-import { UploadCloud, X } from 'lucide-react';
-import { useRef, useState } from 'react';
+import type { UseFormReturn, FieldValues } from "react-hook-form";
+import { FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import { UploadCloud, X } from "lucide-react";
+import { useRef, useState } from "react";
 
 interface UploadVideoFileProps {
-  form: any;
+  form: UseFormReturn<FieldValues>;
   name: string;
   labelName?: string;
   optional?: boolean;
@@ -19,7 +20,11 @@ interface UploadVideoFileProps {
  * ⚠️ Stores a data URL string in the form value, NOT a raw File object.
  */
 export const UploadVideoFile = ({
-  form, name, labelName, optional = true, maxSizeMB = 50,
+  form,
+  name,
+  labelName,
+  optional = true,
+  maxSizeMB = 50,
 }: UploadVideoFileProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -43,10 +48,10 @@ export const UploadVideoFile = ({
     form.setValue(name, null, { shouldValidate: true });
     if (previewUrl) URL.revokeObjectURL(previewUrl);
     setPreviewUrl(null);
-    if (inputRef.current) inputRef.current.value = '';
+    if (inputRef.current) inputRef.current.value = "";
   };
 
-  const displayUrl = previewUrl ?? (typeof value === 'string' ? value : null);
+  const displayUrl = previewUrl ?? (typeof value === "string" ? value : null);
 
   return (
     <FormField
@@ -62,19 +67,38 @@ export const UploadVideoFile = ({
           )}
           {displayUrl ? (
             <div className="relative">
-              <video src={displayUrl} controls className="w-full max-h-64 rounded-lg" />
-              <Button type="button" size="icon" variant="ghost" className="absolute top-2 right-2 h-8 w-8 bg-background/80"
-                onClick={handleRemove}>
+              <video
+                src={displayUrl}
+                controls
+                className="w-full max-h-64 rounded-lg"
+              />
+              <Button
+                type="button"
+                size="icon"
+                variant="ghost"
+                className="absolute top-2 right-2 h-8 w-8 bg-background/80"
+                onClick={handleRemove}
+              >
                 <X className="h-4 w-4" />
               </Button>
             </div>
           ) : (
-            <div className="border-2 border-dashed rounded-lg p-8 text-center hover:border-primary/50 transition-colors cursor-pointer"
-              onClick={() => inputRef.current?.click()}>
+            <div
+              className="border-2 border-dashed rounded-lg p-8 text-center hover:border-primary/50 transition-colors cursor-pointer"
+              onClick={() => inputRef.current?.click()}
+            >
               <UploadCloud className="h-10 w-10 mx-auto text-muted-foreground" />
-              <p className="mt-2 text-sm text-muted-foreground">Click to upload video</p>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Click to upload video
+              </p>
               <p className="text-xs text-muted-foreground">Max {maxSizeMB}MB</p>
-              <input ref={inputRef} type="file" accept="video/*" className="hidden" onChange={handleFileChange} />
+              <input
+                ref={inputRef}
+                type="file"
+                accept="video/*"
+                className="hidden"
+                onChange={handleFileChange}
+              />
             </div>
           )}
           <FormMessage />

@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
-import { FormField, FormItem, FormMessage } from '@/components/ui/form';
-import { Upload, X, File, Eye } from 'lucide-react';
-import { useRef, useState } from 'react';
+import type { UseFormReturn, FieldValues } from "react-hook-form";
+import { FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { Upload, X, File, Eye } from "lucide-react";
+import { useRef, useState } from "react";
 
 interface FilePreview {
   id: string;
@@ -13,7 +14,7 @@ interface FilePreview {
 }
 
 interface DynamicFileUploadFieldProps {
-  form: any;
+  form: UseFormReturn<FieldValues>;
   name: string;
   labelName?: string;
   optional?: boolean;
@@ -33,8 +34,15 @@ interface DynamicFileUploadFieldProps {
  *   (no raw File objects in form state)
  */
 export const DynamicFileUploadField = ({
-  form, name, labelName, optional = false, viewOnly = false,
-  multiple = false, maxSizeMB = 5, accept = '*', onUpload,
+  form,
+  name,
+  labelName,
+  optional = false,
+  viewOnly = false,
+  multiple = false,
+  maxSizeMB = 5,
+  accept = "*",
+  onUpload,
 }: DynamicFileUploadFieldProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const filesRef = useRef<Map<string, File>>(new Map());
@@ -67,18 +75,33 @@ export const DynamicFileUploadField = ({
       setUploading(true);
       try {
         const urls = await Promise.all(fileArray.map((f) => onUpload(f)));
-        const updated = newPreviews.map((p, i) => ({ ...p, url: urls[i], isUploaded: true }));
+        const updated = newPreviews.map((p, i) => ({
+          ...p,
+          url: urls[i],
+          isUploaded: true,
+        }));
         setPreviews((prev) => [...prev, ...updated]);
         // Store URL strings in form
-        form.setValue(name, multiple ? updated.map((u) => u.url) : updated[0].url, { shouldValidate: true });
+        form.setValue(
+          name,
+          multiple ? updated.map((u) => u.url) : updated[0].url,
+          { shouldValidate: true },
+        );
       } finally {
         setUploading(false);
       }
     } else {
       // No upload handler: store metadata objects (strings only, no File objects)
-      const metadata = newPreviews.map((p) => ({ id: p.id, name: p.name, size: p.size, type: 'pending' }));
+      const metadata = newPreviews.map((p) => ({
+        id: p.id,
+        name: p.name,
+        size: p.size,
+        type: "pending",
+      }));
       setPreviews((prev) => [...prev, ...newPreviews]);
-      form.setValue(name, multiple ? metadata : metadata[0], { shouldValidate: true });
+      form.setValue(name, multiple ? metadata : metadata[0], {
+        shouldValidate: true,
+      });
     }
   };
 
@@ -90,7 +113,13 @@ export const DynamicFileUploadField = ({
       filesRef.current.delete(id);
       // Update form value
       if (multiple) {
-        form.setValue(name, updated.map((u) => onUpload ? u.url : { id: u.id, name: u.name, size: u.size }), { shouldValidate: true });
+        form.setValue(
+          name,
+          updated.map((u) =>
+            onUpload ? u.url : { id: u.id, name: u.name, size: u.size },
+          ),
+          { shouldValidate: true },
+        );
       } else {
         form.setValue(name, null, { shouldValidate: true });
       }
@@ -111,27 +140,46 @@ export const DynamicFileUploadField = ({
             </label>
           )}
           {!viewOnly && (
-            <div className="border-2 border-dashed rounded-lg p-6 text-center hover:border-primary/50 transition-colors cursor-pointer"
-              onClick={() => fileInputRef.current?.click()}>
+            <div
+              className="border-2 border-dashed rounded-lg p-6 text-center hover:border-primary/50 transition-colors cursor-pointer"
+              onClick={() => fileInputRef.current?.click()}
+            >
               <Upload className="h-8 w-8 mx-auto text-muted-foreground" />
               <p className="mt-2 text-sm text-muted-foreground">
-                {uploading ? 'Uploading...' : `Click to upload${multiple ? ' (multiple)' : ''}`}
+                {uploading
+                  ? "Uploading..."
+                  : `Click to upload${multiple ? " (multiple)" : ""}`}
               </p>
-              <p className="text-xs text-muted-foreground">Max {maxSizeMB}MB per file</p>
-              <input ref={fileInputRef} type="file" accept={accept} multiple={multiple} className="hidden"
-                onChange={(e) => handleFiles(e.target.files)} />
+              <p className="text-xs text-muted-foreground">
+                Max {maxSizeMB}MB per file
+              </p>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept={accept}
+                multiple={multiple}
+                className="hidden"
+                onChange={(e) => handleFiles(e.target.files)}
+              />
             </div>
           )}
           {previews.length > 0 && (
             <div className="space-y-2">
               {previews.map((p) => (
-                <div key={p.id} className="flex items-center justify-between p-2 border rounded">
+                <div
+                  key={p.id}
+                  className="flex items-center justify-between p-2 border rounded"
+                >
                   <div className="flex items-center gap-2">
                     <File className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-sm truncate max-w-[200px]">{p.name}</span>
+                    <span className="text-sm truncate max-w-[200px]">
+                      {p.name}
+                    </span>
                   </div>
                   <div className="flex items-center gap-1">
-                    {p.isUploaded && <Eye className="h-4 w-4 text-muted-foreground cursor-pointer" />}
+                    {p.isUploaded && (
+                      <Eye className="h-4 w-4 text-muted-foreground cursor-pointer" />
+                    )}
                     {!viewOnly && (
                       <button type="button" onClick={() => handleRemove(p.id)}>
                         <X className="h-4 w-4 text-destructive" />
