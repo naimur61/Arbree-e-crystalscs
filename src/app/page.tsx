@@ -1,3 +1,5 @@
+import { ActionButton } from "@/components/common/button/action-button";
+
 export default function Home() {
   return (
     <div className="flex flex-col flex-1 gap-10 items-center p-8">
@@ -17,6 +19,15 @@ export default function Home() {
       </div>
 
       {/* Cards demo */}
+      <ActionButton
+        size="icon"
+        variant="gradient"
+        tooltipContent="Click to copy"
+        // icon={<Copy className="w-4 h-4" />}
+        // lastIcon={<Check className="w-4 h-4" />}
+        // loadingContent={<Loader2 className="w-4 h-4" />}
+        buttonContent="Copy"
+      />
     </div>
   );
 }
