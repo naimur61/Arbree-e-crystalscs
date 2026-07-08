@@ -950,8 +950,7 @@
 }
 
 /* ── Headings ── */
-.h1,
-h1 {
+.h1 {
   font-family: var(--font-montserrat);
   font-size: var(--type-h1-size);
   line-height: var(--type-h1-lh);
@@ -959,8 +958,7 @@ h1 {
   font-weight: var(--weight-bold);
   color: var(--text-primary);
 }
-.h2,
-h2 {
+.h2 {
   font-family: var(--font-montserrat);
   font-size: var(--type-h2-size);
   line-height: var(--type-h2-lh);
@@ -968,8 +966,7 @@ h2 {
   font-weight: var(--weight-semibold);
   color: var(--text-primary);
 }
-.h3,
-h3 {
+.h3 {
   font-family: var(--font-montserrat);
   font-size: var(--type-h3-size);
   line-height: var(--type-h3-lh);
@@ -977,8 +974,7 @@ h3 {
   font-weight: var(--weight-semibold);
   color: var(--text-primary);
 }
-.h4,
-h4 {
+.h4 {
   font-family: var(--font-montserrat);
   font-size: var(--type-h4-size);
   line-height: var(--type-h4-lh);
@@ -986,8 +982,7 @@ h4 {
   font-weight: var(--weight-medium);
   color: var(--text-primary);
 }
-.h5,
-h5 {
+.h5 {
   font-family: var(--font-montserrat);
   font-size: var(--type-h5-size);
   line-height: var(--type-h5-lh);
@@ -995,8 +990,7 @@ h5 {
   font-weight: var(--weight-medium);
   color: var(--text-primary);
 }
-.h6,
-h6 {
+.h6 {
   font-family: var(--font-montserrat);
   font-size: var(--type-h6-size);
   line-height: var(--type-h6-lh);
