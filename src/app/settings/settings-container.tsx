@@ -93,7 +93,7 @@ export default function SettingsContainer({
               key={item.href}
               href={item.href}
               className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors ${
-                pathname === item.href
+                pathname === item.href || pathname.startsWith(item.href + "/")
                   ? "bg-green-600 text-white font-semibold"
                   : "text-slate-600 hover:bg-green-600 hover:text-white"
               }`}
