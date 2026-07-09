@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import QrCodePlaceholder from './qr-code-placeholder';
-import { CopyIcon, AlertTriangleIcon } from './icons';
-import { ActionButton } from '@/components/common/button/action-button';
+import { useState } from "react";
+import QrCodePlaceholder from "./qr-code-placeholder";
+import { CopyIcon, AlertTriangleIcon } from "./icons";
+import { ActionButton } from "@/components/common/button/action-button";
 
 interface ScanQrStepProps {
   appName: string;
@@ -15,7 +15,7 @@ export default function ScanQrStep({ appName, setupKey }: ScanQrStepProps) {
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(setupKey.replace(/\s/g, ''));
+      await navigator.clipboard.writeText(setupKey.replace(/\s/g, ""));
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -36,9 +36,12 @@ export default function ScanQrStep({ appName, setupKey }: ScanQrStepProps) {
       </div>
 
       <div className="w-full min-w-0 flex-1">
-        <h3 className="text-sm font-semibold text-gray-900 sm:text-base">Scan this QR code</h3>
+        <h3 className="text-sm font-semibold text-gray-900 sm:text-base">
+          Scan this QR code
+        </h3>
         <p className="mt-1 text-xs text-gray-500 sm:text-sm">
-          Open your authenticator app and scan the code to add {appName} to your vault
+          Open your authenticator app and scan the code to add {appName} to your
+          vault
         </p>
 
         <p className="mt-3 text-xs text-gray-500 sm:mt-4 sm:text-sm">
@@ -51,9 +54,9 @@ export default function ScanQrStep({ appName, setupKey }: ScanQrStepProps) {
           <ActionButton
             type="button"
             variant="outline"
-            btnSize="sm"
+            size="sm"
             icon={<CopyIcon />}
-            buttonContent={copied ? 'Copied' : 'Copy'}
+            buttonContent={copied ? "Copied" : "Copy"}
             handleOpen={handleCopy}
             btnStyle="rounded-lg border border-gray-200 px-3 py-2 text-xs font-medium text-gray-600 hover:bg-gray-50 sm:shrink-0"
           />
@@ -63,7 +66,8 @@ export default function ScanQrStep({ appName, setupKey }: ScanQrStepProps) {
           <span className="mt-0.5 shrink-0">
             <AlertTriangleIcon />
           </span>
-          Keep this key private. Anyone with access can generate sign-in codes for your account.
+          Keep this key private. Anyone with access can generate sign-in codes
+          for your account.
         </div>
       </div>
     </div>

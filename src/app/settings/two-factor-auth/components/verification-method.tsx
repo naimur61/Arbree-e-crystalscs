@@ -18,7 +18,7 @@ function VerificationMethodOption({
     <ActionButton
       type="button"
       variant="ghost"
-      btnSize="default"
+      size="default"
       aria-pressed={selected}
       btnStyle={`grid grid-cols-[auto_1fr_auto] items-start w-full h-auto gap-3 rounded-xl border p-3.5 text-left whitespace-normal transition sm:p-4 md:gap-4 md:p-5 capitalize ${
         selected

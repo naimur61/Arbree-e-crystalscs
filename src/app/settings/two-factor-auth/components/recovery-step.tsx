@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { CopyIcon, DownloadIcon } from './icons';
-import { ActionButton } from '@/components/common/button/action-button';
+import { useState } from "react";
+import { CopyIcon, DownloadIcon } from "./icons";
+import { ActionButton } from "@/components/common/button/action-button";
 
 interface RecoveryStepProps {
   codes: string[];
@@ -10,12 +10,16 @@ interface RecoveryStepProps {
   onConfirmedChange: (v: boolean) => void;
 }
 
-export default function RecoveryStep({ codes, confirmed, onConfirmedChange }: RecoveryStepProps) {
+export default function RecoveryStep({
+  codes,
+  confirmed,
+  onConfirmedChange,
+}: RecoveryStepProps) {
   const [copiedAll, setCopiedAll] = useState(false);
 
   const handleCopyAll = async () => {
     try {
-      await navigator.clipboard.writeText(codes.join('\n'));
+      await navigator.clipboard.writeText(codes.join("\n"));
       setCopiedAll(true);
       setTimeout(() => setCopiedAll(false), 2000);
     } catch {
@@ -24,21 +28,23 @@ export default function RecoveryStep({ codes, confirmed, onConfirmedChange }: Re
   };
 
   const handleDownload = () => {
-    const blob = new Blob([codes.join('\n') + '\n'], { type: 'text/plain' });
+    const blob = new Blob([codes.join("\n") + "\n"], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
-    a.download = 'recovery-codes.txt';
+    a.download = "recovery-codes.txt";
     a.click();
     URL.revokeObjectURL(url);
   };
 
   return (
     <div>
-      <h3 className="text-sm font-semibold text-gray-900 sm:text-base">Save your recovery codes</h3>
+      <h3 className="text-sm font-semibold text-gray-900 sm:text-base">
+        Save your recovery codes
+      </h3>
       <p className="mt-1 text-xs text-gray-500 sm:text-sm">
-        Store these in a safe place. Each code can be used once to sign in if you lose access to
-        your authenticator.
+        Store these in a safe place. Each code can be used once to sign in if
+        you lose access to your authenticator.
       </p>
 
       <div className="mt-3 grid grid-cols-1 gap-2 rounded-xl border border-emerald-100 bg-emerald-50/40 p-3 sm:grid-cols-2 md:grid-cols-3 md:p-3">
@@ -57,16 +63,16 @@ export default function RecoveryStep({ codes, confirmed, onConfirmedChange }: Re
           <ActionButton
             type="button"
             variant="outline"
-            btnSize="sm"
+            size="sm"
             icon={<CopyIcon />}
-            buttonContent={copiedAll ? 'Copied all' : 'Copy all'}
+            buttonContent={copiedAll ? "Copied all" : "Copy all"}
             handleOpen={handleCopyAll}
             btnStyle="rounded-lg border border-gray-200 px-3 py-2 text-xs font-medium text-gray-600 hover:bg-gray-50"
           />
           <ActionButton
             type="button"
             variant="outline"
-            btnSize="sm"
+            size="sm"
             icon={<DownloadIcon />}
             buttonContent="Download .txt"
             handleOpen={handleDownload}

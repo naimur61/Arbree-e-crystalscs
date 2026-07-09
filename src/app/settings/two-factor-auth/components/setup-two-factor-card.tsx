@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import type { SetupStep, VerificationMethod } from './types';
-import SetupStepper from './setup-stepper';
-import VerificationMethodList from './verification-method';
-import ScanQrStep from './scan-qr-step';
-import VerifyStep from './verify-step';
-import RecoveryStep from './recovery-step';
-import DoneStep from './done-step';
-import { ArrowLeftIcon } from './icons';
-import { ActionButton } from '@/components/common/button/action-button';
+import type { SetupStep, VerificationMethod } from "./types";
+import SetupStepper from "./setup-stepper";
+import VerificationMethodList from "./verification-method";
+import ScanQrStep from "./scan-qr-step";
+import VerifyStep from "./verify-step";
+import RecoveryStep from "./recovery-step";
+import DoneStep from "./done-step";
+import { ArrowLeftIcon } from "./icons";
+import { ActionButton } from "@/components/common/button/action-button";
 
 interface SetupTwoFactorCardProps {
   steps: SetupStep[];
@@ -46,14 +46,14 @@ export default function SetupTwoFactorCard({
   onClose,
 }: SetupTwoFactorCardProps) {
   const continueLabel =
-    currentStepId === 'verify'
-      ? 'Verify & Continue'
-      : currentStepId === 'recovery'
-        ? 'Finish Setup'
-        : 'Continue';
+    currentStepId === "verify"
+      ? "Verify & Continue"
+      : currentStepId === "recovery"
+        ? "Finish Setup"
+        : "Continue";
 
-  const continueDisabled = currentStepId === 'recovery' && !recoveryConfirmed;
-  const isDone = currentStepId === 'done';
+  const continueDisabled = currentStepId === "recovery" && !recoveryConfirmed;
+  const isDone = currentStepId === "done";
 
   return (
     <div className="rounded-2xl bg-white px-3 py-4 shadow-sm sm:px-5 sm:py-5 md:px-6">
@@ -64,28 +64,36 @@ export default function SetupTwoFactorCard({
         <SetupStepper steps={steps} />
       </div>
 
-      {currentStepId === 'method' && (
+      {currentStepId === "method" && (
         <>
           <p className="mt-4 mb-2.5 text-xs text-gray-500 sm:mt-5 sm:mb-3 sm:text-sm">
             Choose how you&apos;d like to receive verification codes
           </p>
-          <VerificationMethodList methods={methods} selectedId={selectedId} onSelect={onSelect} />
+          <VerificationMethodList
+            methods={methods}
+            selectedId={selectedId}
+            onSelect={onSelect}
+          />
         </>
       )}
 
-      {currentStepId === 'scan-qr' && (
+      {currentStepId === "scan-qr" && (
         <div className="mt-4 sm:mt-5">
           <ScanQrStep appName={appName} setupKey={setupKey} />
         </div>
       )}
 
-      {currentStepId === 'verify' && (
+      {currentStepId === "verify" && (
         <div className="mt-5 sm:mt-6">
-          <VerifyStep appName={appName} code={verifyCode} onChange={onVerifyCodeChange} />
+          <VerifyStep
+            appName={appName}
+            code={verifyCode}
+            onChange={onVerifyCodeChange}
+          />
         </div>
       )}
 
-      {currentStepId === 'recovery' && (
+      {currentStepId === "recovery" && (
         <div className="mt-4 sm:mt-5">
           <RecoveryStep
             codes={recoveryCodes}
@@ -106,7 +114,7 @@ export default function SetupTwoFactorCard({
           <ActionButton
             type="button"
             variant="ghost"
-            btnSize="sm"
+            size="sm"
             icon={<ArrowLeftIcon />}
             buttonContent="Cancel"
             handleOpen={onCancel}
@@ -115,7 +123,7 @@ export default function SetupTwoFactorCard({
           <ActionButton
             type="button"
             variant="default"
-            btnSize="default"
+            size="default"
             buttonContent={continueLabel}
             handleOpen={onContinue}
             disabled={continueDisabled}

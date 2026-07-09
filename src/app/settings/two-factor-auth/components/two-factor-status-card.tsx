@@ -97,7 +97,7 @@ export default function TwoFactorStatusCard({
         <ActionButton
           type="button"
           variant="outline"
-          btnSize="sm"
+          size="sm"
           icon={<RefreshIcon />}
           buttonContent="Regenerate backup codes"
           handleOpen={onRegenerateBackupCodes}
@@ -106,7 +106,7 @@ export default function TwoFactorStatusCard({
         <ActionButton
           type="button"
           variant="default"
-          btnSize="sm"
+          size="sm"
           icon={<Sparkles size={14} />}
           buttonContent="Reconfigure 2FA"
           handleOpen={onReconfigure}
