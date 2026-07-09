@@ -6,7 +6,7 @@
    All data sourced dynamically from global CSS and theme.config.ts
    ══════════════════════════════════════════════════════════════ */
 
-import { Typography } from "@/components/common/Typography/Typography";
+import { Typography } from "@/components/common/Typography/typography";
 import { themeConfig } from "@/lib/theme/theme.config";
 import { useEffect, useState } from "react";
 
@@ -949,16 +949,17 @@ export default function GuideContainer() {
               Variant: <code className="text-accent-primary">title</code> —
               levels <code className="text-tertiary">1 / 2 / 3</code>
             </p>
-            {(["1", "2", "3"] as const).map((level) => (
+            {(["title-1", "title-2", "title-3"] as const).map((variant) => (
               <div
-                key={level}
+                key={variant}
                 className="p-4 space-y-1 rounded-xl border border-border bg-background"
               >
-                <Typography variant="title" level={level}>
-                  Title {level} — The quick brown fox jumps over the lazy dog
+                <Typography variant={variant}>
+                  Title {variant.slice(-1)} — The quick brown fox jumps over the
+                  lazy dog
                 </Typography>
                 <code className="text-xs text-tertiary">
-                  {'<Typography variant="title" level="' + level + '" />'}
+                  {'<Typography variant="' + variant + '" />'}
                 </code>
               </div>
             ))}
@@ -976,11 +977,11 @@ export default function GuideContainer() {
                 key={level}
                 className="p-4 space-y-1 rounded-xl border border-border bg-background"
               >
-                <Typography variant="heading" level={level}>
+                <Typography variant={level}>
                   Heading {level} — The quick brown fox jumps over the lazy dog
                 </Typography>
                 <code className="text-xs text-tertiary">
-                  {'<Typography variant="heading" level="' + level + '" />'}
+                  {'<Typography variant="' + level + '" />'}
                 </code>
               </div>
             ))}
@@ -992,19 +993,22 @@ export default function GuideContainer() {
               Variant: <code className="text-accent-primary">body</code> —
               levels <code className="text-tertiary">1 / 2 / 3 / 4</code>
             </p>
-            {(["1", "2", "3", "4"] as const).map((level) => (
-              <div
-                key={level}
-                className="p-4 space-y-1 rounded-xl border border-border bg-background"
-              >
-                <Typography variant="body" level={level}>
-                  Body {level} — The quick brown fox jumps over the lazy dog
-                </Typography>
-                <code className="text-xs text-tertiary">
-                  {'<Typography variant="body" level="' + level + '" />'}
-                </code>
-              </div>
-            ))}
+            {(["body-1", "body-2", "body-3", "body-4"] as const).map(
+              (variant) => (
+                <div
+                  key={variant}
+                  className="p-4 space-y-1 rounded-xl border border-border bg-background"
+                >
+                  <Typography variant={variant}>
+                    Body {variant.slice(-1)} — The quick brown fox jumps over
+                    the lazy dog
+                  </Typography>
+                  <code className="text-xs text-tertiary">
+                    {'<Typography variant="' + variant + '" />'}
+                  </code>
+                </div>
+              ),
+            )}
           </div>
 
           {/* ── Label Variant ── */}
@@ -1013,16 +1017,17 @@ export default function GuideContainer() {
               Variant: <code className="text-accent-primary">label</code> —
               levels <code className="text-tertiary">1 / 2 / 3</code>
             </p>
-            {(["1", "2", "3"] as const).map((level) => (
+            {(["label-1", "label-2", "label-3"] as const).map((variant) => (
               <div
-                key={level}
+                key={variant}
                 className="p-4 space-y-1 rounded-xl border border-border bg-background"
               >
-                <Typography variant="label" level={level}>
-                  Label {level} — The quick brown fox jumps over the lazy dog
+                <Typography variant={variant}>
+                  Label {variant.slice(-1)} — The quick brown fox jumps over the
+                  lazy dog
                 </Typography>
                 <code className="text-xs text-tertiary">
-                  {'<Typography variant="label" level="' + level + '" />'}
+                  {'<Typography variant="' + variant + '" />'}
                 </code>
               </div>
             ))}
@@ -1034,16 +1039,17 @@ export default function GuideContainer() {
               Variant: <code className="text-accent-primary">caption</code> —
               levels <code className="text-tertiary">1 / 2</code>
             </p>
-            {(["1", "2"] as const).map((level) => (
+            {(["caption-1", "caption-2"] as const).map((variant) => (
               <div
-                key={level}
+                key={variant}
                 className="p-4 space-y-1 rounded-xl border border-border bg-background"
               >
-                <Typography variant="caption" level={level}>
-                  Caption {level} — The quick brown fox jumps over the lazy dog
+                <Typography variant={variant}>
+                  Caption {variant.slice(-1)} — The quick brown fox jumps over
+                  the lazy dog
                 </Typography>
                 <code className="text-xs text-tertiary">
-                  {'<Typography variant="caption" level="' + level + '" />'}
+                  {'<Typography variant="' + variant + '" />'}
                 </code>
               </div>
             ))}
@@ -1077,14 +1083,12 @@ export default function GuideContainer() {
                   key={name}
                   className="p-4 rounded-xl border border-border bg-background"
                 >
-                  <Typography variant="body" level="2" weight={name}>
+                  <Typography variant="body-2" weight={name}>
                     {name} ({value}) — The quick brown fox jumps over the lazy
                     dog
                   </Typography>
                   <code className="text-xs text-tertiary">
-                    {'<Typography variant="body" level="2" weight="' +
-                      name +
-                      '" />'}
+                    {'<Typography variant="body-2" weight="' + name + '" />'}
                   </code>
                 </div>
               ))}
@@ -1103,27 +1107,27 @@ export default function GuideContainer() {
             </p>
             <div className="space-y-2">
               <div className="p-4 rounded-xl border border-border bg-background">
-                <Typography variant="heading" level="h3" as="div">
+                <Typography variant="h3" as="div">
                   This heading renders as a &lt;div&gt;, not &lt;h3&gt;
                 </Typography>
                 <code className="text-xs text-tertiary">
-                  {'<Typography variant="heading" level="h3" as="div" />'}
+                  {'<Typography variant="h3" as="div" />'}
                 </code>
               </div>
               <div className="p-4 rounded-xl border border-border bg-background">
-                <Typography variant="title" level="1" as="span">
+                <Typography variant="title-1" as="span">
                   This title renders as a &lt;span&gt;, not &lt;h1&gt;
                 </Typography>
                 <code className="text-xs text-tertiary">
-                  {'<Typography variant="title" level="1" as="span" />'}
+                  {'<Typography variant="title-1" as="span" />'}
                 </code>
               </div>
               <div className="p-4 rounded-xl border border-border bg-background">
-                <Typography variant="body" level="2" as="li">
+                <Typography variant="body-2" as="li">
                   This body renders as an &lt;li&gt;, not &lt;p&gt;
                 </Typography>
                 <code className="text-xs text-tertiary">
-                  {'<Typography variant="body" level="2" as="li" />'}
+                  {'<Typography variant="body-2" as="li" />'}
                 </code>
               </div>
             </div>
@@ -1141,27 +1145,22 @@ export default function GuideContainer() {
             <div className="space-y-2">
               <div className="p-4 rounded-xl border border-border bg-background">
                 <Typography
-                  variant="heading"
-                  level="h2"
+                  variant="h2"
                   className="text-accent-primary truncate"
                 >
                   Truncated heading with accent color
                 </Typography>
                 <code className="text-xs text-tertiary">
-                  {'<Typography variant="heading" level="h2" className="text-accent-primary truncate">' +
+                  {'<Typography variant="h2" className="text-accent-primary truncate">' +
                     "..."}
                 </code>
               </div>
               <div className="p-4 rounded-xl border border-border bg-background">
-                <Typography
-                  variant="body"
-                  level="3"
-                  className="text-tertiary italic"
-                >
+                <Typography variant="body-3" className="text-tertiary italic">
                   Muted italic body text
                 </Typography>
                 <code className="text-xs text-tertiary">
-                  {'<Typography variant="body" level="3" className="text-tertiary italic">' +
+                  {'<Typography variant="body-3" className="text-tertiary italic">' +
                     "..."}
                 </code>
               </div>
