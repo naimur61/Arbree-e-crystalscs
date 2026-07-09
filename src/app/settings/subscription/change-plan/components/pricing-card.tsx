@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import type { PricingPlan, BillingCycle } from "./types";
 import { CheckCircleIcon } from "./icons";
 import { ActionButton } from "@/components/common/button/action-button";
@@ -11,6 +12,7 @@ export default function PricingCard({
   plan: PricingPlan;
   cycle: BillingCycle;
 }) {
+  const router = useRouter();
   const price =
     cycle === "yearly"
       ? Math.round(plan.monthlyPrice * 0.8)
@@ -59,6 +61,11 @@ export default function PricingCard({
         variant={plan.isSubscribed ? "secondary" : "ghost"}
         size="default"
         buttonContent={plan.ctaLabel}
+        handleOpen={() =>
+          router.push(
+            `/settings/subscription/change-plan/confirmation?plan=${plan.id}&cycle=${cycle}`,
+          )
+        }
         btnStyle={`mt-4 w-full rounded-xl py-2.5 text-sm font-medium transition ${
           plan.isSubscribed
             ? "bg-gradient-to-r from-emerald-300 to-emerald-500 text-emerald-950"
