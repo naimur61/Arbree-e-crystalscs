@@ -5,6 +5,7 @@ import { ShieldIcon, CalendarIcon, CreditCardIcon } from "./icons";
 import SeatsUsageBar from "./seats-usage-bar";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Typography } from "@/components/common/Typography/Typography";
 
 export default function PlanOverviewCard({ plan }: { plan: PlanInfo }) {
   return (
@@ -16,9 +17,14 @@ export default function PlanOverviewCard({ plan }: { plan: PlanInfo }) {
           </div>
           <div>
             <div className="flex flex-wrap items-center gap-2">
-              <span className="font-semibold text-type-h6-size">
+              <Typography
+                variant="heading"
+                level="h6"
+                weight="bold"
+                className="text-[var(--text-success-primary-hover)]"
+              >
                 {plan.name}
-              </span>
+              </Typography>
 
               {plan.isActive && (
                 <Badge className="bg-success-primary text-success-primary border-0 caption-1 font-semibold flex items-center gap-1">
@@ -39,7 +45,9 @@ export default function PlanOverviewCard({ plan }: { plan: PlanInfo }) {
         </div>
 
         <div className="text-left sm:text-right">
-          <p className="title-3 sm:title-2 text-primary">{plan.priceLabel}</p>
+          <Typography variant="label" level="3" weight="bold">
+            {plan.priceLabel}
+          </Typography>
           <p className="caption-1 text-tertiary">{plan.priceSubLabel}</p>
         </div>
       </div>
