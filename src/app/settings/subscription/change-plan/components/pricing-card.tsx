@@ -57,7 +57,7 @@ export default function PricingCard({
       <ActionButton
         type="button"
         variant={plan.isSubscribed ? "secondary" : "ghost"}
-        btnSize="default"
+        size="default"
         buttonContent={plan.ctaLabel}
         btnStyle={`mt-4 w-full rounded-xl py-2.5 text-sm font-medium transition ${
           plan.isSubscribed

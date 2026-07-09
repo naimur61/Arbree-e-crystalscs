@@ -16,7 +16,7 @@ export default function BillingToggle({
       <ActionButton
         type="button"
         variant="ghost"
-        btnSize="sm"
+        size="sm"
         buttonContent="Monthly"
         handleOpen={() => onChange("monthly")}
         btnStyle={`rounded-full px-3 py-1.5 text-xs font-medium transition ${
@@ -28,7 +28,7 @@ export default function BillingToggle({
       <ActionButton
         type="button"
         variant="ghost"
-        btnSize="sm"
+        size="sm"
         buttonContent="Yearly"
         lastIcon={
           <Badge className="bg-success-primary text-success-primary border-0 text-[10px] font-semibold">

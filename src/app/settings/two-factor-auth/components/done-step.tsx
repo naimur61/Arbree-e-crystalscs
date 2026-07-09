@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { ActionButton } from '@/components/common/button/action-button';
+import { ActionButton } from "@/components/common/button/action-button";
 
 interface DoneStepProps {
   onClose?: () => void;
@@ -33,7 +33,7 @@ export default function DoneStep({ onClose }: DoneStepProps) {
       <ActionButton
         type="button"
         variant="default"
-        btnSize="default"
+        size="default"
         buttonContent="Close"
         handleOpen={onClose}
         btnStyle="mt-5 w-full rounded-xl bg-emerald-500 px-8 py-2.5 text-sm font-medium text-white hover:bg-emerald-600 sm:mt-6 sm:w-auto"

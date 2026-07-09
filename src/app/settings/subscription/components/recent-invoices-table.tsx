@@ -45,7 +45,7 @@ export default function RecentInvoicesTable({
         <ActionButton
           type="button"
           variant="link"
-          btnSize="sm"
+          size="sm"
           lastIcon={<ChevronRightIcon />}
           buttonContent="View all"
           handleOpen={onViewAll}
@@ -94,7 +94,7 @@ export default function RecentInvoicesTable({
                     <ActionButton
                       type="button"
                       variant="ghost"
-                      btnSize="sm"
+                      size="sm"
                       icon={<DownloadIcon />}
                       buttonContent="PDF"
                       handleOpen={() => onDownload?.(invoice)}

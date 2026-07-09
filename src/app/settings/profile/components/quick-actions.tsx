@@ -7,7 +7,7 @@ function ActionCard({ action }: { action: QuickAction }) {
     <ActionButton
       type="button"
       variant="ghost"
-      btnSize="default"
+      size="default"
       disabled={action.locked}
       btnStyle="flex items-center gap-3 rounded-xl border border-gray-100 bg-white p-4 text-left shadow-sm hover:border-emerald-200 hover:shadow disabled:cursor-not-allowed disabled:opacity-80 capitalize"
       icon={

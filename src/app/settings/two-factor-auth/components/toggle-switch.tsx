@@ -12,7 +12,7 @@ export default function ToggleSwitch({ enabled, onChange }: ToggleSwitchProps) {
     <ActionButton
       type="button"
       variant="ghost"
-      btnSize="sm"
+      size="sm"
       role="switch"
       aria-checked={enabled}
       btnStyle={`relative inline-flex h-6 w-14 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-success-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-primary)] disabled:cursor-not-allowed disabled:opacity-50 p-0 min-h-0 gap-0 ${

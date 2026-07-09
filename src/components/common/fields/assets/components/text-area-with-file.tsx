@@ -1,13 +1,23 @@
-'use client';
+"use client";
 
-import { useRef, useState } from 'react';
-import { FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
-import { ActionButton } from '@/components/common/button/action-button';
-import { Paperclip, X, Eye } from 'lucide-react';
-import Image from 'next/image';
-import type { ControllerRenderProps, FieldValues, FieldPath, UseFormReturn } from 'react-hook-form';
+import { useRef, useState } from "react";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { ActionButton } from "@/components/common/button/action-button";
+import { Paperclip, X, Eye } from "lucide-react";
+import Image from "next/image";
+import type {
+  ControllerRenderProps,
+  FieldValues,
+  FieldPath,
+  UseFormReturn,
+} from "react-hook-form";
 
 interface FileItem {
   id: string;
@@ -38,8 +48,13 @@ interface TextAreaWithFileProps {
  * for submission via onSend callback.
  */
 export const TextAreaWithFile = ({
-  form, name, fileName = 'files', placeholder,
-  disabled = false, rows = 3, onSend,
+  form,
+  name,
+  fileName = "files",
+  placeholder,
+  disabled = false,
+  rows = 3,
+  onSend,
 }: TextAreaWithFileProps) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [fileItems, setFileItems] = useState<FileItem[]>([]);
@@ -77,7 +92,10 @@ export const TextAreaWithFile = ({
       const updated = prev.filter((p) => p.id !== id);
       // Update form with metadata only
       const metadata = updated.map((item) => ({
-        id: item.id, name: item.name, size: item.size, type: item.type,
+        id: item.id,
+        name: item.name,
+        size: item.size,
+        type: item.type,
       }));
       form.setValue(fileName, metadata);
       return updated;
@@ -89,14 +107,29 @@ export const TextAreaWithFile = ({
       <FormField
         control={form.control}
         name={name}
-        render={({ field }: { field: ControllerRenderProps<FieldValues, FieldPath<FieldValues>> }) => (
+        render={({
+          field,
+        }: {
+          field: ControllerRenderProps<FieldValues, FieldPath<FieldValues>>;
+        }) => (
           <FormItem>
             <FormControl>
               <div className="relative">
-                <Textarea {...field} placeholder={placeholder} disabled={disabled} rows={rows} />
+                <Textarea
+                  {...field}
+                  placeholder={placeholder}
+                  disabled={disabled}
+                  rows={rows}
+                />
                 <div className="absolute bottom-2 right-2 flex items-center gap-1">
-                  <Button type="button" size="icon" variant="ghost" className="h-8 w-8" disabled={disabled}
-                    onClick={() => fileInputRef.current?.click()}>
+                  <Button
+                    type="button"
+                    size="icon"
+                    variant="ghost"
+                    className="h-8 w-8"
+                    disabled={disabled}
+                    onClick={() => fileInputRef.current?.click()}
+                  >
                     <Paperclip className="h-4 w-4" />
                   </Button>
                 </div>
@@ -106,36 +139,62 @@ export const TextAreaWithFile = ({
           </FormItem>
         )}
       />
-      <input type="file" ref={fileInputRef} className="hidden" multiple onChange={handleFileChange} />
+      <input
+        type="file"
+        ref={fileInputRef}
+        className="hidden"
+        multiple
+        onChange={handleFileChange}
+      />
 
       {fileItems.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {fileItems.map((item) => (
-            <div key={item.id} className="relative group border rounded-lg p-2 pr-8">
-              {item.type.startsWith('image/') ? (
-                <Image src={item.previewUrl} alt={item.name} width={48} height={48}
+            <div
+              key={item.id}
+              className="relative group border rounded-lg p-2 pr-8"
+            >
+              {item.type.startsWith("image/") ? (
+                <Image
+                  src={item.previewUrl}
+                  alt={item.name}
+                  width={48}
+                  height={48}
                   className="object-cover rounded cursor-pointer"
-                  onClick={() => window.open(item.previewUrl, '_blank')} />
+                  onClick={() => window.open(item.previewUrl, "_blank")}
+                />
               ) : (
                 <div className="flex items-center gap-1 text-xs">
-                  <Eye className="h-4 w-4 cursor-pointer"
-                    onClick={() => window.open(item.previewUrl, '_blank')} />
+                  <Eye
+                    className="h-4 w-4 cursor-pointer"
+                    onClick={() => window.open(item.previewUrl, "_blank")}
+                  />
                   <span className="truncate max-w-[100px]">{item.name}</span>
                 </div>
               )}
-              <ActionButton type="button" variant="ghost" btnSize="icon"
+              <ActionButton
+                type="button"
+                variant="ghost"
+                size="icon"
                 icon={<X className="h-3 w-3 text-destructive" />}
                 handleOpen={() => handleRemoveFile(item.id)}
-                btnStyle="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity" />
+                btnStyle="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity"
+              />
             </div>
           ))}
         </div>
       )}
 
       {onSend && (
-        <ActionButton type="button" variant="default" btnSize="sm"
+        <ActionButton
+          type="button"
+          variant="default"
+          size="sm"
           buttonContent="Send"
-          handleOpen={() => onSend({ text: form.watch(name), files: fileItems })} />
+          handleOpen={() =>
+            onSend({ text: form.watch(name), files: fileItems })
+          }
+        />
       )}
     </div>
   );

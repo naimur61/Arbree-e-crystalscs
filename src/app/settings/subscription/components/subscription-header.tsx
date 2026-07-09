@@ -25,7 +25,7 @@ export default function SubscriptionHeader({
       <ActionButton
         type="button"
         variant="default"
-        btnSize="lg"
+        size="lg"
         icon={<Sparkles />}
         buttonContent="Change plan"
         handleOpen={handleChangePlan}

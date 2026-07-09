@@ -23,7 +23,7 @@ export default function UsageSectionHeader({
       <ActionButton
         type="button"
         variant="link"
-        btnSize="sm"
+        size="sm"
         lastIcon={<ExternalLinkIcon />}
         buttonContent="View detailed usage"
         handleOpen={onViewDetails}

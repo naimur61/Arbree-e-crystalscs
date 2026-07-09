@@ -1,10 +1,10 @@
-import { Search, X } from 'lucide-react';
-import { Input } from '@/components/ui/input';
-import { ActionButton } from '@/components/common/button/action-button';
-import type { SearchFieldProps } from '../interface/input-props.type';
+import { Search, X } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { ActionButton } from "@/components/common/button/action-button";
+import type { SearchFieldProps } from "../interface/input-props.type";
 
 export const SearchField = ({
-  placeholder = 'Search...',
+  placeholder = "Search...",
   onSearch,
   value: externalValue,
   setValue: setExternalValue,
@@ -25,9 +25,12 @@ export const SearchField = ({
         <ActionButton
           type="button"
           variant="ghost"
-          btnSize="icon"
+          size="icon"
           icon={<X className="h-4 w-4" />}
-          handleOpen={() => { setExternalValue?.(''); onSearch?.(''); }}
+          handleOpen={() => {
+            setExternalValue?.("");
+            onSearch?.("");
+          }}
           btnStyle="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
         />
       )}
