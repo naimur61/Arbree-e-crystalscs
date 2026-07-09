@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import PageHeader from "./components/page-header";
 import PlanTransitionCards from "./components/plan-transition-cards";
 import WhatsChangingCard from "./components/whats-changing-card";
@@ -14,6 +15,8 @@ import {
 } from "./components/sample-data";
 
 export default function ConfirmPlanChangePage() {
+  const router = useRouter();
+
   return (
     <div className="min-h-screen bg-emerald-50/40 p-4 sm:p-6">
       <div className="mx-auto max-w-5xl space-y-5">
@@ -40,9 +43,15 @@ export default function ConfirmPlanChangePage() {
             estimatedTax="$10,315.00"
             dueToday="$131,665.00"
             renewsNote="Renews May 4, 2027 at $149,700.00"
-            onConfirm={() => console.log("confirm change")}
+            onConfirm={() =>
+              router.push(
+                "/settings/subscription/change-plan/confirmation/success",
+              )
+            }
             onCancel={() => console.log("cancel")}
-            onBackToPlans={() => console.log("back to plans")}
+            onBackToPlans={() =>
+              router.push("/settings/subscription/change-plan")
+            }
           />
         </div>
       </div>
