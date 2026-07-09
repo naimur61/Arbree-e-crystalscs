@@ -35,7 +35,7 @@ export function TopNavbar({ title, subtitle }: TopNavProps) {
       <div className="flex justify-between items-center px-6 h-16">
         {/* Left: Page Title */}
         <div className="flex flex-col">
-          <h1 className="text-lg font-semibold text-foreground">{title}</h1>
+          <h4 className="font-semibold text-foreground">{title}</h4>
           {subtitle && (
             <p className="text-sm text-muted-foreground">{subtitle}</p>
           )}
