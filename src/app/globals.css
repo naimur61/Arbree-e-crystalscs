@@ -505,6 +505,19 @@
 .bg-overlay-alpha-white-secondary {
   background-color: var(--bg-overlay-alpha-white-secondary);
 }
+.btn-gradient {
+  border-radius: 4px;
+  background: linear-gradient(
+    157deg,
+    var(--btn-gradient-start) 2.28%,
+    var(--btn-gradient-mid) 75.47%,
+    var(--btn-gradient-end) 102.54%
+  );
+  box-shadow: 0 2px 0 0 var(--btn-gradient-shadow);
+}
+.btn-gradient:hover {
+  opacity: 0.9;
+}
 
 /* ── Text utilities: text-primary, text-secondary, etc. ── */
 .text-primary {
@@ -930,7 +943,6 @@
   line-height: var(--type-title-1-lh);
   letter-spacing: var(--type-title-1-ls);
   font-weight: var(--weight-bold);
-  color: var(--text-primary);
 }
 .title-2 {
   font-family: var(--font-montserrat);
@@ -938,7 +950,6 @@
   line-height: var(--type-title-2-lh);
   letter-spacing: var(--type-title-2-ls);
   font-weight: var(--weight-semibold);
-  color: var(--text-primary);
 }
 .title-3 {
   font-family: var(--font-montserrat);
@@ -946,7 +957,6 @@
   line-height: var(--type-title-3-lh);
   letter-spacing: var(--type-title-3-ls);
   font-weight: var(--weight-semibold);
-  color: var(--text-primary);
 }
 
 /* ── Headings ── */
@@ -956,7 +966,6 @@
   line-height: var(--type-h1-lh);
   letter-spacing: var(--type-h1-ls);
   font-weight: var(--weight-bold);
-  color: var(--text-primary);
 }
 .h2 {
   font-family: var(--font-montserrat);
@@ -964,7 +973,6 @@
   line-height: var(--type-h2-lh);
   letter-spacing: var(--type-h2-ls);
   font-weight: var(--weight-semibold);
-  color: var(--text-primary);
 }
 .h3 {
   font-family: var(--font-montserrat);
@@ -972,7 +980,6 @@
   line-height: var(--type-h3-lh);
   letter-spacing: var(--type-h3-ls);
   font-weight: var(--weight-semibold);
-  color: var(--text-primary);
 }
 .h4 {
   font-family: var(--font-montserrat);
@@ -980,7 +987,6 @@
   line-height: var(--type-h4-lh);
   letter-spacing: var(--type-h4-ls);
   font-weight: var(--weight-medium);
-  color: var(--text-primary);
 }
 .h5 {
   font-family: var(--font-montserrat);
@@ -988,7 +994,6 @@
   line-height: var(--type-h5-lh);
   letter-spacing: var(--type-h5-ls);
   font-weight: var(--weight-medium);
-  color: var(--text-primary);
 }
 .h6 {
   font-family: var(--font-montserrat);
@@ -996,7 +1001,6 @@
   line-height: var(--type-h6-lh);
   letter-spacing: var(--type-h6-ls);
   font-weight: var(--weight-medium);
-  color: var(--text-primary);
 }
 
 /* ── Body ── */
@@ -1006,7 +1010,6 @@
   line-height: var(--type-body-1-lh);
   letter-spacing: var(--type-body-1-ls);
   font-weight: var(--weight-regular);
-  color: var(--text-primary);
 }
 .body-2 {
   font-family: var(--font-montserrat);
@@ -1014,7 +1017,6 @@
   line-height: var(--type-body-2-lh);
   letter-spacing: var(--type-body-2-ls);
   font-weight: var(--weight-regular);
-  color: var(--text-primary);
 }
 .body-3 {
   font-family: var(--font-montserrat);
@@ -1022,7 +1024,6 @@
   line-height: var(--type-body-3-lh);
   letter-spacing: var(--type-body-3-ls);
   font-weight: var(--weight-regular);
-  color: var(--text-primary);
 }
 .body-4 {
   font-family: var(--font-montserrat);
@@ -1030,7 +1031,6 @@
   line-height: var(--type-body-4-lh);
   letter-spacing: var(--type-body-4-ls);
   font-weight: var(--weight-regular);
-  color: var(--text-primary);
 }
 
 /* ── Labels ── */
@@ -1040,7 +1040,6 @@
   line-height: var(--type-label-1-lh);
   letter-spacing: var(--type-label-1-ls);
   font-weight: var(--weight-medium);
-  color: var(--text-secondary);
 }
 .label-2 {
   font-family: var(--font-montserrat);
@@ -1048,7 +1047,6 @@
   line-height: var(--type-label-2-lh);
   letter-spacing: var(--type-label-2-ls);
   font-weight: var(--weight-medium);
-  color: var(--text-secondary);
 }
 .label-3 {
   font-family: var(--font-montserrat);
@@ -1056,7 +1054,6 @@
   line-height: var(--type-label-3-lh);
   letter-spacing: var(--type-label-3-ls);
   font-weight: var(--weight-medium);
-  color: var(--text-secondary);
 }
 
 /* ── Captions ── */
@@ -1066,7 +1063,6 @@
   line-height: var(--type-caption-1-lh);
   letter-spacing: var(--type-caption-1-ls);
   font-weight: var(--weight-regular);
-  color: var(--text-tertiary);
 }
 .caption-2 {
   font-family: var(--font-montserrat);
@@ -1074,7 +1070,6 @@
   line-height: var(--type-caption-2-lh);
   letter-spacing: var(--type-caption-2-ls);
   font-weight: var(--weight-regular);
-  color: var(--text-tertiary);
 }
 
 /* ═══════════════════════════════════════════════
@@ -1190,6 +1185,12 @@
   --bg-overlay-alpha-secondary: #1a1a1a;
   --bg-overlay-alpha-white-primary: #ffffff;
   --bg-overlay-alpha-white-secondary: #ffffff;
+
+  /* ── Button gradient tokens ── */
+  --btn-gradient-start: #004706;
+  --btn-gradient-mid: #009d36;
+  --btn-gradient-end: #004706;
+  --btn-gradient-shadow: rgba(0, 0, 0, 0.02);
 
   /* ── Text aliases ── */
   --text-primary: #0f172a;
@@ -1368,6 +1369,12 @@
   --bg-overlay-alpha-white-primary: #ffffff;
   --bg-overlay-alpha-white-secondary: #ffffff;
 
+  /* ── Button gradient tokens ── */
+  --btn-gradient-start: #004706;
+  --btn-gradient-mid: #009d36;
+  --btn-gradient-end: #004706;
+  --btn-gradient-shadow: rgba(0, 0, 0, 0.02);
+
   /* ── Text aliases ── */
   --text-primary: #f8fafc;
   --text-secondary: #cbd5e1;
@@ -1535,4 +1542,224 @@
 * {
   scrollbar-color: #22c55e #f0fdf4;
   scrollbar-width: thin;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   🔘 BUTTON SYSTEM CSS VARIABLES
+   Dynamic button customization tokens
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Button Heights ── */
+  --btn-height-xs: 24px;
+  --btn-height-sm: 32px;
+  --btn-height-md: 36px;
+  --btn-height-lg: 40px;
+  --btn-height-xl: 48px;
+
+  /* ── Button Padding X ── */
+  --btn-padding-xs: 8px;
+  --btn-padding-sm: 12px;
+  --btn-padding-md: 16px;
+  --btn-padding-lg: 24px;
+  --btn-padding-xl: 32px;
+
+  /* ── Button Border Radius ── */
+  --btn-radius-none: 0px;
+  --btn-radius-sm: 4px;
+  --btn-radius-md: 6px;
+  --btn-radius-lg: 8px;
+  --btn-radius-xl: 12px;
+  --btn-radius-full: 9999px;
+
+  /* ── Button Shadows (Light Mode) ── */
+  --btn-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --btn-shadow-md: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --btn-shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.15);
+  --btn-shadow-xl: 0 8px 16px rgba(0, 0, 0, 0.2);
+  --btn-shadow-glow: 0 0 20px rgba(0, 157, 54, 0.4);
+
+  /* ── Icon Sizes ── */
+  --icon-size-xs: 12px;
+  --icon-size-sm: 14px;
+  --icon-size-md: 16px;
+  --icon-size-lg: 20px;
+  --icon-size-xl: 24px;
+
+  /* ── Button Typography ── */
+  --btn-font-size-caption: 12px;
+  --btn-font-size-body-sm: 14px;
+  --btn-font-size-body: 16px;
+  --btn-font-size-body-lg: 18px;
+  --btn-font-size-label: 14px;
+  --btn-font-size-heading: 16px;
+
+  /* ── Button Transitions ── */
+  --btn-transition-fast: 150ms ease;
+  --btn-transition-normal: 200ms ease;
+  --btn-transition-slow: 300ms ease;
+}
+
+.dark {
+  /* ── Button Shadows (Dark Mode) ── */
+  --btn-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --btn-shadow-md: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --btn-shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.4);
+  --btn-shadow-xl: 0 8px 16px rgba(0, 0, 0, 0.5);
+  --btn-shadow-glow: 0 0 20px rgba(0, 157, 54, 0.5);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   🔘 BUTTON GRADIENT STYLES
+   ═══════════════════════════════════════════════════════════ */
+
+.btn-gradient {
+  border-radius: 4px;
+  background: linear-gradient(
+    157deg,
+    var(--btn-gradient-start, #004706) 2.28%,
+    var(--btn-gradient-mid, #009d36) 75.47%,
+    var(--btn-gradient-end, #004706) 102.54%
+  );
+  box-shadow: 0 2px 0 0 var(--btn-gradient-shadow, rgba(0, 0, 0, 0.02));
+}
+
+.btn-gradient:hover {
+  opacity: 0.9;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   🎬 BUTTON ANIMATIONS
+   ═══════════════════════════════════════════════════════════ */
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-2px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(2px);
+  }
+}
+
+.animate-shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes btn-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-btn-pulse {
+  animation: btn-pulse 2s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   🔘 BUTTON UTILITY CLASSES
+   Quick classes for button customization
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Button Sizes (Quick Classes) ── */
+.btn-xs {
+  height: var(--btn-height-xs);
+  padding-inline: var(--btn-padding-xs);
+  font-size: 12px;
+}
+.btn-sm {
+  height: var(--btn-height-sm);
+  padding-inline: var(--btn-padding-sm);
+  font-size: 14px;
+}
+.btn-md {
+  height: var(--btn-height-md);
+  padding-inline: var(--btn-padding-md);
+  font-size: 14px;
+}
+.btn-lg {
+  height: var(--btn-height-lg);
+  padding-inline: var(--btn-padding-lg);
+  font-size: 16px;
+}
+.btn-xl {
+  height: var(--btn-height-xl);
+  padding-inline: var(--btn-padding-xl);
+  font-size: 18px;
+}
+
+/* ── Button Radius (Quick Classes) ── */
+.btn-radius-none {
+  border-radius: var(--btn-radius-none);
+}
+.btn-radius-sm {
+  border-radius: var(--btn-radius-sm);
+}
+.btn-radius-md {
+  border-radius: var(--btn-radius-md);
+}
+.btn-radius-lg {
+  border-radius: var(--btn-radius-lg);
+}
+.btn-radius-xl {
+  border-radius: var(--btn-radius-xl);
+}
+.btn-radius-full {
+  border-radius: var(--btn-radius-full);
+}
+
+/* ── Button Shadows (Quick Classes) ── */
+.btn-shadow-none {
+  box-shadow: none;
+}
+.btn-shadow-sm {
+  box-shadow: var(--btn-shadow-sm);
+}
+.btn-shadow-md {
+  box-shadow: var(--btn-shadow-md);
+}
+.btn-shadow-lg {
+  box-shadow: var(--btn-shadow-lg);
+}
+.btn-shadow-xl {
+  box-shadow: var(--btn-shadow-xl);
+}
+.btn-shadow-glow {
+  box-shadow: var(--btn-shadow-glow);
+}
+
+/* ── Icon Sizes (Quick Classes) ── */
+.icon-xs {
+  width: var(--icon-size-xs);
+  height: var(--icon-size-xs);
+}
+.icon-sm {
+  width: var(--icon-size-sm);
+  height: var(--icon-size-sm);
+}
+.icon-md {
+  width: var(--icon-size-md);
+  height: var(--icon-size-md);
+}
+.icon-lg {
+  width: var(--icon-size-lg);
+  height: var(--icon-size-lg);
+}
+.icon-xl {
+  width: var(--icon-size-xl);
+  height: var(--icon-size-xl);
 }

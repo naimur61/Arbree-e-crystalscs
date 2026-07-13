@@ -1,3 +1,8 @@
+// ═══════════════════════════════════════════════════════════
+// ACTION BUTTON COMPONENT
+// Dynamic, customizable button with all variants
+// ═══════════════════════════════════════════════════════════
+
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -9,32 +14,26 @@ import {
 import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import { forwardRef } from "react";
-
-interface ActionButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  type?: "submit" | "button" | "reset";
-  btnSize?: "default" | "sm" | "lg" | "icon";
-  btnStyle?: string;
-  tooltipStyle?: string;
-  variant?:
-    "default" | "destructive" | "outline" | "secondary" | "ghost" | "link";
-  tooltipContent?: string;
-  buttonContent?: React.ReactNode;
-  icon?: React.ReactNode;
-  lastIcon?: React.ReactNode;
-  isPending?: boolean;
-  handleOpen?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
-  side?: "top" | "right" | "bottom" | "left";
-  loadingContent?: React.ReactNode;
-}
+import {
+  type ActionButtonProps,
+  buttonVariants,
+  typographyConfig,
+  iconSizeConfig,
+} from "./button-config";
 
 const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
   (
     {
       type = "button",
-      btnSize = "default",
+      variant = "default",
+      size = "default",
+      typography,
+      iconSize = "md",
+      shadow,
+      radius,
+      animation,
       btnStyle,
       tooltipStyle,
-      variant = "default",
       tooltipContent,
       buttonContent,
       icon,
@@ -44,38 +43,65 @@ const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
       side = "top",
       loadingContent,
       disabled = false,
+      className,
+      children,
       ...props
     },
     ref,
   ) => {
+    // ── Resolve dynamic classes ──
+    const typographyClass = typography ? typographyConfig[typography] : "";
+    const iconSizeClass = icon ? iconSizeConfig[iconSize] : "";
+
+    // ── Build button element ──
     const buttonEl = (
       <Button
         ref={ref}
         type={type}
-        size={btnSize}
         onClick={handleOpen}
-        variant={variant}
+        variant={variant === "gradient" ? "default" : variant}
+        size={size}
         disabled={isPending || disabled}
         className={cn(
-          "capitalize cursor-pointer",
+          // CVA variants
+          buttonVariants({ variant, size, shadow, radius, animation }),
+          // Typography override
+          typographyClass,
+          // State styles
           (isPending || disabled) && "opacity-60 cursor-not-allowed",
+          // Custom styles
           btnStyle,
-          icon && (buttonContent || isPending) && "gap-x-3",
+          // Additional classes
+          className,
         )}
         {...props}
       >
-        {!isPending && icon}
-        {(buttonContent || isPending) && (
-          <span>
-            {isPending ? (loadingContent ?? buttonContent) : buttonContent}
+        {/* Loading or Icon */}
+        {isPending ? (
+          <Loader2 className="size-4 animate-spin" />
+        ) : icon ? (
+          <span className={cn("flex-shrink-0", iconSizeClass)}>{icon}</span>
+        ) : null}
+
+        {/* Button Content */}
+        {(buttonContent || children) && (
+          <span className="flex-1">
+            {isPending
+              ? (loadingContent ?? buttonContent ?? children)
+              : (buttonContent ?? children)}
           </span>
         )}
-        {!isPending && lastIcon}
-        {isPending && <Loader2 className="ml-2 w-4 h-4 animate-spin" />}
+
+        {/* Last Icon */}
+        {!isPending && lastIcon && (
+          <span className={cn("flex-shrink-0", iconSizeClass)}>{lastIcon}</span>
+        )}
       </Button>
     );
 
+    // ── Wrap with tooltip if provided ──
     if (!tooltipContent) return buttonEl;
+
     return (
       <Tooltip>
         <TooltipTrigger asChild>{buttonEl}</TooltipTrigger>
@@ -92,6 +118,34 @@ const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
     );
   },
 );
+
 ActionButton.displayName = "ActionButton";
 
+// ── Named Exports ──
 export { ActionButton };
+
+// ── Re-export all types and configs ──
+export type {
+  ActionButtonProps,
+  ButtonVariant,
+  ButtonSize,
+  ButtonTypography,
+  IconSize,
+  ButtonShadow,
+  ButtonRadius,
+  ButtonAnimation,
+  TooltipSide,
+  ButtonVariants,
+} from "./button-config";
+
+export {
+  buttonVariants,
+  typographyConfig,
+  iconSizeConfig,
+  variantLabels,
+  sizeLabels,
+  getVariantOptions,
+  getSizeOptions,
+  getTypographyOptions,
+  getIconSizeOptions,
+} from "./button-config";
