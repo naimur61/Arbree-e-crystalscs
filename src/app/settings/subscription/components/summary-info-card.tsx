@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { Card } from "@/components/ui/card";
+import { Typography } from "@/components/common/typography/typography";
 
 export default function SummaryInfoCard({
   icon,
@@ -21,7 +22,7 @@ export default function SummaryInfoCard({
           <span className="flex h-6 w-6 items-center justify-center rounded-md bg-secondary text-icon-secondary">
             {icon}
           </span>
-          {title}
+          <Typography variant="label-2">{title}</Typography>
         </span>
         {badge}
       </div>

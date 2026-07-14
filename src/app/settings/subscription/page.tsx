@@ -16,12 +16,6 @@ import UpcomingInvoiceCard from "./components/upcoming-invoice-card";
 import BillingContactCard from "./components/billing-contact-card";
 import RecentInvoicesTable from "./components/recent-invoices-table";
 import { Users, Activity, Database, Zap } from "lucide-react";
-// import {
-//   UsersIcon,
-//   ActivityIcon,
-//   DatabaseIcon,
-//   ZapIcon,
-// } from "./components/icons";
 
 const samplePlan: PlanInfo = {
   name: "Enterprise Plan",

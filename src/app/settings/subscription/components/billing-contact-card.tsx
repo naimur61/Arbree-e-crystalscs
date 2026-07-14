@@ -3,6 +3,7 @@
 import type { BillingContact } from "./types";
 import SummaryInfoCard from "./summary-info-card";
 import { MailIcon } from "./icons";
+import { Typography } from "@/components/common/typography/typography";
 
 export default function BillingContactCard({
   contact,
@@ -11,10 +12,12 @@ export default function BillingContactCard({
 }) {
   return (
     <SummaryInfoCard icon={<MailIcon />} title="Billing contact">
-      <p className="body-3 font-semibold text-primary">{contact.name}</p>
-      <p className="caption-1 text-tertiary">
+      <Typography variant="h5" weight="bold">
+        {contact.name}
+      </Typography>
+      <Typography variant="label-3" color="tertiary">
         {contact.email} &middot; {contact.phone}
-      </p>
+      </Typography>
     </SummaryInfoCard>
   );
 }
