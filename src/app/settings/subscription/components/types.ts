@@ -18,7 +18,8 @@ export interface PlanInfo {
   seatsTotal: number;
 }
 
-export type UsageColor = "emerald" | "blue" | "orange" | "purple";
+export type UsageColor =
+  "emerald" | "blue" | "orange" | "purple" | "bg-success-primary";
 
 export interface UsageStat {
   id: string;
@@ -61,30 +62,45 @@ export const usageColorMap: Record<
   blue: { icon: "blue", bg: "blue", bar: "blue" },
   orange: { icon: "orange", bg: "orange", bar: "orange" },
   purple: { icon: "purple", bg: "purple", bar: "purple" },
+  "bg-success-primary": {
+    icon: "bg-success-primary",
+    bg: "bg-success-primary",
+    bar: "bg-success-primary",
+  },
 };
 
 export const usageColorVariants: Record<
   UsageColor,
-  { icon: string; badge: string; bar: string }
+  { icon: string; badge: string; bar: string; bg: string }
 > = {
   emerald: {
     icon: "bg-success-secondary text-success-primary",
     badge: "text-success-primary",
     bar: "bg-success-secondary",
+    bg: "",
   },
   blue: {
     icon: "bg-info-secondary text-info-primary",
     badge: "text-info-primary",
     bar: "bg-info-secondary",
+    bg: "",
   },
   orange: {
     icon: "bg-warning-secondary text-warning-primary",
     badge: "text-warning-primary",
     bar: "bg-warning-secondary",
+    bg: "",
   },
   purple: {
     icon: "bg-accent-primary text-accent-primary",
     badge: "text-accent-primary",
     bar: "bg-accent-solid",
+    bg: "",
+  },
+  "bg-success-primary": {
+    icon: "bg-success-secondary text-success-primary",
+    badge: "text-success-primary",
+    bar: "bg-success-primary",
+    bg: "bg-success-primary",
   },
 };

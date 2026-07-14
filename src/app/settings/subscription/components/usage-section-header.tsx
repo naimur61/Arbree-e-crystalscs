@@ -2,6 +2,7 @@
 
 import { ExternalLinkIcon } from "./icons";
 import { ActionButton } from "@/components/common/button/action-button";
+import { Typography } from "@/components/common/Typography/typography";
 
 export default function UsageSectionHeader({
   resetDate,
@@ -14,11 +15,11 @@ export default function UsageSectionHeader({
 }) {
   return (
     <div className="flex items-end justify-between">
-      <div>
-        <h2 className="h6 text-primary">Usage this period</h2>
-        <p className="caption-1 text-tertiary">
+      <div className="flex flex-col gap-1">
+        <Typography variant="label-1">Usage this period</Typography>
+        <Typography variant="label-3" className="text-tertiary">
           Resets on {resetDate} &middot; {daysRemaining} days remaining
-        </p>
+        </Typography>
       </div>
       <ActionButton
         type="button"

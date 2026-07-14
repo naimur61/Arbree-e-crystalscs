@@ -3,6 +3,7 @@
 import type { InvoiceSummary } from "./types";
 import SummaryInfoCard from "./summary-info-card";
 import { CalendarIcon } from "./icons";
+import { Typography } from "@/components/common/Typography/typography";
 
 export default function UpcomingInvoiceCard({
   invoice,
@@ -11,8 +12,12 @@ export default function UpcomingInvoiceCard({
 }) {
   return (
     <SummaryInfoCard icon={<CalendarIcon />} title="Upcoming invoice">
-      <p className="title-3 text-primary">{invoice.amount}</p>
-      <p className="caption-1 text-tertiary">{invoice.note}</p>
+      <Typography variant="h3" weight="bold">
+        {invoice.amount}
+      </Typography>
+      <Typography variant="caption-1" color="tertiary">
+        {invoice.note}
+      </Typography>
     </SummaryInfoCard>
   );
 }
