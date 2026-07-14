@@ -47,12 +47,12 @@ function getLightBg(color: string, opacity = 0.1): string {
 }
 
 // Status dot only
-interface StatusPointProps {
+interface StatusDotProps {
   status: string;
   className?: string;
 }
 
-export function StatusPoint({ status, className }: StatusPointProps) {
+export function StatusDot({ status, className }: StatusDotProps) {
   const color = getStatusColor(status);
   return (
     <Dot
@@ -68,7 +68,7 @@ export function StatusPoint({ status, className }: StatusPointProps) {
 }
 
 // Status with optional label and background
-interface StatusWithIconProps {
+interface StatusBadgeProps {
   lastLabel?: string;
   status: string;
   label?: string;
@@ -77,14 +77,14 @@ interface StatusWithIconProps {
   uppercase?: boolean;
 }
 
-export function StatusWithIcon({
+export function StatusBadge({
   lastLabel,
   status,
   uppercase = true,
   label,
   showBg = false,
   className = "",
-}: StatusWithIconProps) {
+}: StatusBadgeProps) {
   const color = getStatusColor(status);
   const bgColor = showBg ? getLightBg(color, 0.15) : "transparent";
 
@@ -99,7 +99,7 @@ export function StatusWithIcon({
         backgroundColor: bgColor,
       }}
     >
-      <StatusPoint status={status} className={className} />
+      <StatusDot status={status} className={className} />
 
       {label && (
         <span className="text-xs font-semibold text-gray-700">{label}:</span>
