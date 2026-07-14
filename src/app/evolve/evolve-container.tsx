@@ -1,6 +1,6 @@
 "use client";
 
-import { FlowBanner } from "@/components/common/ui/flow-banner";
+import { FlowBanner } from "@/components/features/ui/flow-banner";
 import { ConcentrationRisk } from "./_assets/components/concentration-risk";
 import { ExecutiveBrief } from "./_assets/components/executive-brief";
 import { ImpactCard } from "./_assets/components/impact-card";
@@ -57,19 +57,19 @@ const concentrationRisks = [
 
 export default function EvolveContainer() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-emerald-50 to-white">
-      <div className="mx-auto p-4">
+    <main className="min-h-screen from-emerald-50 to-white bg-linear-to-b">
+      <div className="p-4 mx-auto">
         <FlowBanner currentPage="evolve" />
 
         <div className="">
-          {/* <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-4">
+          {/* <div className="flex justify-between items-center mb-8">
+            <div className="flex gap-4 items-center">
               <h2 className="text-sm font-bold text-gray-900">Executive Summary</h2>
-              <p className="text-gray-600 text-xs">May 2024</p>
+              <p className="text-xs text-gray-600">May 2024</p>
             </div>
           </div> */}
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+          <div className="grid grid-cols-1 gap-4 mb-4 lg:grid-cols-3">
             <div>
               <RiskPostureCard
                 confidence={87}
@@ -86,12 +86,12 @@ export default function EvolveContainer() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-4 mb-4">
-            <div className="bg-white rounded-[8px] border border-gray-200 p-4 shadow-sm">
-              <h3 className="text-sm font-bold text-gray-900 mb-6">
+          <div className="grid grid-cols-1 gap-4 mb-4 lg:grid-cols-[2fr_1fr]">
+            <div className="p-4 bg-white rounded-2xl border border-gray-200 shadow-sm">
+              <h3 className="mb-6 text-sm font-bold text-gray-900">
                 Business Impact
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                 <ImpactCard
                   title="Financial Impact"
                   amount="4.2M"
@@ -118,9 +118,9 @@ export default function EvolveContainer() {
             <ExecutiveBrief />
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-4">
-            <div className="bg-white rounded-[8px] border border-gray-200 p-4">
-              <h3 className="text-sm font-bold text-gray-900 mb-6">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-[2fr_1fr]">
+            <div className="p-4 bg-white rounded-2xl border border-gray-200">
+              <h3 className="mb-6 text-sm font-bold text-gray-900">
                 e-Crystal Recommended Actions
               </h3>
               <div className="space-y-3">
@@ -151,15 +151,15 @@ export default function EvolveContainer() {
                         isHighlighted ? "bg-emerald-50" : "bg-gray-50"
                       }`}
                     >
-                      <div className="flex items-center gap-4">
-                        <span className="w-9 h-9 flex items-center justify-center rounded-full bg-emerald-100 text-emerald-700 font-bold text-base shrink-0">
+                      <div className="flex gap-4 items-center">
+                        <span className="flex justify-center items-center w-9 h-9 text-base font-bold text-emerald-700 bg-emerald-100 rounded-full shrink-0">
                           {rec.id}
                         </span>
-                        <div className="flex items-center gap-2">
-                          <p className="text-gray-900 font-semibold text-sm">
+                        <div className="flex gap-2 items-center">
+                          <p className="text-sm font-semibold text-gray-900">
                             {rec.title}
                           </p>
-                          <span className="text-gray-500 text-xs bg-gray-100 px-2 py-0.5 rounded-md">
+                          <span className="py-0.5 px-2 text-xs text-gray-500 bg-gray-100 rounded-md">
                             {rec.category}
                           </span>
                         </div>
@@ -176,7 +176,7 @@ export default function EvolveContainer() {
               <div className="mt-6">
                 <a
                   href="#"
-                  className="text-emerald-700 text-xs font-semibold hover:underline inline-flex items-center gap-1"
+                  className="inline-flex gap-1 items-center text-xs font-semibold text-emerald-700 hover:underline"
                 >
                   View Full Plan <span aria-hidden>→</span>
                 </a>
