@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Typography } from "@/components/common/Typography/typography";
+import { Typography } from "@/components/common/typography/typography";
 import { themeConfig } from "@/lib/theme/theme.config";
 
 /* ═══════════════════════════════════════════════════
