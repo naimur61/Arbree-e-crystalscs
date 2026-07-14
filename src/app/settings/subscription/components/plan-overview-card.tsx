@@ -99,16 +99,23 @@ export default function PlanOverviewCard({ plan }: { plan: PlanInfo }) {
           <Typography variant="label-3">{plan.nextChargeNote}</Typography>
         </div>
         <div>
-          <p className="label-3 flex items-center gap-1.5 text-tertiary">
+          <Typography
+            variant="label-1"
+            color="tertiary"
+            className="flex items-center gap-1"
+          >
             <CreditCardIcon />
             Payment method
-          </p>
-          <p className="body-3 mt-1 font-medium text-primary">
+          </Typography>
+          <Typography
+            variant="body-3"
+            className="mt-1 font-medium text-primary"
+          >
             {plan.paymentMethod}
-          </p>
-          <p className="caption-1 text-tertiary">
+          </Typography>
+          <Typography variant="label-3">
             Expires {plan.paymentExpiry}
-          </p>
+          </Typography>
         </div>
       </div>
 

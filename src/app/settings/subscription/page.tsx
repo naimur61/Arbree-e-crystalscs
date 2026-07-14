@@ -15,12 +15,13 @@ import LastInvoiceCard from "./components/last-invoice-card";
 import UpcomingInvoiceCard from "./components/upcoming-invoice-card";
 import BillingContactCard from "./components/billing-contact-card";
 import RecentInvoicesTable from "./components/recent-invoices-table";
-import {
-  UsersIcon,
-  ActivityIcon,
-  DatabaseIcon,
-  ZapIcon,
-} from "./components/icons";
+import { Users, Activity, Database, Zap } from "lucide-react";
+// import {
+//   UsersIcon,
+//   ActivityIcon,
+//   DatabaseIcon,
+//   ZapIcon,
+// } from "./components/icons";
 
 const samplePlan: PlanInfo = {
   name: "Enterprise Plan",
@@ -44,17 +45,17 @@ const samplePlan: PlanInfo = {
 const sampleUsageStats: UsageStat[] = [
   {
     id: "users",
-    icon: <UsersIcon />,
+    icon: <Users />,
     label: "Active Users",
     used: 42,
     total: 60,
     unit: "seats",
     percent: 70,
-    color: "emerald",
+    color: "bg-success-primary",
   },
   {
     id: "alerts",
-    icon: <ActivityIcon />,
+    icon: <Activity />,
     label: "Alerts Monitored",
     used: 1248,
     total: 2000,
@@ -64,7 +65,7 @@ const sampleUsageStats: UsageStat[] = [
   },
   {
     id: "sources",
-    icon: <DatabaseIcon />,
+    icon: <Database />,
     label: "Data Sources",
     used: 18,
     total: 25,
@@ -74,7 +75,7 @@ const sampleUsageStats: UsageStat[] = [
   },
   {
     id: "api",
-    icon: <ZapIcon />,
+    icon: <Zap />,
     label: "API Usage",
     used: 847,
     total: 1000,

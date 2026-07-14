@@ -4,6 +4,7 @@ import type { InvoiceSummary } from "./types";
 import SummaryInfoCard from "./summary-info-card";
 import { FileTextIcon } from "./icons";
 import { Badge } from "@/components/ui/badge";
+import { Typography } from "@/components/common/Typography/typography";
 
 export default function LastInvoiceCard({
   invoice,
@@ -20,8 +21,12 @@ export default function LastInvoiceCard({
         </Badge>
       }
     >
-      <p className="title-3 text-primary">{invoice.amount}</p>
-      <p className="caption-1 text-tertiary">{invoice.note}</p>
+      <Typography variant="h3" weight="bold">
+        {invoice.amount}
+      </Typography>
+      <Typography variant="caption-1" color="tertiary">
+        {invoice.note}
+      </Typography>
     </SummaryInfoCard>
   );
 }
