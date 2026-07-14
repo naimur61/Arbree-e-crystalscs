@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { removeEmptyFields } from "@/lib/remove-empty-fields";
-import { useAccessToken } from "../useAccessToken";
-import { fetchData } from "./controller.tsx/fetchGetData";
+import { useAccessToken } from "./useAccessToken";
+import { fetchData } from "./fetcher";
 
 /** Supported HTTP methods */
 type FetchMethod = "GET" | "POST";
@@ -121,5 +121,3 @@ export function useInfiniteFetchData({
     enabled: enabled && (withOutToken || !!token),
   });
 }
-
-export default useInfiniteFetchData;

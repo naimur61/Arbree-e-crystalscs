@@ -1,7 +1,7 @@
 import { ToastMessageShow } from "@/components/common/toast";
 import { useMutation, type UseMutationResult } from "@tanstack/react-query";
 import { removeEmptyFields } from "@/lib/remove-empty-fields";
-import { useAccessToken } from "../useAccessToken";
+import { useAccessToken } from "./useAccessToken";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 

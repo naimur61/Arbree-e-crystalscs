@@ -3,7 +3,7 @@
 import { useState, useCallback } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useApiMutation } from "./useApiMutation";
-import useFetchData from "./useFetchData";
+import { useFetchData } from "./useFetchData";
 import { ToastMessageShow } from "@/components/common/toast";
 
 /** Configuration for useSafeUpdate hook */

@@ -7,18 +7,18 @@
  * ```
  */
 
-// Token management
+// Auth
 export {
   useAccessToken,
   setAccessToken,
   clearAccessToken,
 } from "./useAccessToken";
 
-// Tanstack Query hooks
-export {
-  useFetchData,
-  useApiMutation,
-  useInfiniteFetchData,
-  useSafeUpdate,
-  fetchData,
-} from "./TanstackQueries";
+// Data fetching
+export { useFetchData } from "./useFetchData";
+export { useInfiniteFetchData } from "./useInfiniteFetchData";
+export { useApiMutation } from "./useApiMutation";
+export { useSafeUpdate } from "./useSafeUpdate";
+
+// Internal (for advanced use)
+export { fetchData } from "./fetcher";

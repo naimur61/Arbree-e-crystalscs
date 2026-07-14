@@ -1,7 +1,7 @@
 import { useQuery, type UseQueryResult } from "@tanstack/react-query";
 import { removeEmptyFields } from "@/lib/remove-empty-fields";
-import { useAccessToken } from "../useAccessToken";
-import { fetchData } from "./controller.tsx/fetchGetData";
+import { useAccessToken } from "./useAccessToken";
+import { fetchData } from "./fetcher";
 
 /** Supported HTTP methods for data fetching */
 type FetchMethod = "GET" | "POST";
@@ -54,7 +54,7 @@ interface UseFetchDataOptions {
  * });
  * ```
  */
-function useFetchData<T = unknown>({
+export function useFetchData<T = unknown>({
   path,
   queryKey,
   method = "GET",
@@ -80,5 +80,3 @@ function useFetchData<T = unknown>({
     enabled: enabled && (withOutToken || !!authToken),
   });
 }
-
-export default useFetchData;
