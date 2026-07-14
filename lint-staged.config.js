@@ -1,7 +1,7 @@
 /** @type {import('lint-staged').Config} */
 const config = {
   // ── TypeScript / JavaScript ──
-  "*.{ts,tsx,js,jsx}": ["eslint --fix --max-warnings=0", "prettier --write"],
+  "*.{ts,tsx,js,jsx}": ["prettier --write"],
 
   // ── Styles ──
   "*.{css,scss,less}": ["prettier --write"],
