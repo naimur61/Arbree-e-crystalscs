@@ -140,6 +140,7 @@ export default function GuideContainer() {
             ["#fonts", "Fonts"],
             ["#weights", "Font Weights"],
             ["/guide/hooks", "Hooks Guide →"],
+            ["/guide/providers", "Providers & Layouts →"],
           ].map(([href, label]) => (
             <li key={href}>
               <a
@@ -476,6 +477,29 @@ export default function GuideContainer() {
               <p className="text-sm text-secondary mt-1">
                 Complete guide for useFetchData, useApiMutation,
                 useInfiniteFetchData, and useSafeUpdate.
+              </p>
+            </div>
+            <span className="text-accent-primary">→</span>
+          </div>
+        </a>
+      </Section>
+
+      {/* ════════════════════════════════════════════════════════
+          PROVIDERS & LAYOUTS GUIDE LINK
+          ════════════════════════════════════════════════════════ */}
+      <Section id="providers" title="Providers & Layouts">
+        <a
+          href="/guide/providers"
+          className="block p-6 rounded-xl border border-border bg-background hover:border-accent-primary/50 transition-colors"
+        >
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-lg font-semibold text-primary">
+                Providers & Layouts Documentation
+              </p>
+              <p className="text-sm text-secondary mt-1">
+                Theme system, layout provider, sidebar management, and app
+                shell.
               </p>
             </div>
             <span className="text-accent-primary">→</span>
