@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { Sparkles } from "lucide-react";
 import { ActionButton } from "@/components/common/button/action-button";
-import { Typography } from "@/components/common/Typography/Typography";
+import { Typography } from "@/components/common/Typography/typography";
 
 export default function SubscriptionHeader({
   onChangePlan,
@@ -18,10 +18,10 @@ export default function SubscriptionHeader({
   return (
     <div className="flex items-start justify-between gap-3">
       <div>
-        <Typography variant="heading" level="h5" weight="bold">
+        <Typography variant="h5" weight="bold" color="successSecondaryHover">
           Subscription
         </Typography>
-        <Typography variant="label" level="2">
+        <Typography variant="label-2" weight="semibold">
           Manage your plan, billing cycle, and usage
         </Typography>
       </div>
