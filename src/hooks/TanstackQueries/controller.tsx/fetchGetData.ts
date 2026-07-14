@@ -1,10 +1,55 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { handleApiError } from "../../../../utils/errorHandler";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export const fetchData = async ({ queryKey }: any) => {
+/** Supported HTTP methods for fetch requests */
+type HttpMethod = "GET" | "POST" | "PATCH" | "PUT" | "DELETE";
+
+/** Query parameters - string values or arrays for repeated params */
+type QueryParams = Record<string, string | number | boolean | string[]>;
+
+/** Configuration passed via React Query's queryKey */
+interface FetchQueryKey {
+  path: string;
+  Method: HttpMethod;
+  withOutToken?: boolean;
+  token?: string;
+  queryParams?: QueryParams;
+}
+
+/** Standard API error structure */
+interface ApiError {
+  response?: {
+    status: number;
+    data: unknown;
+  };
+  message?: string;
+}
+
+/** Convert QueryParams to URLSearchParams, supporting array values */
+function buildSearchParams(queryParams: QueryParams): URLSearchParams {
+  const searchParams = new URLSearchParams();
+
+  Object.entries(queryParams).forEach(([key, value]) => {
+    if (Array.isArray(value)) {
+      value.forEach((v) => searchParams.append(key, v));
+    } else {
+      searchParams.append(key, String(value));
+    }
+  });
+
+  return searchParams;
+}
+
+/**
+ * Fetch data function for React Query
+ * Used as queryFn in useQuery/useInfiniteQuery
+ */
+export const fetchData = async ({
+  queryKey,
+}: {
+  queryKey: [unknown, FetchQueryKey];
+}) => {
   const [, { path, Method, withOutToken, token, queryParams = {} }] = queryKey;
 
   const method = Method.toUpperCase();
@@ -12,37 +57,21 @@ export const fetchData = async ({ queryKey }: any) => {
     "Content-Type": "application/json",
   };
 
-  // Only add Bearer token when withOutToken is FALSE
+  // Only add Bearer token when withOutToken is false
   if (!withOutToken && token) {
     headers.Authorization = `Bearer ${token}`;
   }
 
-  // if (token) {
-  //   headers.Authorization = `Bearer ${token}`;
-  // }
-
   let url = `${API_URL}/${path}`;
 
-  // TODO: add allow multiple same name query params start
-  // if (method === "GET") {
-  //   const searchParams = new URLSearchParams(queryParams).toString();
-  //   if (searchParams) url += `?${searchParams}`;
-  // }
+  // Build URL with search params for GET requests
   if (method === "GET") {
-    const searchParams = new URLSearchParams();
-
-    Object.entries(queryParams).forEach(([key, value]) => {
-      if (Array.isArray(value)) {
-        value.forEach((v) => searchParams.append(key, String(v))); // repeat param
-      } else {
-        searchParams.append(key, String(value));
-      }
-    });
-
+    const searchParams = buildSearchParams(queryParams);
     const queryString = searchParams.toString();
-    if (queryString) url += `?${queryString}`;
+    if (queryString) {
+      url += `?${queryString}`;
+    }
   }
-  // TODo: add allow multiple same name query params end
 
   const options: RequestInit = {
     method,
@@ -60,41 +89,25 @@ export const fetchData = async ({ queryKey }: any) => {
           status: response.status,
           data: responseData,
         },
-      };
+      } satisfies ApiError;
     }
 
     return responseData;
-  } catch (error: any) {
-    //If you just return the error (e.g., return error), React Query will treat it as successful data, not a failure.
-    const handled = handleApiError(error) !== null;
+  } catch (error: unknown) {
+    const apiError = error as ApiError;
+    const handled = handleApiError(apiError) !== null;
+
     if (handled) {
       throw new Error("Handled API error");
     }
+
     const message =
-      error?.response?.data?.message || error?.message || "Request failed";
+      apiError?.response?.data &&
+      typeof apiError.response.data === "object" &&
+      "message" in apiError.response.data
+        ? String((apiError.response.data as { message: string }).message)
+        : apiError?.message || "Request failed";
+
     throw new Error(message);
   }
 };
-
-// import axios from "axios";
-
-// const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
-// export const fetchGetData = async ({ queryKey }: any) => {
-//   const [_key, { path, token, queryParams = {} }] = queryKey;
-
-//   const searchParams = new URLSearchParams(queryParams).toString();
-//   const url = `${API_URL}/${path}${searchParams ? `?${searchParams}` : ""}`;
-
-//   try {
-//     const response = await axios.get(url, {
-//       headers: token ? { Authorization: `Bearer ${token}` } : {},
-//     });
-
-//     return response.data;
-//   } catch (error: any) {
-//     //If you just return the error (e.g., return error), React Query will treat it as successful data, not a failure.
-//     const message = error?.response?.data?.message || "Get Request failed";
-//     throw new Error(message);
-//   }
-// };

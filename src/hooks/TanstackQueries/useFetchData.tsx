@@ -1,35 +1,72 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-// import { useAuths } from "@/hooks/userContext";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, type UseQueryResult } from "@tanstack/react-query";
 import { RemoveEmptyFields } from "../../../utils/inputFiled/RemoveEmptyFields";
 import { useAccessToken } from "../useAccessToken";
 import { fetchData } from "./controller.tsx/fetchGetData";
 
-interface Props {
-  token?: string;
-  filterData?: Record<string, any>; // Better typing
+/** Supported HTTP methods for data fetching */
+type FetchMethod = "GET" | "POST";
+
+/** Query parameters - string, number, boolean, or arrays */
+type QueryParams = Record<string, string | number | boolean | string[]>;
+
+/** Configuration for useFetchData hook */
+interface UseFetchDataOptions {
+  /** API endpoint path */
   path: string;
-  queryKey: string | any[];
-  method?: "GET" | "POST";
-  enabled?: boolean;
+  /** Query key for caching (string or array) */
+  queryKey: string | unknown[];
+  /** HTTP method - defaults to GET */
+  method?: FetchMethod;
+  /** Query parameters to send with the request */
+  filterData?: QueryParams;
+  /** Explicit authentication token (defaults to access token from context) */
+  token?: string;
+  /** Whether to skip authentication token entirely */
   withOutToken?: boolean;
+  /** Whether to enable the query - defaults to true */
+  enabled?: boolean;
 }
 
-const useFetchData = ({
-  filterData = {},
+/**
+ * Hook for fetching data using React Query
+ *
+ * @example
+ * ```tsx
+ * // Basic usage
+ * const { data, isLoading, error } = useFetchData({
+ *   path: "courses",
+ *   queryKey: "courses-list",
+ * });
+ *
+ * // With filters
+ * const { data } = useFetchData({
+ *   path: "courses",
+ *   queryKey: "courses-list",
+ *   filterData: { status: "active", page: 1 },
+ *   method: "POST",
+ * });
+ *
+ * // Without auth token
+ * const { data } = useFetchData({
+ *   path: "public/courses",
+ *   queryKey: "public-courses",
+ *   withOutToken: true,
+ * });
+ * ```
+ */
+function useFetchData<T = unknown>({
+  path,
   queryKey,
   method = "GET",
-  path,
-  token,
+  filterData = {},
+  token: explicitToken,
   withOutToken = false,
   enabled = true,
-}: Props) => {
+}: UseFetchDataOptions): UseQueryResult<T> {
   const accessToken = useAccessToken();
-  const authToken = token || accessToken || "";
+  const authToken = explicitToken || accessToken || "";
 
-  // all query data return from here like data, isLoading
-  return useQuery({
+  return useQuery<T>({
     queryKey: [
       queryKey,
       {
@@ -39,11 +76,9 @@ const useFetchData = ({
         queryParams: RemoveEmptyFields(filterData),
       },
     ],
-    queryFn: fetchData,
-    enabled: enabled && (withOutToken || !!token),
-
-    // enabled: !!token && !!filterData && enabled,
+    queryFn: fetchData as never, // Type assertion handled by queryKey structure
+    enabled: enabled && (withOutToken || !!authToken),
   });
-};
+}
 
 export default useFetchData;

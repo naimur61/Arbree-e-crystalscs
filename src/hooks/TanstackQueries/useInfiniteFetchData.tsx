@@ -1,125 +1,144 @@
-// /* eslint-disable no-unused-vars */
-// /* eslint-disable @typescript-eslint/no-explicit-any */
-// import { useInfiniteQuery } from "@tanstack/react-query";
-// import { RemoveEmptyFields } from "../../../utils/inputFiled/RemoveEmptyFields";
-// import { useAccessToken } from "../useAccessToken";
-// import { fetchData } from "./controller.tsx/fetchGetData";
-
-// interface InfiniteProps {
-//   filterData?: Record<string, any>;
-//   queryKey: string | any[];
-//   path: string;
-//   enabled?: boolean;
-//   withOutToken?: boolean;
-//   getNextPageParam?: (lastPage: any, allPages: any[]) => number | undefined;
-// }
-
-// const useInfiniteFetchData = ({
-//   filterData = {},
-//   queryKey,
-//   path,
-//   withOutToken = false,
-//   enabled = true,
-// getNextPageParam = (lastPage) => {
-//     const pagination = lastPage?.data?.pagination;
-//     if (!pagination) return undefined;
-//     const { page, pageSize, totalCount } = pagination;
-//     const totalPages = Math.ceil(totalCount / pageSize);
-//     return page < totalPages ? page + 1 : undefined;
-// }
-// }: InfiniteProps) => {
-//   const accessToken = useAccessToken();
-//   const token = accessToken || "";
-
-//   const baseParams = RemoveEmptyFields(filterData);
-//   delete baseParams.page;
-
-//   return useInfiniteQuery({
-//     queryKey: [
-//       queryKey,
-//       {
-//         path,
-//         Method: "GET",
-//         token,
-//         queryParams: baseParams,
-//       },
-//     ],
-//     queryFn: ({ pageParam = 1 }) => {
-//       const params = { ...baseParams, page: pageParam };
-//       return fetchData({
-//         queryKey: [{}, { path, Method: "GET", token, queryParams: params }],
-//       });
-//     },
-//     getNextPageParam,
-//     initialPageParam: 1,
-//     enabled: enabled && (withOutToken || !!token),
-//   });
-// };
-
-// export default useInfiniteFetchData;
-
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useInfiniteQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  type InfiniteData,
+  type UseInfiniteQueryResult,
+} from "@tanstack/react-query";
 import { RemoveEmptyFields } from "../../../utils/inputFiled/RemoveEmptyFields";
 import { useAccessToken } from "../useAccessToken";
 import { fetchData } from "./controller.tsx/fetchGetData";
 
-interface InfiniteProps {
-  filterData?: Record<string, any>;
-  queryKey: string | any[];
-  path: string;
-  method?: "GET" | "POST"; // ← new prop
-  token?: string; // ← optional explicit token
-  enabled?: boolean;
-  withOutToken?: boolean;
-  getNextPageParam?: (lastPage: any, allPages: any[]) => number | undefined;
+/** Supported HTTP methods */
+type FetchMethod = "GET" | "POST";
+
+/** Query parameters */
+type QueryParams = Record<string, string | number | boolean | string[]>;
+
+/** Pagination info from API response */
+interface PaginationInfo {
+  page: number;
+  pageSize: number;
+  totalCount: number;
+  totalPages?: number;
 }
 
-const useInfiniteFetchData = ({
-  filterData = {},
-  queryKey,
+/** API response structure with pagination */
+interface PaginatedResponse<T> {
+  data?: {
+    data?: T[];
+    pagination?: PaginationInfo;
+    [key: string]: unknown;
+  };
+}
+
+/** Configuration for useInfiniteFetchData hook */
+interface UseInfiniteFetchDataOptions<T> {
+  /** API endpoint path */
+  path: string;
+  /** Query key for caching */
+  queryKey: string | unknown[];
+  /** HTTP method - defaults to GET */
+  method?: FetchMethod;
+  /** Query parameters (page param is added automatically) */
+  filterData?: QueryParams;
+  /** Explicit authentication token */
+  token?: string;
+  /** Skip authentication entirely */
+  withOutToken?: boolean;
+  /** Enable/disable the query */
+  enabled?: boolean;
+  /** Custom function to determine next page - defaults to standard pagination */
+  getNextPageParam?: (
+    lastPage: PaginatedResponse<T>,
+    allPages: PaginatedResponse<T>[],
+  ) => number | undefined;
+  /** Initial page number - defaults to 1 */
+  initialPageParam?: number;
+}
+
+/**
+ * Hook for paginated data fetching with infinite scroll support
+ *
+ * @example
+ * ```tsx
+ * const {
+ *   data,
+ *   fetchNextPage,
+ *   hasNextPage,
+ *   isFetchingNextPage,
+ *   isLoading,
+ * } = useInfiniteFetchData({
+ *   path: "courses",
+ *   queryKey: "courses-infinite",
+ *   filterData: { status: "active" },
+ * });
+ *
+ * // Render items
+ * {data?.pages.flatMap(page =>
+ *   page.data?.data?.map(item => <CourseCard key={item.id} course={item} />)
+ * )}
+ *
+ * // Load more
+ * <button onClick={() => fetchNextPage()} disabled={!hasNextPage}>
+ *   {isFetchingNextPage ? "Loading..." : "Load More"}
+ * </button>
+ * ```
+ */
+function useInfiniteFetchData<T = unknown>({
   path,
-  method = "GET", // ← default GET
+  queryKey,
+  method = "GET",
+  filterData = {},
   token: explicitToken,
   withOutToken = false,
   enabled = true,
-  getNextPageParam = (lastPage) => {
-    const pagination = lastPage?.data?.pagination;
-    if (!pagination) return undefined;
-    const { page, pageSize, totalCount } = pagination;
-    const totalPages = Math.ceil(totalCount / pageSize);
-    return page < totalPages ? page + 1 : undefined;
-  },
-}: InfiniteProps) => {
+  getNextPageParam = defaultGetNextPageParam,
+  initialPageParam = 1,
+}: UseInfiniteFetchDataOptions<T>): UseInfiniteQueryResult<
+  InfiniteData<PaginatedResponse<T>>
+> {
   const accessToken = useAccessToken();
-  // Use explicit token if provided, otherwise fallback to context token
   const token = explicitToken || accessToken || "";
 
   // Clean filterData and remove any existing 'page' field
   const baseParams = RemoveEmptyFields(filterData);
   delete baseParams.page;
 
-  return useInfiniteQuery({
+  return useInfiniteQuery<InfiniteData<PaginatedResponse<T>>>({
     queryKey: [
       queryKey,
       {
         path,
-        Method: method, // ← method in cache key
+        Method: method,
         token,
-        queryParams: baseParams, // base filters without page
+        queryParams: baseParams,
       },
     ],
     queryFn: ({ pageParam = 1 }) => {
-      // Merge the current page into the parameters
       const params = { ...baseParams, page: pageParam };
       return fetchData({
         queryKey: [{}, { path, Method: method, token, queryParams: params }],
-      });
+      }) as Promise<PaginatedResponse<T>>;
     },
     getNextPageParam,
-    initialPageParam: 1,
+    initialPageParam,
     enabled: enabled && (withOutToken || !!token),
   });
-};
+}
+
+/**
+ * Default pagination function
+ * Expects response structure: { data: { data: [], pagination: { page, pageSize, totalCount } } }
+ */
+function defaultGetNextPageParam<T>(
+  lastPage: PaginatedResponse<T>,
+): number | undefined {
+  const pagination = lastPage?.data?.pagination;
+  if (!pagination) return undefined;
+
+  const { page, pageSize, totalCount } = pagination;
+  const totalPages = Math.ceil(totalCount / pageSize);
+
+  return page < totalPages ? page + 1 : undefined;
+}
 
 export default useInfiniteFetchData;

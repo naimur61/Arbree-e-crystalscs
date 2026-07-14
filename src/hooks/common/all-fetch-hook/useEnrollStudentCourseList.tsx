@@ -1,32 +1,85 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import useFetchData from "@/hooks/TanstackQueries/useFetchData";
 
-import useFetchData from "@/hook/TanstackQueries/useFetchData";
+/** Enrolled course structure */
+interface EnrolledCourse {
+  sessionCourseId: string;
+  name?: string;
+  title?: string;
+  [key: string]: unknown;
+}
 
-/* Fetch Modules by Course Id */
-function AllEnrolledCourse({
+/** API response structure */
+interface EnrolledCoursesResponse {
+  data?: {
+    courses?: EnrolledCourse[];
+  };
+}
+
+/** Option format for dropdowns/selects */
+interface SelectOption {
+  label: string;
+  value: string;
+}
+
+/** Configuration for enrolled courses hook */
+interface EnrolledCourseListOptions {
+  /** Custom API path */
+  path?: string;
+  /** Additional filters */
+  filter?: Record<string, unknown>;
+  /** Enable/disable the query */
+  enabled?: boolean;
+}
+
+/** Return type for useEnrolledCourseList hook */
+interface UseEnrolledCourseListReturn {
+  /** Formatted options for dropdowns */
+  options: SelectOption[];
+  /** Raw API response data */
+  data: EnrolledCoursesResponse | undefined;
+  /** Whether data is loading */
+  isLoading: boolean;
+  /** Whether an error occurred */
+  isError: boolean;
+}
+
+/**
+ * Hook to fetch enrolled student courses
+ *
+ * @example
+ * ```tsx
+ * const { options, isLoading } = useEnrolledCourseList();
+ *
+ * // Use with select component
+ * <Select options={options} placeholder="Select course" />
+ *
+ * // With custom path and filters
+ * const { options } = useEnrolledCourseList({
+ *   path: "admin/enrolled-courses",
+ *   filter: { studentId: "123" },
+ * });
+ * ```
+ */
+function useEnrolledCourseList({
   path,
   filter,
   enabled,
-}: {
-  path?: string;
-  filter?: any;
-  enabled?: boolean;
-}) {
-  const { data, isLoading, isError } = useFetchData({
+}: EnrolledCourseListOptions = {}): UseEnrolledCourseListReturn {
+  const { data, isLoading, isError } = useFetchData<EnrolledCoursesResponse>({
     method: "GET",
-    path: path ?? `student-portal/courses`,
-    queryKey: `fetch-enrolled-courses-list`,
+    path: path ?? "student-portal/courses",
+    queryKey: "fetch-enrolled-courses-list",
     enabled,
-    filterData: { ...filter },
+    filterData: filter as Record<string, string | number | boolean | string[]>,
   });
-  // console.log(data, "Modules");
 
-  const options = data?.data?.courses?.map((item: any) => ({
-    label: item.name || item.title || "Unknown",
-    value: item?.sessionCourseId,
-  }));
+  const options: SelectOption[] =
+    data?.data?.courses?.map((item) => ({
+      label: item.name || item.title || "Unknown",
+      value: item.sessionCourseId,
+    })) ?? [];
 
   return { options, data, isLoading, isError };
 }
 
-export default AllEnrolledCourse;
+export default useEnrolledCourseList;
