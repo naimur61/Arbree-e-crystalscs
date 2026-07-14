@@ -1,11 +1,12 @@
 "use client";
 
 import type { PlanInfo } from "./types";
-import { ShieldIcon, CalendarIcon, CreditCardIcon } from "./icons";
+import { ShieldIcon, CreditCardIcon } from "./icons";
 import SeatsUsageBar from "./seats-usage-bar";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Typography } from "@/components/common/Typography/Typography";
+import { Typography } from "@/components/common/Typography/typography";
+import { Calendar } from "lucide-react";
 
 export default function PlanOverviewCard({ plan }: { plan: PlanInfo }) {
   return (
@@ -16,65 +17,86 @@ export default function PlanOverviewCard({ plan }: { plan: PlanInfo }) {
             <ShieldIcon />
           </div>
           <div>
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2 mb-2">
               <Typography
-                variant="heading"
-                level="h6"
+                variant="h5"
                 weight="bold"
-                className="text-[var(--text-success-primary-hover)]"
+                color="successSecondaryHover"
               >
                 {plan.name}
               </Typography>
 
               {plan.isActive && (
-                <Badge className="bg-success-primary text-success-primary border-0 caption-1 font-semibold flex items-center gap-1">
-                  <span className="h-1.5 w-1.5 rounded-full bg-success-secondary" />
-                  Active now
+                <Badge className="bg-success-primary px-3 py-1 border-0 caption-1 font-semibold flex items-center gap-1">
+                  <span className="h-2.5 w-2.5 rounded-full bg-success-secondary" />
+                  <Typography
+                    variant="label-1"
+                    weight="bold"
+                    color="successSecondaryHover"
+                  >
+                    Active Now
+                  </Typography>
                 </Badge>
               )}
               {plan.isCurrentPlan && (
-                <Badge className="bg-info-primary text-info-primary border-info-secondary caption-1 font-semibold">
-                  CURRENT PLAN
+                <Badge className="bg-info-primary px-3 py-1  text-info-primary border-info-secondary caption-1 font-semibold">
+                  <Typography
+                    variant="label-1"
+                    weight="bold"
+                    color="infoPrimary"
+                  >
+                    CURRENT PLAN
+                  </Typography>
                 </Badge>
               )}
             </div>
-            <p className="body-4 sm:body-3 mt-0.5 text-secondary">
+            <Typography variant="label-1" weight="bold">
               {plan.description}
-            </p>
+            </Typography>
           </div>
         </div>
 
         <div className="text-left sm:text-right">
-          <Typography variant="label" level="3" weight="bold">
+          <Typography variant="h3" weight="bold">
             {plan.priceLabel}
           </Typography>
-          <p className="caption-1 text-tertiary">{plan.priceSubLabel}</p>
+          <Typography variant="label-1" weight="bold">
+            {plan.priceSubLabel}
+          </Typography>
         </div>
       </div>
 
       <div className="mt-5 grid grid-cols-2 gap-4 border-t border-tertiary pt-4 sm:grid-cols-4">
-        <div>
-          <p className="label-3 flex items-center gap-1.5 text-tertiary">
-            <CalendarIcon />
-            Billing cycle
-          </p>
-          <p className="body-3 mt-1 font-medium text-primary">
-            {plan.billingCycle}
-          </p>
+        <div className="flex items-center gap-2">
+          <Calendar />
+
+          <div className="flex flex-col">
+            <Typography variant="label-1" color="tertiary">
+              Billing cycle
+            </Typography>
+
+            <Typography variant="label-1" weight="extrabold">
+              {plan.billingCycle}
+            </Typography>
+          </div>
         </div>
-        <div>
-          <p className="caption-1 text-tertiary">Renews on</p>
-          <p className="body-3 mt-1 font-medium text-primary">
+        <div className="flex flex-col">
+          <Typography variant="label-1" color="tertiary">
+            Renews On
+          </Typography>
+          <Typography variant="label-1" weight="extrabold">
             {plan.renewsOn}
-          </p>
-          <p className="caption-1 text-tertiary">in {plan.renewsInDays} days</p>
+          </Typography>
+          <Typography variant="label-3">in {plan.renewsInDays} days</Typography>
         </div>
-        <div>
-          <p className="caption-1 text-tertiary">Next charge</p>
-          <p className="body-3 mt-1 font-medium text-primary">
+        <div className="flex flex-col">
+          <Typography variant="label-1" color="tertiary">
+            Next Charge
+          </Typography>
+          <Typography variant="label-1" weight="extrabold">
             {plan.nextChargeAmount}
-          </p>
-          <p className="caption-1 text-tertiary">{plan.nextChargeNote}</p>
+          </Typography>
+          <Typography variant="label-3">{plan.nextChargeNote}</Typography>
         </div>
         <div>
           <p className="label-3 flex items-center gap-1.5 text-tertiary">
