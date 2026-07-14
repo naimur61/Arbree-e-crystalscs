@@ -1,11 +1,11 @@
 "use client";
 
-import { FlowBanner } from "@/components/common/ui/flow-banner";
 import { useState } from "react";
 import { EcosystemGraph } from "./_assets/components/ecosystem-graph";
 import { RiskHeatmap } from "./_assets/components/risk-heatmap";
 import { TabSwitcher } from "./_assets/components/tab-switcher";
 import { TopRisksCard } from "./_assets/components/top-risks-card";
+import { FlowBanner } from "@/components/features/ui/flow-banner";
 
 interface Node {
   id: string;
@@ -303,20 +303,20 @@ export default function ActivateContainer() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-emerald-50 to-white">
-      <div className="mx-auto p-4">
+      <div className="p-4 mx-auto">
         {/* Flow Banner */}
         <FlowBanner currentPage="activate" />
 
         {/* Main Content */}
-        <div className="bg-white rounded-lg border border-gray-200 p-8">
+        <div className="p-8 bg-white rounded-lg border border-gray-200">
           {/* Ecosystem Map Section */}
           <div className="mb-12">
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex justify-between items-center mb-6">
               <div>
-                <h2 className="text-sm font-bold text-gray-900 mb-1">
+                <h2 className="mb-1 text-sm font-bold text-gray-900">
                   Ecosystem Map
                 </h2>
-                <p className="text-gray-600 text-xs">
+                <p className="text-xs text-gray-600">
                   Your business. Connected.
                 </p>
               </div>
@@ -324,26 +324,26 @@ export default function ActivateContainer() {
             </div>
 
             {/* Legend */}
-            <div className="flex items-center gap-6 mb-6 text-sm">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-emerald-600"></div>
-                <span className="text-gray-700 text-xs">Supplier</span>
+            <div className="flex gap-6 items-center mb-6 text-sm">
+              <div className="flex gap-2 items-center">
+                <div className="w-2 h-2 bg-emerald-600 rounded-full"></div>
+                <span className="text-xs text-gray-700">Supplier</span>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                <span className="text-gray-700 text-xs">Service</span>
+              <div className="flex gap-2 items-center">
+                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                <span className="text-xs text-gray-700">Service</span>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-gray-400"></div>
-                <span className="text-gray-700 text-xs">Function</span>
+              <div className="flex gap-2 items-center">
+                <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+                <span className="text-xs text-gray-700">Function</span>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="h-1 w-6 bg-red-500"></div>
-                <span className="text-gray-700 text-xs">Critical path</span>
+              <div className="flex gap-2 items-center">
+                <div className="w-6 h-1 bg-red-500"></div>
+                <span className="text-xs text-gray-700">Critical path</span>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="h-1 w-6 border-t-2 border-dashed border-gray-300"></div>
-                <span className="text-gray-700 text-xs">Standard</span>
+              <div className="flex gap-2 items-center">
+                <div className="w-6 h-1 border-t-2 border-gray-300 border-dashed"></div>
+                <span className="text-xs text-gray-700">Standard</span>
               </div>
             </div>
 
@@ -356,13 +356,13 @@ export default function ActivateContainer() {
           </div>
 
           {/* Risk Analysis Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
             {/* Heatmap */}
-            <div className="lg:col-span-1 p-4">
-              <h3 className="text-sm font-bold text-gray-900 mb-2">
+            <div className="p-4 lg:col-span-1">
+              <h3 className="mb-2 text-sm font-bold text-gray-900">
                 Ecosystem Risk Heatmap
               </h3>
-              <p className="text-gray-600 text-xs mb-6">
+              <p className="mb-6 text-xs text-gray-600">
                 Suppliers by criticality and risk
               </p>
               <RiskHeatmap data={heatmapData} />

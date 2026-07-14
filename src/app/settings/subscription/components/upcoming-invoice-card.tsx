@@ -3,7 +3,7 @@
 import type { InvoiceSummary } from "./types";
 import SummaryInfoCard from "./summary-info-card";
 import { CalendarIcon } from "./icons";
-import { Typography } from "@/components/common/Typography/typography";
+import { Typography } from "@/components/common/typography/typography";
 
 export default function UpcomingInvoiceCard({
   invoice,

@@ -22,7 +22,7 @@ interface TopNavProps {
 
 export function TopNavbar({ title, subtitle }: TopNavProps) {
   const { toggleRightSidebar, state } = useLayout();
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -58,10 +58,12 @@ export function TopNavbar({ title, subtitle }: TopNavProps) {
           {/* Theme Toggle — placeholder box until mounted to avoid hydration mismatch */}
           {mounted ? (
             <Button
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              onClick={() =>
+                setTheme(resolvedTheme === "dark" ? "light" : "dark")
+              }
               className="p-2 transition-colors text-muted-foreground"
             >
-              {theme === "dark" ? (
+              {resolvedTheme === "dark" ? (
                 <Sun className="w-5 h-5" />
               ) : (
                 <Moon className="w-5 h-5" />

@@ -4,7 +4,7 @@ import type { InvoiceSummary } from "./types";
 import SummaryInfoCard from "./summary-info-card";
 import { FileTextIcon } from "./icons";
 import { Badge } from "@/components/ui/badge";
-import { Typography } from "@/components/common/Typography/typography";
+import { Typography } from "@/components/common/typography/typography";
 
 export default function LastInvoiceCard({
   invoice,

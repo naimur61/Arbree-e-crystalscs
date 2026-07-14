@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface PaginationProps {
   currentPage: number;
@@ -9,19 +9,23 @@ interface PaginationProps {
   setCurrentPage: (page: number) => void;
 }
 
-export function Pagination({ currentPage, totalPages, setCurrentPage }: PaginationProps) {
+export function Pagination({
+  currentPage,
+  totalPages,
+  setCurrentPage,
+}: PaginationProps) {
   if (totalPages <= 1) return null;
 
   const getPageNumbers = () => {
-    const pages: (number | 'ellipsis')[] = [];
+    const pages: (number | "ellipsis")[] = [];
     const delta = 2;
     const left = Math.max(2, currentPage - delta);
     const right = Math.min(totalPages - 1, currentPage + delta);
 
     pages.push(1);
-    if (left > 2) pages.push('ellipsis');
+    if (left > 2) pages.push("ellipsis");
     for (let i = left; i <= right; i++) pages.push(i);
-    if (right < totalPages - 1) pages.push('ellipsis');
+    if (right < totalPages - 1) pages.push("ellipsis");
     if (totalPages > 1) pages.push(totalPages);
 
     return pages;
@@ -39,19 +43,21 @@ export function Pagination({ currentPage, totalPages, setCurrentPage }: Paginati
         <ChevronLeft className="h-4 w-4" />
       </Button>
       {getPageNumbers().map((page, idx) =>
-        page === 'ellipsis' ? (
-          <span key={`ellipsis-${idx}`} className="px-2 text-muted-foreground">...</span>
+        page === "ellipsis" ? (
+          <span key={`ellipsis-${idx}`} className="px-2 text-muted-foreground">
+            ...
+          </span>
         ) : (
           <Button
             key={page}
-            variant={currentPage === page ? 'default' : 'outline'}
+            variant={currentPage === page ? "default" : "outline"}
             size="icon"
             className="h-8 w-8"
             onClick={() => setCurrentPage(page)}
           >
             {page}
           </Button>
-        )
+        ),
       )}
       <Button
         variant="outline"

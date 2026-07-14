@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useForm, useWatch, type FieldValues } from "react-hook-form";
-import { CustomField } from "@/components/common/fields/cusInputField";
+import { CustomField } from "@/components/common/fields/cus-input-field";
 import { ActionButton } from "@/components/common/button/action-button";
 import { Form } from "@/components/ui/form";
 

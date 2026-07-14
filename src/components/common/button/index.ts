@@ -16,6 +16,7 @@ export type {
   ButtonShadow,
   ButtonRadius,
   ButtonAnimation,
+  ButtonCursor,
   TooltipSide,
   ButtonVariants,
 } from "./button-config";
@@ -25,6 +26,7 @@ export {
   buttonVariants,
   typographyConfig,
   iconSizeConfig,
+  cursorConfig,
   variantLabels,
   sizeLabels,
   getVariantOptions,

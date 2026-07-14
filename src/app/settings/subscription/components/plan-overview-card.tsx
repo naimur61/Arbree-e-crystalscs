@@ -5,7 +5,7 @@ import { ShieldIcon, CreditCardIcon } from "./icons";
 import SeatsUsageBar from "./seats-usage-bar";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Typography } from "@/components/common/Typography/typography";
+import { Typography } from "@/components/common/typography/typography";
 import { Calendar } from "lucide-react";
 
 export default function PlanOverviewCard({ plan }: { plan: PlanInfo }) {

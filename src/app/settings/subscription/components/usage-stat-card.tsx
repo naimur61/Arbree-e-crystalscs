@@ -3,7 +3,7 @@
 import type { UsageStat } from "./types";
 import { usageColorVariants } from "./types";
 import { Card } from "@/components/ui/card";
-import { Typography } from "@/components/common/Typography/typography";
+import { Typography } from "@/components/common/typography/typography";
 
 export default function UsageStatCard({ stat }: { stat: UsageStat }) {
   const colors = usageColorVariants[stat.color];
