@@ -12,10 +12,10 @@ export default function UpcomingInvoiceCard({
 }) {
   return (
     <SummaryInfoCard icon={<CalendarIcon />} title="Upcoming invoice">
-      <Typography variant="h3" weight="bold">
+      <Typography variant="h5" weight="bold">
         {invoice.amount}
       </Typography>
-      <Typography variant="caption-1" color="tertiary">
+      <Typography variant="label-3" color="tertiary">
         {invoice.note}
       </Typography>
     </SummaryInfoCard>
