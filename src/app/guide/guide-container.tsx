@@ -139,6 +139,7 @@ export default function GuideContainer() {
             ["#scale", "Type Scale"],
             ["#fonts", "Fonts"],
             ["#weights", "Font Weights"],
+            ["/guide/hooks", "Hooks Guide →"],
           ].map(([href, label]) => (
             <li key={href}>
               <a
@@ -457,6 +458,29 @@ export default function GuideContainer() {
             </div>
           ))}
         </div>
+      </Section>
+
+      {/* ════════════════════════════════════════════════════════
+          HOOKS GUIDE LINK
+          ════════════════════════════════════════════════════════ */}
+      <Section id="hooks" title="Hooks Guide">
+        <a
+          href="/guide/hooks"
+          className="block p-6 rounded-xl border border-border bg-background hover:border-accent-primary/50 transition-colors"
+        >
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-lg font-semibold text-primary">
+                queryHooks Documentation
+              </p>
+              <p className="text-sm text-secondary mt-1">
+                Complete guide for useFetchData, useApiMutation,
+                useInfiniteFetchData, and useSafeUpdate.
+              </p>
+            </div>
+            <span className="text-accent-primary">→</span>
+          </div>
+        </a>
       </Section>
 
       <footer className="pt-6 text-xs text-center border-t border-border text-tertiary">
