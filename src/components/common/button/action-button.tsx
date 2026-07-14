@@ -19,6 +19,7 @@ import {
   buttonVariants,
   typographyConfig,
   iconSizeConfig,
+  cursorConfig,
 } from "./button-config";
 
 const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
@@ -32,6 +33,7 @@ const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
       shadow,
       radius,
       animation,
+      cursor,
       btnStyle,
       tooltipStyle,
       tooltipContent,
@@ -68,7 +70,9 @@ const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
           // Typography override
           typographyClass,
           // State styles
-          (isPending || disabled) && "opacity-60 cursor-not-allowed",
+          (isPending || disabled) && "opacity-60",
+          // Cursor override
+          cursor && cursorConfig[cursor],
           // Custom styles
           btnStyle,
           // Additional classes

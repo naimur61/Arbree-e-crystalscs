@@ -2,7 +2,7 @@
 
 import toast, { ToastOptions } from "react-hot-toast";
 import { LabelAndPlaceholderTextFormat } from "@/lib/utils";
-import { ToastMessageChange } from "./custom-message.component";
+import { ToastMessageChange } from "./custom-message";
 
 /**
  * Available toast notification types

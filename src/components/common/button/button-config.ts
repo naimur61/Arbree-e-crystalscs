@@ -44,6 +44,19 @@ export type ButtonAnimation = "none" | "pulse" | "bounce" | "spin" | "shake";
 
 export type TooltipSide = "top" | "right" | "bottom" | "left";
 
+export type ButtonCursor =
+  | "pointer"
+  | "default"
+  | "none"
+  | "wait"
+  | "crosshair"
+  | "not-allowed"
+  | "help"
+  | "text"
+  | "move"
+  | "grab"
+  | "grabbing";
+
 export interface ActionButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   type?: "submit" | "button" | "reset";
   variant?: ButtonVariant;
@@ -53,6 +66,7 @@ export interface ActionButtonProps extends ButtonHTMLAttributes<HTMLButtonElemen
   shadow?: ButtonShadow;
   radius?: ButtonRadius;
   animation?: ButtonAnimation;
+  cursor?: ButtonCursor;
   btnStyle?: string;
   tooltipStyle?: string;
   tooltipContent?: string;
@@ -70,7 +84,7 @@ export interface ActionButtonProps extends ButtonHTMLAttributes<HTMLButtonElemen
 // ─────────────────────────────────────────────────────────
 
 export const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap transition-all duration-200 disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap transition-all duration-200 disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] cursor-pointer",
   {
     variants: {
       variant: {
@@ -129,6 +143,24 @@ export const buttonVariants = cva(
     },
   },
 );
+
+// ─────────────────────────────────────────────────────────
+// CURSOR CONFIG
+// ─────────────────────────────────────────────────────────
+
+export const cursorConfig: Record<ButtonCursor, string> = {
+  pointer: "cursor-pointer",
+  default: "cursor-default",
+  none: "cursor-none",
+  wait: "cursor-wait",
+  crosshair: "cursor-crosshair",
+  "not-allowed": "cursor-not-allowed",
+  help: "cursor-help",
+  text: "cursor-text",
+  move: "cursor-move",
+  grab: "cursor-grab",
+  grabbing: "cursor-grabbing",
+};
 
 // ─────────────────────────────────────────────────────────
 // TYPOGRAPHY CONFIG
