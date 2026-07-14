@@ -302,21 +302,21 @@ export default function ActivateContainer() {
     graphData[activeTab as keyof typeof graphData] || graphData.suppliers;
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-emerald-50 to-white">
+    <main className="min-h-screen">
       <div className="p-4 mx-auto">
         {/* Flow Banner */}
         <FlowBanner currentPage="activate" />
 
         {/* Main Content */}
-        <div className="p-8 bg-white rounded-lg border border-gray-200">
+        <div className="p-8 bg-primary rounded-lg border border-primary">
           {/* Ecosystem Map Section */}
           <div className="mb-12">
             <div className="flex justify-between items-center mb-6">
               <div>
-                <p className="mb-1 text-sm font-bold text-gray-900">
+                <p className="mb-1 text-sm font-bold text-primary">
                   Ecosystem Map
                 </p>
-                <p className="text-xs text-gray-600">
+                <p className="text-xs text-secondary">
                   Your business. Connected.
                 </p>
               </div>
@@ -326,24 +326,24 @@ export default function ActivateContainer() {
             {/* Legend */}
             <div className="flex gap-6 items-center mb-6 text-sm">
               <div className="flex gap-2 items-center">
-                <div className="w-2 h-2 bg-emerald-600 rounded-full"></div>
-                <span className="text-xs text-gray-700">Supplier</span>
+                <div className="w-2 h-2 bg-success-primary rounded-full"></div>
+                <span className="text-xs text-primary">Supplier</span>
               </div>
               <div className="flex gap-2 items-center">
                 <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                <span className="text-xs text-gray-700">Service</span>
+                <span className="text-xs text-primary">Service</span>
               </div>
               <div className="flex gap-2 items-center">
                 <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-                <span className="text-xs text-gray-700">Function</span>
+                <span className="text-xs text-primary">Function</span>
               </div>
               <div className="flex gap-2 items-center">
                 <div className="w-6 h-1 bg-red-500"></div>
-                <span className="text-xs text-gray-700">Critical path</span>
+                <span className="text-xs text-primary">Critical path</span>
               </div>
               <div className="flex gap-2 items-center">
                 <div className="w-6 h-1 border-t-2 border-gray-300 border-dashed"></div>
-                <span className="text-xs text-gray-700">Standard</span>
+                <span className="text-xs text-primary">Standard</span>
               </div>
             </div>
 
@@ -359,10 +359,10 @@ export default function ActivateContainer() {
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
             {/* Heatmap */}
             <div className="p-4 lg:col-span-1">
-              <p className="mb-2 text-sm font-bold text-gray-900">
+              <p className="mb-2 text-sm font-bold text-primary">
                 Ecosystem Risk Heatmap
               </p>
-              <p className="mb-6 text-xs text-gray-600">
+              <p className="mb-6 text-xs text-secondary">
                 Suppliers by criticality and risk
               </p>
               <RiskHeatmap data={heatmapData} />

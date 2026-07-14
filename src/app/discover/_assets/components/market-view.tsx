@@ -228,14 +228,14 @@ export default function MarketView() {
   // }
 
   return (
-    <div className="bg-white rounded-[8px] border border-gray-200 p-4 shadow-sm my-4">
+    <div className="bg-primary rounded-[8px] border border-primary p-4 shadow-sm my-4">
       {/* Header */}
       <div className="flex items-start justify-between mb-8">
         <div>
-          <p className="text-xl font-bold tracking-wide text-slate-900 mb-1 capitalize">
+          <p className="text-xl font-bold tracking-wide text-primary mb-1 capitalize">
             MARKET VIEW
           </p>
-          <p className="text-slate-500 max-w-xl text-xs">
+          <p className="text-secondary max-w-xl text-xs">
             Strengthen the Market View section so it feels like a supplier
             intelligence capability rather than a simple list.
           </p>
@@ -243,7 +243,7 @@ export default function MarketView() {
 
         <Link
           href="#"
-          className="shrink-0 inline-flex items-center gap-1 text-emerald-700 text-xs font-semibold hover:text-emerald-800"
+          className="shrink-0 inline-flex items-center gap-1 text-success-primary text-xs font-semibold hover:text-emerald-800"
         >
           View all alerts <ArrowRight className="w-4 h-4" />
         </Link>
@@ -253,14 +253,14 @@ export default function MarketView() {
         {/* Left: providers */}
         <div className="space-y-8">
           <div>
-            <p className="text-lg text-slate-700 mb-4">
+            <p className="text-lg text-primary mb-4">
               Other providers in this category
             </p>
             <div className="flex gap-2">
               {otherProviders.map((Logo, i) => (
                 <div
                   key={i}
-                  className="w-10 h-10 rounded-xl border border-gray-100 flex items-center justify-center bg-white hover:shadow-md transition-shadow"
+                  className="w-10 h-10 rounded-xl border border-primary flex items-center justify-center bg-primary hover:shadow-md transition-shadow"
                 >
                   <Logo />
                 </div>
@@ -271,22 +271,22 @@ export default function MarketView() {
 
         {/* Middle: risk summary + legend */}
         <div className="w-full">
-          <p className="text-[32px] font-semibold text-slate-700">
+          <p className="text-[32px] font-semibold text-primary">
             Concentration risk
           </p>
           <p className="text-[40px] font-bold text-red-600 mb-3">High</p>
-          <p className="text-lg text-slate-500">
+          <p className="text-lg text-secondary">
             4 suppliers control 65% of your spend
           </p>
 
-          <div className="mt-10 pt-10 border-t border-gray-100 grid grid-cols-1 sm:grid-cols-3 gap-x-7 gap-y-2">
+          <div className="mt-10 pt-10 border-t border-primary grid grid-cols-1 sm:grid-cols-3 gap-x-7 gap-y-2">
             {legendItems.map((item) => (
               <div key={item.name} className="flex items-center gap-2 w-full">
                 <span
                   className="w-2 h-2 rounded-full shrink-0"
                   style={{ backgroundColor: item.color }}
                 />
-                <span className="text-xs font-medium text-slate-700">
+                <span className="text-xs font-medium text-primary">
                   {item.name}
                 </span>
               </div>
@@ -330,10 +330,10 @@ export default function MarketView() {
                 </Pie>
                 <Tooltip
                   content={
-                    <div className="flex items-center gap-2 w-max max-w-[220px] bg-slate-900 text-white text-xs font-semibold pl-2 pr-2.5 py-1.5 rounded-lg shadow-lg whitespace-nowrap">
+                    <div className="flex items-center gap-2 w-max max-w-[220px] bg-primary text-primary text-xs font-semibold pl-2 pr-2.5 py-1.5 rounded-lg shadow-lg whitespace-nowrap">
                       <span className="w-2 h-2 rounded-full shrink-0" />
                       {active && (
-                        <span className="text-xs font-semibold text-white">
+                        <span className="text-xs font-semibold text-primary">
                           {Math.round(active.percent * 100)}% {active.name} ·{" "}
                           {active.risk}
                         </span>

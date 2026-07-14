@@ -26,10 +26,10 @@ const SEVERITY_STYLES: Record<
 
 export function TopRisksCard({ risks }: TopRisksCardProps) {
   return (
-    <div className="w-full bg-white rounded-lg border border-gray-200 p-6">
+    <div className="w-full bg-primary rounded-lg border border-primary p-6">
       <div className="mb-6">
-        <p className="text-sm font-bold text-gray-900">Top Ecosystem Risks</p>
-        <p className="text-xs text-gray-500 mt-0.5">
+        <p className="text-sm font-bold text-primary">Top Ecosystem Risks</p>
+        <p className="text-xs text-secondary mt-0.5">
           Ranked by potential impact
         </p>
       </div>
@@ -42,7 +42,7 @@ export function TopRisksCard({ risks }: TopRisksCardProps) {
             <div key={risk.id} className="flex gap-4">
               {/* Rank circle */}
               <div
-                className={`flex-shrink-0 w-8 h-8 rounded-full font-bold text-sm text-white flex items-center justify-center ${style.circle}`}
+                className={`flex-shrink-0 w-8 h-8 rounded-full font-bold text-sm text-primary flex items-center justify-center ${style.circle}`}
               >
                 {risk.id}
               </div>
@@ -50,7 +50,7 @@ export function TopRisksCard({ risks }: TopRisksCardProps) {
               {/* Content */}
               <div className="flex-1 min-w-0">
                 <div className="flex items-start justify-between gap-3">
-                  <span className="text-[10px] font-medium text-gray-500">
+                  <span className="text-[10px] font-medium text-secondary">
                     {risk.affectedUnits} units affected
                   </span>
                   <span
@@ -59,10 +59,10 @@ export function TopRisksCard({ risks }: TopRisksCardProps) {
                     {risk.severity}
                   </span>
                 </div>
-                <p className="font-semibold text-sm text-gray-900 mt-0.5 mb-1">
+                <p className="font-semibold text-sm text-primary mt-0.5 mb-1">
                   {risk.title}
                 </p>
-                <p className="text-xs text-gray-600 leading-snug">
+                <p className="text-xs text-secondary leading-snug">
                   {risk.description}
                 </p>
               </div>
@@ -71,7 +71,7 @@ export function TopRisksCard({ risks }: TopRisksCardProps) {
         })}
       </div>
 
-      <button className="mt-6 text-emerald-600 hover:text-emerald-700 font-semibold flex items-center gap-1.5 text-sm">
+      <button className="mt-6 text-emerald-600 hover:text-success-primary font-semibold flex items-center gap-1.5 text-sm">
         View all alerts
         <ChevronRight className="w-4 h-4" />
       </button>

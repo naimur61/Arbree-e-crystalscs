@@ -23,7 +23,7 @@ export function RiskPostureCard({
 }: RiskPostureCardProps) {
   return (
     <div className="bg-emerald-50 rounded-[8px] p-4 h-full border border-emerald-200 shadow-sm">
-      <p className="text-gray-900 text-xs font-bold tracking-wide mb-5">
+      <p className="text-primary text-xs font-bold tracking-wide mb-5">
         RISK POSTURE
       </p>
 
@@ -32,21 +32,21 @@ export function RiskPostureCard({
       </p>
 
       <div className="space-y-6 text-base">
-        <p className="text-gray-600 text-xs py-2">
+        <p className="text-secondary text-xs py-2">
           AI Confidence:{" "}
-          <span className="font-bold text-gray-900">{confidence}%</span>
+          <span className="font-bold text-primary">{confidence}%</span>
         </p>
-        <p className="text-gray-600 text-xs py-2">
+        <p className="text-secondary text-xs py-2">
           Trend:{" "}
-          <span className="font-bold text-gray-900">{trendLabel[trend]}</span>
+          <span className="font-bold text-primary">{trendLabel[trend]}</span>
         </p>
-        <p className="text-gray-600 text-xs py-2">
+        <p className="text-secondary text-xs py-2">
           Board Recommendation:{" "}
-          <span className="font-bold text-gray-900">{recommendation}</span>
+          <span className="font-bold text-primary">{recommendation}</span>
         </p>
       </div>
 
-      <p className="text-gray-600 text-xs leading-relaxed mt-8">
+      <p className="text-secondary text-xs leading-relaxed mt-8">
         {description}
       </p>
     </div>

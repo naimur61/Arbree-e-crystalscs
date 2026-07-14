@@ -14,32 +14,32 @@ interface MetricCardProps {
 
 const COLOR_MAP = {
   green: {
-    border: "border-emerald-200",
-    badgeBg: "bg-emerald-100",
-    text: "text-emerald-600",
-    value: "text-emerald-600",
-    progress: "bg-emerald-500",
+    border: "border-success-primary",
+    badgeBg: "bg-success-primary",
+    text: "text-success-primary",
+    value: "text-success-primary",
+    progress: "bg-success-secondary",
   },
   blue: {
-    border: "border-blue-200",
-    badgeBg: "bg-blue-100",
-    text: "text-blue-600",
-    value: "text-blue-600",
-    progress: "bg-blue-500",
+    border: "border-info-primary",
+    badgeBg: "bg-info-primary",
+    text: "text-info-primary",
+    value: "text-info-primary",
+    progress: "bg-info-secondary",
   },
   orange: {
-    border: "border-orange-200",
-    badgeBg: "bg-orange-100",
-    text: "text-orange-600",
-    value: "text-orange-600",
-    progress: "bg-orange-500",
+    border: "border-warning-primary",
+    badgeBg: "bg-warning-primary",
+    text: "text-warning-primary",
+    value: "text-warning-primary",
+    progress: "bg-warning-secondary",
   },
   red: {
-    border: "border-red-200",
-    badgeBg: "bg-red-100",
-    text: "text-red-600",
-    value: "text-red-600",
-    progress: "bg-red-500",
+    border: "border-error-primary",
+    badgeBg: "bg-error-primary",
+    text: "text-error-primary",
+    value: "text-error-primary",
+    progress: "bg-error-secondary",
   },
 } as const;
 
@@ -58,10 +58,10 @@ export function MetricCard({
   const colors = COLOR_MAP[accentColor];
 
   return (
-    <div className={`rounded-[8px] border ${colors.border} bg-white p-4`}>
+    <div className={`rounded-[8px] border ${colors.border} bg-primary p-4`}>
       {/* Header row: label + trend badge */}
       <div className="flex items-center justify-between mb-4">
-        <p className="text-xs text-gray-900 font-bold">{label}</p>
+        <p className="text-xs text-primary font-bold">{label}</p>
         <div
           className={`flex items-center gap-1 ${colors.badgeBg} ${colors.text} rounded-full px-2.5 py-1 text-sm font-semibold`}
         >
@@ -77,9 +77,9 @@ export function MetricCard({
       {/* Value row: big number + target/subtitle */}
       <div className="flex items-baseline justify-between mb-1">
         <span className={`text-xl font-bold ${colors.value}`}>{value}</span>
-        {target && <span className="text-gray-500 text-xs">{target}</span>}
+        {target && <span className="text-secondary text-xs">{target}</span>}
         {subtitle && (
-          <span className="text-gray-500 text-[10px]">{subtitle}</span>
+          <span className="text-secondary text-[10px]">{subtitle}</span>
         )}
       </div>
 
@@ -88,11 +88,11 @@ export function MetricCard({
         <span className={`text-sm font-semibold ${colors.text}`}>
           {progressLabel}
         </span>
-        <span className="text-sm text-gray-500">{progressValue}%</span>
+        <span className="text-sm text-secondary">{progressValue}%</span>
       </div>
 
       {/* Progress bar */}
-      <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+      <div className="w-full h-1.5 bg-primary rounded-full overflow-hidden">
         <div
           className={`h-full ${colors.progress} rounded-full`}
           style={{ width: `${progressValue}%` }}

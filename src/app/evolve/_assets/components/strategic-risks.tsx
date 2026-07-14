@@ -18,8 +18,8 @@ const impactColors = {
 
 export function StrategicRisks({ risks }: StrategicRisksProps) {
   return (
-    <div className="bg-white rounded-[8px] border border-gray-200 p-6 h-full">
-      <p className="text-sm font-bold text-emerald-700 mb-5">
+    <div className="bg-primary rounded-[8px] border border-primary p-6 h-full">
+      <p className="text-sm font-bold text-success-primary mb-5">
         Top Strategic Risks
       </p>
 
@@ -37,10 +37,8 @@ export function StrategicRisks({ risks }: StrategicRisksProps) {
               }`}
             >
               <div className="flex items-center gap-4 text-xs">
-                <span className="text-gray-900 font-bold">{risk.id}</span>
-                <span className="text-gray-900 font-semibold">
-                  {risk.title}
-                </span>
+                <span className="text-primary font-bold">{risk.id}</span>
+                <span className="text-primary font-semibold">{risk.title}</span>
               </div>
               <span
                 className={`text-xs font-bold ${impactColors[risk.impact]}`}

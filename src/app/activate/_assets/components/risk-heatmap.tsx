@@ -73,7 +73,7 @@ export function RiskHeatmap({ data }: RiskHeatmapProps) {
           {RISK_ORDER.map((risk) => (
             <div
               key={risk}
-              className="flex-1 text-center text-sm font-semibold text-gray-700"
+              className="flex-1 text-center text-sm font-semibold text-primary"
             >
               {risk}
             </div>
@@ -83,7 +83,7 @@ export function RiskHeatmap({ data }: RiskHeatmapProps) {
         {/* Rows */}
         {CRITICALITY_ORDER.map((criticality) => (
           <div key={criticality} className="flex gap-2 mb-2">
-            <div className="w-20 flex-shrink-0 text-sm font-semibold text-gray-700 flex items-center justify-end pr-2">
+            <div className="w-20 flex-shrink-0 text-sm font-semibold text-primary flex items-center justify-end pr-2">
               {criticality}
             </div>
 
@@ -107,7 +107,7 @@ export function RiskHeatmap({ data }: RiskHeatmapProps) {
                   {count > 0 &&
                     (isFlagged ? (
                       <div className="w-6 h-6 rounded-full border-[3px] border-white flex items-center justify-center">
-                        <div className="w-2.5 h-2.5 rounded-full bg-white" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-primary" />
                       </div>
                     ) : (
                       <div
@@ -124,14 +124,14 @@ export function RiskHeatmap({ data }: RiskHeatmapProps) {
 
                   {cell?.supplier && (
                     <div
-                      className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-white/80"
+                      className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary/80"
                       title={cell.supplier}
                     />
                   )}
 
                   {/* Tooltip */}
                   {hovered === key && (
-                    <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs rounded-md px-2.5 py-1.5 whitespace-nowrap z-20 shadow-lg">
+                    <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-gray-900 text-primary text-xs rounded-md px-2.5 py-1.5 whitespace-nowrap z-20 shadow-lg">
                       <div className="font-semibold">
                         {criticality} criticality × {risk} risk
                       </div>
