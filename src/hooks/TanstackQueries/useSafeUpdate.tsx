@@ -4,7 +4,7 @@ import { useState, useCallback } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useApiMutation } from "./useApiMutation";
 import useFetchData from "./useFetchData";
-import { ToastMessageShow } from "@/components/common/toastMessage/toastMessageShow";
+import { ToastMessageShow } from "@/components/common/toast";
 
 /** Configuration for useSafeUpdate hook */
 interface SafeUpdateOptions {
@@ -104,10 +104,7 @@ export function useSafeUpdate<T = Record<string, unknown>>({
   const [needsOverride, setNeedsOverride] = useState(false);
 
   // Update mutation
-  const mutation = useApiMutation<
-    { success: boolean },
-    Record<string, unknown>
-  >({
+  const mutation = useApiMutation<{ success: boolean }>({
     method: "PATCH",
     path: updatePath,
     onSuccess: () => {

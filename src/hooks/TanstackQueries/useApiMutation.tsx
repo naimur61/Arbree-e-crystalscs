@@ -1,6 +1,6 @@
-import { ToastMessageShow } from "@/components/common/toastMessage/toastMessageShow";
+import { ToastMessageShow } from "@/components/common/toast";
 import { useMutation, type UseMutationResult } from "@tanstack/react-query";
-import { RemoveEmptyFields } from "../../../utils/inputFiled/RemoveEmptyFields";
+import { removeEmptyFields } from "@/lib/remove-empty-fields";
 import { useAccessToken } from "../useAccessToken";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -112,7 +112,7 @@ export function useApiMutation<TData = unknown>({
           ? (variables as unknown as FormData)
           : JSON.stringify(
               safe
-                ? RemoveEmptyFields(variables as Record<string, unknown>)
+                ? removeEmptyFields(variables as Record<string, unknown>)
                 : variables,
             );
 

@@ -1,5 +1,5 @@
 import { useQuery, type UseQueryResult } from "@tanstack/react-query";
-import { RemoveEmptyFields } from "../../../utils/inputFiled/RemoveEmptyFields";
+import { removeEmptyFields } from "@/lib/remove-empty-fields";
 import { useAccessToken } from "../useAccessToken";
 import { fetchData } from "./controller.tsx/fetchGetData";
 
@@ -73,7 +73,7 @@ function useFetchData<T = unknown>({
         path,
         Method: method,
         token: authToken,
-        queryParams: RemoveEmptyFields(filterData),
+        queryParams: removeEmptyFields(filterData),
       },
     ],
     queryFn: fetchData as never, // Type assertion handled by queryKey structure

@@ -1,4 +1,4 @@
-import { handleApiError } from "../../../../utils/errorHandler";
+import { handleApiAuthError } from "@/lib/error-handler";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -95,9 +95,9 @@ export const fetchData = async ({
     return responseData;
   } catch (error: unknown) {
     const apiError = error as ApiError;
-    const handled = handleApiError(apiError) !== null;
+    const wasHandled = handleApiAuthError(apiError);
 
-    if (handled) {
+    if (wasHandled === false) {
       throw new Error("Handled API error");
     }
 

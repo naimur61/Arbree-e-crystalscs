@@ -3,11 +3,7 @@
  *
  * @example
  * ```tsx
- * // Import individual hooks
- * import { useFetchData, useApiMutation } from "@/hooks";
- *
- * // Import common hooks
- * import HookDataFetcher from "@/hooks/common";
+ * import { useFetchData, useApiMutation, useAccessToken } from "@/hooks";
  * ```
  */
 
@@ -26,12 +22,3 @@ export {
   useSafeUpdate,
   fetchData,
 } from "./TanstackQueries";
-
-// Common data fetching hooks
-export {
-  default as HookDataFetcher,
-  useEnrolledCourseList,
-  useBankAccountList,
-  useSecurityQuestions,
-  useGetDocumentUrl,
-} from "./common";
