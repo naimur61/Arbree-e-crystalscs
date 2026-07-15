@@ -21,21 +21,24 @@ const urgencyStyles: Record<
 > = {
   IMMEDIATE: { dot: "bg-red-500", badge: "bg-red-100 text-red-600" },
   "24H": { dot: "bg-blue-500", badge: "bg-blue-100 text-blue-600" },
-  "48H": { dot: "bg-emerald-500", badge: "bg-emerald-100 text-emerald-700" },
+  "48H": {
+    dot: "bg-emerald-500",
+    badge: "bg-emerald-100 text-success-primary",
+  },
 };
 
 export function RecommendationsCard({
   recommendations,
 }: RecommendationsCardProps) {
   return (
-    <div className="bg-white rounded-[8px] border border-gray-200 p-6 h-full flex flex-col">
+    <div className="bg-primary rounded-[8px] border border-primary p-6 h-full flex flex-col">
       <div className="flex items-start gap-3 mb-6">
         <Zap className="w-6 h-6 text-emerald-600 fill-emerald-600 flex-shrink-0 mt-1" />
         <div>
-          <h2 className="text-sm font-bold text-gray-900">
+          <p className="text-sm font-bold text-primary">
             Strategic Recommendations
-          </h2>
-          <p className="text-gray-500 text-xs mt-0.5">
+          </p>
+          <p className="text-secondary text-xs mt-0.5">
             Operational response queue
           </p>
         </div>
@@ -52,16 +55,14 @@ export function RecommendationsCard({
               />
               <div className="flex-1 min-w-0">
                 <div className="flex items-start justify-between gap-2">
-                  <h3 className="text-gray-900 font-bold text-xs">
-                    {rec.title}
-                  </h3>
+                  <p className="text-primary font-bold text-xs">{rec.title}</p>
                   <span
                     className={`text-[9px] font-bold px-2 py-0.5 rounded whitespace-nowrap flex-shrink-0 ${style.badge}`}
                   >
                     {rec.urgency}
                   </span>
                 </div>
-                <p className="text-gray-500 text-[10px] mt-1 leading-snug">
+                <p className="text-secondary text-[10px] mt-1 leading-snug">
                   {rec.description}
                 </p>
               </div>
@@ -72,7 +73,7 @@ export function RecommendationsCard({
 
       <Link
         href="#"
-        className="mt-6 text-emerald-700 font-semibold flex items-center gap-2 hover:gap-3 transition-all text-xs"
+        className="mt-6 text-success-primary font-semibold flex items-center gap-2 hover:gap-3 transition-all text-xs"
       >
         View all recommendations <ArrowRight className="w-4 h-4" />
       </Link>

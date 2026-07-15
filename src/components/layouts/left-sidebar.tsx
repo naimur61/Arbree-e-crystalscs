@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Compass,
@@ -14,8 +14,8 @@ import {
   FileText,
   Settings,
   BookOpen,
-} from 'lucide-react';
-import { cn } from '@/lib/utils';
+} from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface NavItem {
   label: string;
@@ -26,58 +26,58 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   {
-    label: 'Executive Dashboard',
-    href: '/dashboard',
+    label: "Executive Dashboard",
+    href: "/dashboard",
     icon: <LayoutDashboard className="w-5 h-5" />,
   },
   {
-    label: 'Discover',
-    href: '/discover',
+    label: "Discover",
+    href: "/discover",
     icon: <Compass className="w-5 h-5" />,
   },
   {
-    label: 'Activate',
-    href: '/activate',
+    label: "Activate",
+    href: "/activate",
     icon: <Zap className="w-5 h-5" />,
   },
   {
-    label: 'Pulse',
-    href: '/pulse',
+    label: "Pulse",
+    href: "/pulse",
     icon: <Music className="w-5 h-5" />,
     badge: 5,
   },
   {
-    label: 'Evolve',
-    href: '/evolve',
+    label: "Evolve",
+    href: "/evolve",
     icon: <TrendingUp className="w-5 h-5" />,
   },
 ];
 
 const SECONDARY_NAV_ITEMS: NavItem[] = [
   {
-    label: 'Suppliers',
-    href: '/suppliers',
+    label: "Suppliers",
+    href: "/suppliers",
     icon: <Building2 className="w-5 h-5" />,
   },
   {
-    label: 'Alerts',
-    href: '/alerts',
+    label: "Alerts",
+    href: "/alerts",
     icon: <Bell className="w-5 h-5" />,
     badge: 5,
   },
   {
-    label: 'Reports',
-    href: '/reports',
+    label: "Reports",
+    href: "/reports",
     icon: <FileText className="w-5 h-5" />,
   },
   {
-    label: 'Design Guide',
-    href: '/guide',
+    label: "Design Guide",
+    href: "/guide",
     icon: <BookOpen className="w-5 h-5" />,
   },
   {
-    label: 'Settings',
-    href: '/settings',
+    label: "Settings",
+    href: "/settings",
     icon: <Settings className="w-5 h-5" />,
   },
 ];
@@ -86,7 +86,8 @@ export function LeftSidebar() {
   const pathname = usePathname();
 
   const isActive = (href: string) => {
-    if (href === '/dashboard') return pathname === '/dashboard' || pathname === '/';
+    if (href === "/dashboard")
+      return pathname === "/dashboard" || pathname === "/";
     return pathname.startsWith(href);
   };
 
@@ -117,16 +118,20 @@ export function LeftSidebar() {
               <Link
                 href={item.href}
                 className={cn(
-                  'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors',
+                  "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
                   isActive(item.href)
-                    ? 'bg-primary/10 text-primary'
-                    : 'text-muted-foreground hover:bg-accent hover:text-foreground'
+                    ? "bg-offer-primary text-primary"
+                    : "text-muted-foreground hover:bg-accent hover:text-foreground",
                 )}
               >
-                <span className={cn(
-                  'shrink-0',
-                  isActive(item.href) ? 'text-primary' : 'text-muted-foreground'
-                )}>
+                <span
+                  className={cn(
+                    "shrink-0",
+                    isActive(item.href)
+                      ? "text-primary"
+                      : "text-muted-foreground",
+                  )}
+                >
                   {item.icon}
                 </span>
                 <span className="flex-1">{item.label}</span>
@@ -150,16 +155,20 @@ export function LeftSidebar() {
               <Link
                 href={item.href}
                 className={cn(
-                  'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors',
+                  "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
                   isActive(item.href)
-                    ? 'bg-primary/10 text-primary'
-                    : 'text-muted-foreground hover:bg-accent hover:text-foreground'
+                    ? "bg-primary/10 text-primary"
+                    : "text-muted-foreground hover:bg-accent hover:text-foreground",
                 )}
               >
-                <span className={cn(
-                  'shrink-0',
-                  isActive(item.href) ? 'text-primary' : 'text-muted-foreground'
-                )}>
+                <span
+                  className={cn(
+                    "shrink-0",
+                    isActive(item.href)
+                      ? "text-primary"
+                      : "text-muted-foreground",
+                  )}
+                >
                   {item.icon}
                 </span>
                 <span className="flex-1">{item.label}</span>

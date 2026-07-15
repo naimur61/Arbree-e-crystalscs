@@ -64,8 +64,8 @@ export default function EvolveContainer() {
         <div className="">
           {/* <div className="flex justify-between items-center mb-8">
             <div className="flex gap-4 items-center">
-              <h2 className="text-sm font-bold text-gray-900">Executive Summary</h2>
-              <p className="text-xs text-gray-600">May 2024</p>
+              <h2 className="text-sm font-bold text-primary">Executive Summary</h2>
+              <p className="text-xs text-secondary">May 2024</p>
             </div>
           </div> */}
 
@@ -87,10 +87,10 @@ export default function EvolveContainer() {
           </div>
 
           <div className="grid grid-cols-1 gap-4 mb-4 lg:grid-cols-[2fr_1fr]">
-            <div className="p-4 bg-white rounded-2xl border border-gray-200 shadow-sm">
-              <h3 className="mb-6 text-sm font-bold text-gray-900">
+            <div className="p-4 bg-primary rounded-2xl border border-primary shadow-sm">
+              <p className="mb-6 text-sm font-bold text-primary">
                 Business Impact
-              </h3>
+              </p>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                 <ImpactCard
                   title="Financial Impact"
@@ -119,10 +119,10 @@ export default function EvolveContainer() {
           </div>
 
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-[2fr_1fr]">
-            <div className="p-4 bg-white rounded-2xl border border-gray-200">
-              <h3 className="mb-6 text-sm font-bold text-gray-900">
+            <div className="p-4 bg-primary rounded-2xl border border-primary">
+              <p className="mb-6 text-sm font-bold text-primary">
                 e-Crystal Recommended Actions
-              </h3>
+              </p>
               <div className="space-y-3">
                 {recommendations.map((rec, index) => {
                   const impactColorMap: Record<string, string> = {
@@ -152,14 +152,14 @@ export default function EvolveContainer() {
                       }`}
                     >
                       <div className="flex gap-4 items-center">
-                        <span className="flex justify-center items-center w-9 h-9 text-base font-bold text-emerald-700 bg-emerald-100 rounded-full shrink-0">
+                        <span className="flex justify-center items-center w-9 h-9 text-base font-bold text-success-primary bg-emerald-100 rounded-full shrink-0">
                           {rec.id}
                         </span>
                         <div className="flex gap-2 items-center">
-                          <p className="text-sm font-semibold text-gray-900">
+                          <p className="text-sm font-semibold text-primary">
                             {rec.title}
                           </p>
-                          <span className="py-0.5 px-2 text-xs text-gray-500 bg-gray-100 rounded-md">
+                          <span className="py-0.5 px-2 text-xs text-secondary bg-gray-100 rounded-md">
                             {rec.category}
                           </span>
                         </div>
@@ -176,7 +176,7 @@ export default function EvolveContainer() {
               <div className="mt-6">
                 <a
                   href="#"
-                  className="inline-flex gap-1 items-center text-xs font-semibold text-emerald-700 hover:underline"
+                  className="inline-flex gap-1 items-center text-xs font-semibold text-success-primary hover:underline"
                 >
                   View Full Plan <span aria-hidden>→</span>
                 </a>

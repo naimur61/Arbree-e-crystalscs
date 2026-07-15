@@ -57,9 +57,9 @@ const VARIANT_STYLES: Record<
   NonNullable<ImpactCardProps["variant"]>,
   { circle: string; amount: string }
 > = {
-  financial: { circle: "bg-emerald-600", amount: "text-emerald-700" },
-  operational: { circle: "bg-slate-600", amount: "text-slate-700" },
-  reputation: { circle: "bg-slate-600", amount: "text-slate-700" },
+  financial: { circle: "bg-success-primary", amount: "text-success-primary" },
+  operational: { circle: "bg-slate-600", amount: "text-primary" },
+  reputation: { circle: "bg-slate-600", amount: "text-primary" },
 };
 
 export function ImpactCard({
@@ -73,19 +73,19 @@ export function ImpactCard({
   const gradientId = `spark-${variant}-${amount.replace(/\W/g, "")}`;
 
   return (
-    <div className="bg-white rounded-[8px] border border-gray-100 p-6 text-center shadow-sm">
-      <h3 className="text-gray-800 text-xs font-semibold mb-5">{title}</h3>
+    <div className="bg-primary rounded-[8px] border border-primary p-6 text-center shadow-sm">
+      <p className="text-gray-800 text-xs font-semibold mb-5">{title}</p>
 
       <div className="flex items-center justify-center gap-3 mb-5">
         <div
-          className={`w-11 h-11 rounded-full ${style.circle} flex items-center justify-center text-white font-bold text-lg flex-shrink-0`}
+          className={`w-11 h-11 rounded-full ${style.circle} flex items-center justify-center text-primary font-bold text-lg flex-shrink-0`}
         >
           {icon}
         </div>
         <div className={`text-3xl font-bold ${style.amount}`}>{amount}</div>
       </div>
 
-      <p className="text-gray-500 text-xs leading-snug mb-6 max-w-[220px] mx-auto">
+      <p className="text-secondary text-xs leading-snug mb-6 max-w-[220px] mx-auto">
         {subtitle}
       </p>
 

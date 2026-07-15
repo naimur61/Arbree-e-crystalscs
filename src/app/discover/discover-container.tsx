@@ -5,7 +5,7 @@ import { FlowBanner } from "@/components/features/ui/flow-banner";
 
 export default function DiscoverContainer() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-emerald-50 to-white">
+    <main className="min-h-screen">
       <div className="p-4 mx-auto">
         <FlowBanner currentPage="discover" />
         <MetricsGrid />

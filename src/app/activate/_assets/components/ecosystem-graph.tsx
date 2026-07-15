@@ -79,7 +79,7 @@ export function EcosystemGraph({ nodes, links }: EcosystemGraphProps) {
   });
 
   return (
-    <div className="w-full bg-white rounded-lg border border-gray-200 p-6 overflow-x-auto">
+    <div className="w-full bg-primary rounded-lg border border-primary p-6 overflow-x-auto">
       <div className="relative" style={{ width: VW, height: VH, minWidth: VW }}>
         {/* Curves layer */}
         <svg

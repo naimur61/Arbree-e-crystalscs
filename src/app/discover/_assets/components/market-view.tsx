@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/immutability */
 "use client";
 
-import { useMemo, useState, useCallback } from "react";
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { useCallback, useMemo, useState } from "react";
+import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 
 // --- Chart data: value = share of spend, risk = qualitative risk label for that slice ---
 type RiskLevel = "Low" | "Medium" | "High";
@@ -50,12 +50,6 @@ const chartData: SliceDatum[] = [
 ];
 
 const legendItems = chartData.map(({ name, color }) => ({ name, color }));
-
-const riskDotColor: Record<RiskLevel, string> = {
-  Low: "#34d399",
-  Medium: "#fbbf24",
-  High: "#f87171",
-};
 
 // --- Provider logo icons ---
 function LogoPill() {
@@ -179,7 +173,7 @@ const otherProviders = [
   LogoSpiralBlue,
 ];
 
-const RADIAN = Math.PI / 180;
+// const RADIAN = Math.PI / 180;
 const START_ANGLE = 90;
 const END_ANGLE = 450;
 
@@ -219,29 +213,29 @@ export default function MarketView() {
 
   // Position the callout in % terms relative to the square chart box, using the
   // slice's own mid-angle — same trig Recharts' official active-shape recipe uses.
-  let calloutStyle: React.CSSProperties | null = null;
-  if (active) {
-    const cos = Math.cos(-RADIAN * active.midAngle);
-    const sin = Math.sin(-RADIAN * active.midAngle);
-    const anchorRadiusFraction = 1.08; // just outside the donut ring
-    const leftPct = 50 + cos * anchorRadiusFraction * 50;
-    const topPct = 50 + sin * anchorRadiusFraction * 50;
-    calloutStyle = {
-      left: `${leftPct}%`,
-      top: `${topPct}%`,
-      transform: `translate(${cos < 0 ? "-100%" : "0%"}, -50%)`,
-    };
-  }
+  // let calloutStyle: React.CSSProperties | null = null;
+  // if (active) {
+  //   const cos = Math.cos(-RADIAN * active.midAngle);
+  //   const sin = Math.sin(-RADIAN * active.midAngle);
+  //   const anchorRadiusFraction = 1.08; // just outside the donut ring
+  //   const leftPct = 60 + cos * anchorRadiusFraction * 60;
+  //   const topPct = 60 + sin * anchorRadiusFraction * 30;
+  //   calloutStyle = {
+  //     left: `${leftPct}%`,
+  //     top: `${topPct}%`,
+  //     transform: `translate(${cos < 0 ? "-100%" : "0%"}, -50%)`,
+  //   };
+  // }
 
   return (
-    <div className="bg-white rounded-[8px] border border-gray-200 p-8 shadow-sm">
+    <div className="bg-primary rounded-[8px] border border-primary p-4 shadow-sm my-4">
       {/* Header */}
       <div className="flex items-start justify-between mb-8">
         <div>
-          <h2 className="text-xl font-bold tracking-wide text-slate-900 mb-1 capitalize">
+          <p className="text-xl font-bold tracking-wide text-primary mb-1 capitalize">
             MARKET VIEW
-          </h2>
-          <p className="text-slate-500 max-w-xl text-xs">
+          </p>
+          <p className="text-secondary max-w-xl text-xs">
             Strengthen the Market View section so it feels like a supplier
             intelligence capability rather than a simple list.
           </p>
@@ -249,7 +243,7 @@ export default function MarketView() {
 
         <Link
           href="#"
-          className="shrink-0 inline-flex items-center gap-1 text-emerald-700 text-xs font-semibold hover:text-emerald-800"
+          className="shrink-0 inline-flex items-center gap-1 text-success-primary text-xs font-semibold hover:text-emerald-800"
         >
           View all alerts <ArrowRight className="w-4 h-4" />
         </Link>
@@ -259,14 +253,14 @@ export default function MarketView() {
         {/* Left: providers */}
         <div className="space-y-8">
           <div>
-            <h3 className="text-lg text-slate-700 mb-4">
+            <p className="text-lg text-primary mb-4">
               Other providers in this category
-            </h3>
+            </p>
             <div className="flex gap-2">
               {otherProviders.map((Logo, i) => (
                 <div
                   key={i}
-                  className="w-10 h-10 rounded-xl border border-gray-100 flex items-center justify-center bg-white hover:shadow-md transition-shadow"
+                  className="w-10 h-10 rounded-xl border border-primary flex items-center justify-center bg-primary hover:shadow-md transition-shadow"
                 >
                   <Logo />
                 </div>
@@ -277,22 +271,22 @@ export default function MarketView() {
 
         {/* Middle: risk summary + legend */}
         <div className="w-full">
-          <h3 className="text-[32px] font-semibold text-slate-700">
+          <p className="text-[32px] font-semibold text-primary">
             Concentration risk
-          </h3>
+          </p>
           <p className="text-[40px] font-bold text-red-600 mb-3">High</p>
-          <p className="text-lg text-slate-500">
+          <p className="text-lg text-secondary">
             4 suppliers control 65% of your spend
           </p>
 
-          <div className="mt-10 pt-10 border-t border-gray-100 grid grid-cols-1 sm:grid-cols-3 gap-x-7 gap-y-2">
+          <div className="mt-10 pt-10 border-t border-primary grid grid-cols-1 sm:grid-cols-3 gap-x-7 gap-y-2">
             {legendItems.map((item) => (
               <div key={item.name} className="flex items-center gap-2 w-full">
                 <span
-                  className="w-3 h-3 rounded-full shrink-0"
+                  className="w-2 h-2 rounded-full shrink-0"
                   style={{ backgroundColor: item.color }}
                 />
-                <span className="text-xs font-medium text-slate-700">
+                <span className="text-xs font-medium text-primary">
                   {item.name}
                 </span>
               </div>
@@ -334,28 +328,21 @@ export default function MarketView() {
                     />
                   ))}
                 </Pie>
+                <Tooltip
+                  content={
+                    <div className="flex items-center gap-2 w-max max-w-[220px] bg-primary text-primary text-xs font-semibold pl-2 pr-2.5 py-1.5 rounded-lg shadow-lg whitespace-nowrap">
+                      <span className="w-2 h-2 rounded-full shrink-0" />
+                      {active && (
+                        <span className="text-xs font-semibold text-primary">
+                          {Math.round(active.percent * 100)}% {active.name} ·{" "}
+                          {active.risk}
+                        </span>
+                      )}
+                    </div>
+                  }
+                />
               </PieChart>
             </ResponsiveContainer>
-
-            {/* Tooltip rendered as HTML, outside the SVG, so it can never be clipped
-                and always sizes to fit its full text content */}
-            {active && calloutStyle && (
-              <div
-                className="absolute z-20 pointer-events-none"
-                style={calloutStyle}
-              >
-                <div className="flex items-center gap-2 w-max max-w-[220px] bg-slate-900 text-white text-xs font-semibold pl-2 pr-2.5 py-1.5 rounded-lg shadow-lg whitespace-nowrap">
-                  <span
-                    className="w-2 h-2 rounded-full shrink-0"
-                    style={{ backgroundColor: riskDotColor[active.risk] }}
-                  />
-                  <span>
-                    {Math.round(active.percent * 100)}% {active.name} ·{" "}
-                    {active.risk}
-                  </span>
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </div>

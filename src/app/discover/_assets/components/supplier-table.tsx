@@ -121,31 +121,31 @@ function SortableHeader({ label }: { label: string }) {
 
 export function SupplierTable() {
   return (
-    <div className="overflow-x-auto bg-white rounded-[8px] border border-gray-200 shadow-sm">
-      <h2 className="text-xl font-bold text-slate-900 mb-3 p-3">
+    <div className="overflow-x-auto bg-primary rounded-[8px] border border-primary p-4 shadow-sm">
+      <p className="text-xl font-bold text-primary mb-3 p-3">
         Supplier Oversight
-      </h2>
+      </p>
 
       <div className="">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-gray-200 bg-slate-50">
-              <th className="px-6 py-4 text-left text-sm font-medium text-slate-600">
+            <tr className="border-b border-primary bg-primary">
+              <th className="px-6 py-4 text-left text-sm font-medium text-secondary">
                 <SortableHeader label="Supplier Name" />
               </th>
-              <th className="px-6 py-4 text-left text-sm font-medium text-slate-600">
+              <th className="px-6 py-4 text-left text-sm font-medium text-secondary">
                 <SortableHeader label="Services" />
               </th>
-              <th className="px-6 py-4 text-left text-sm font-medium text-slate-600">
+              <th className="px-6 py-4 text-left text-sm font-medium text-secondary">
                 Completeness
               </th>
-              <th className="px-6 py-4 text-left text-sm font-medium text-slate-600">
+              <th className="px-6 py-4 text-left text-sm font-medium text-secondary">
                 Risk Flags
               </th>
-              <th className="px-6 py-4 text-left text-sm font-medium text-slate-600">
+              <th className="px-6 py-4 text-left text-sm font-medium text-secondary">
                 Status
               </th>
-              <th className="px-6 py-4 text-left text-sm font-medium text-slate-600">
+              <th className="px-6 py-4 text-left text-sm font-medium text-secondary">
                 Action
               </th>
             </tr>
@@ -161,22 +161,22 @@ export function SupplierTable() {
                     <Image
                       src={supplier.iconUrl}
                       alt={supplier.name}
-                      className="w-10 h-10 rounded-lg object-cover border border-gray-100 shrink-0"
+                      className="w-10 h-10 rounded-lg object-cover border border-primary shrink-0"
                       width={40}
                       height={40}
                     />
-                    <span className="font-semibold text-slate-900">
+                    <span className="font-semibold text-primary">
                       {supplier.name}
                     </span>
                   </div>
                 </td>
-                <td className="px-6 py-4 text-base text-slate-600">
+                <td className="px-6 py-4 text-base text-primary">
                   {supplier.services}
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-3">
                     <ProgressBar percentage={supplier.completeness} />
-                    <span className="text-sm font-semibold text-slate-700 whitespace-nowrap">
+                    <span className="text-sm font-semibold text-primary whitespace-nowrap">
                       {supplier.completeness}%
                     </span>
                   </div>
@@ -188,8 +188,8 @@ export function SupplierTable() {
                   <StatusBadge status={supplier.status} />
                 </td>
                 <td className="px-6 py-4 text-center">
-                  <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                    <MoreVertical className="w-4 h-4 text-gray-400" />
+                  <button className="p-2 hover:bg-quartiary rounded-lg transition-colors">
+                    <MoreVertical className="w-4 h-4 text-primary" />
                   </button>
                 </td>
               </tr>
