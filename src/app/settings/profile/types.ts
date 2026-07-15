@@ -1,4 +1,4 @@
-export type UserRole = 'OWNER' | 'ADMIN' | 'EDITOR' | 'VIEWER';
+export type UserRole = "OWNER" | "ADMIN" | "EDITOR" | "VIEWER";
 
 export interface ProfileUser {
   name: string;
@@ -10,7 +10,7 @@ export interface ProfileUser {
   company: string;
 }
 
-export type SecurityCardTone = 'good' | 'warning' | 'neutral';
+export type SecurityCardTone = "good" | "warning" | "neutral";
 
 export interface SecurityCardData {
   id: string;
@@ -18,6 +18,7 @@ export interface SecurityCardData {
   label: string;
   value: string;
   tone: SecurityCardTone;
+  borderColor?: string;
 }
 
 export interface QuickAction {

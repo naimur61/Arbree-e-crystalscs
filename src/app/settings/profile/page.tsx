@@ -1,17 +1,12 @@
 "use client";
 
 import ProfileHeader from "./components/ProfileHeader";
-import ContactInfoBar from "./components/contact-info-bar";
 import SecurityStatus from "./components/security-status";
 import QuickActions from "./components/quick-actions";
-import {
-  ShieldIcon,
-  KeyIcon,
-  MonitorIcon,
-  ClockIcon,
-} from "./components/icons";
 import { UserIcon, LockRotateIcon, ShieldCheckIcon } from "./components/icons";
 import type { ProfileUser, SecurityCardData, QuickAction } from "./types";
+import { Typography } from "@/components/common/typography/typography";
+import { CircleCheck, TriangleAlert, Shield, Clock } from "lucide-react";
 
 const sampleUser: ProfileUser = {
   name: "Sarah Chen",
@@ -26,31 +21,35 @@ const sampleUser: ProfileUser = {
 const sampleSecurityCards: SecurityCardData[] = [
   {
     id: "2fa",
-    icon: <ShieldIcon />,
+    icon: <CircleCheck />,
     label: "Two-Factor Auth",
     value: "Enabled",
     tone: "good",
+    borderColor: "border-icon-success-primary",
   },
   {
     id: "password",
-    icon: <KeyIcon />,
+    icon: <TriangleAlert />,
     label: "Password",
     value: "Update in 12 days",
     tone: "warning",
+    borderColor: "border-icon-warning-secondary",
   },
   {
     id: "sessions",
-    icon: <MonitorIcon />,
+    icon: <Shield />,
     label: "Active Sessions",
     value: "3 devices",
     tone: "neutral",
+    borderColor: "border-icon-success-primary",
   },
   {
     id: "last-login",
-    icon: <ClockIcon />,
+    icon: <Clock />,
     label: "Last Login",
     value: "Today, 09:42",
     tone: "neutral",
+    borderColor: "border-icon-success-primary",
   },
 ];
 
@@ -67,6 +66,7 @@ const sampleActions: QuickAction[] = [
     icon: <LockRotateIcon />,
     title: "Change Password",
     description: "Rotate your credentials",
+    locked: true,
   },
   {
     id: "enable-2fa",
@@ -79,19 +79,16 @@ const sampleActions: QuickAction[] = [
 
 export default function ProfileOverviewPage() {
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen">
       <div className="mx-auto space-y-5 p-6">
         <div>
-          <h1 className="text-xl font-semibold text-gray-900">
-            Profile Overview
-          </h1>
-          <p className="text-sm text-gray-500">
+          <Typography variant="h4">Profile Overview</Typography>
+          <Typography variant="body-2">
             Manage your account and security at a glance
-          </p>
+          </Typography>
         </div>
 
         <ProfileHeader user={sampleUser} />
-        <ContactInfoBar user={sampleUser} />
         <SecurityStatus cards={sampleSecurityCards} />
         <QuickActions actions={sampleActions} />
       </div>

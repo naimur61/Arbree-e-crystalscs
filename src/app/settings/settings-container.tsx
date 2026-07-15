@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Typography } from "@/components/common/typography/typography";
 import {
   UserRound,
   Building2,
@@ -83,10 +84,9 @@ export default function SettingsContainer({
   return (
     <div className="flex min-h-screen">
       <aside className="w-56 shrink-0 border-r p-4 lg:w-60">
-        <h2 className="mb-3 px-2 text-xs font-semibold uppercase tracking-wider text-green-700">
+        <Typography variant="h4" className="mb-3 px-2 text-green-700">
           Settings
-        </h2>
-
+        </Typography>
         <nav className="flex flex-col gap-1">
           {NAV_ITEMS.map((item) => (
             <Link
@@ -105,7 +105,7 @@ export default function SettingsContainer({
         </nav>
       </aside>
 
-      <main className="flex-1 bg-green-50 p-4 md:p-6">{children}</main>
+      <main className="flex-1 bg-green-50">{children}</main>
     </div>
   );
 }
