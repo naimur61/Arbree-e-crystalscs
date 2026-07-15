@@ -39,7 +39,7 @@ export default function ProfileHeader({ user }: ProfileHeaderProps) {
     <Card className="overflow-hidden shadow-sm">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <div className="flex h-20 w-20 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-500 text-sm font-semibold text-white">
+          <div className="flex h-20 w-20 items-center justify-center rounded-xl bg-linear-to-br from-emerald-400 to-emerald-500 text-sm font-semibold text-white">
             {user.initials}
           </div>
 
