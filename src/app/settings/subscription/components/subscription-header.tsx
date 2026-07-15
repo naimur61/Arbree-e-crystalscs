@@ -32,7 +32,7 @@ export default function SubscriptionHeader({
         icon={<Sparkles />}
         buttonContent="Change plan"
         handleOpen={handleChangePlan}
-        btnStyle="shrink-0 border-0 text-type-label-1-size"
+        btnStyle="shrink-0 border-0 text-type-label-1-size btn-gradient text-white"
       />
     </div>
   );
