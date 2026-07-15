@@ -79,7 +79,7 @@ const sampleActions: QuickAction[] = [
 
 export default function ProfileOverviewPage() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-children-body">
       <div className="mx-auto space-y-5 p-6">
         <div>
           <Typography variant="h4">Profile Overview</Typography>

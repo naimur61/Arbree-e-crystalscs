@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import type { ProfileUser } from "../types";
 import { Mail, Briefcase, Building2 } from "lucide-react";
 import { Typography } from "@/components/common/typography/typography";
+import { Card } from "@/components/ui/card";
 
 interface ProfileHeaderProps {
   user: ProfileUser;
@@ -35,8 +36,8 @@ function InfoItem({
 
 export default function ProfileHeader({ user }: ProfileHeaderProps) {
   return (
-    <div className="overflow-hidden rounded-2xl bg-white shadow-sm">
-      <div className="flex items-center justify-between p-5">
+    <Card className="overflow-hidden shadow-sm">
+      <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="flex h-20 w-20 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-500 text-sm font-semibold text-white">
             {user.initials}
@@ -62,18 +63,19 @@ export default function ProfileHeader({ user }: ProfileHeaderProps) {
           </div>
         </div>
       </div>
+      <Card className="-mx-4 -mb-4 mt-4 rounded-t-xl rounded-b-xl border-0 bg-emerald-50 shadow-sm">
+        <div className="grid grid-cols-1 gap-4 p-2 sm:grid-cols-3">
+          <InfoItem icon={<Mail />} label="Email" value={user.email} />
 
-      <div className="grid grid-cols-1 gap-4 bg-emerald-50 p-4 sm:grid-cols-3">
-        <InfoItem icon={<Mail />} label="Email" value={user.email} />
+          <InfoItem
+            icon={<Briefcase />}
+            label="Job Title"
+            value={user.jobTitle}
+          />
 
-        <InfoItem
-          icon={<Briefcase />}
-          label="Job Title"
-          value={user.jobTitle}
-        />
-
-        <InfoItem icon={<Building2 />} label="Company" value={user.company} />
-      </div>
-    </div>
+          <InfoItem icon={<Building2 />} label="Company" value={user.company} />
+        </div>
+      </Card>
+    </Card>
   );
 }
