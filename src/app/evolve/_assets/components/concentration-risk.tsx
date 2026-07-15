@@ -21,7 +21,7 @@ export function ConcentrationRisk({ risks, summary }: ConcentrationRiskProps) {
 
   const badgeClasses = {
     orange: "bg-orange-100 text-orange-700",
-    red: "bg-red-100 text-red-700",
+    red: "bg-red-100 text-error-primary",
   };
 
   return (

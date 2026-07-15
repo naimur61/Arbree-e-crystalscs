@@ -39,7 +39,7 @@ export function ExecutiveBrief() {
         Quarterly Executive Brief
       </p>
 
-      <div className="border-2 border-emerald-500 rounded-xl p-5 pt-5 pb-0 overflow-hidden">
+      <div className="border-2 border-success-primary rounded-xl p-5 pt-5 pb-0 overflow-hidden">
         <p className="text-secondary text-xs mb-1">e-Crystal</p>
         <p className="text-sm font-bold text-primary mb-4">Executive Report</p>
 

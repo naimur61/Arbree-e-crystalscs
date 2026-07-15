@@ -57,7 +57,7 @@ const concentrationRisks = [
 
 export default function EvolveContainer() {
   return (
-    <main className="min-h-screen from-emerald-50 to-white bg-linear-to-b">
+    <main className="min-h-screen">
       <div className="p-4 mx-auto">
         <FlowBanner currentPage="evolve" />
 
@@ -103,14 +103,14 @@ export default function EvolveContainer() {
                   title="Operational Impact"
                   amount="3M"
                   subtitle="Critical services currently at risk"
-                  icon="⚙️"
+                  icon="£"
                   variant="operational"
                 />
                 <ImpactCard
                   title="Reputation Impact"
                   amount="10M"
                   subtitle="External sentiment risk rising"
-                  icon="👥"
+                  icon="£"
                   variant="reputation"
                 />
               </div>
@@ -126,13 +126,13 @@ export default function EvolveContainer() {
               <div className="space-y-3">
                 {recommendations.map((rec, index) => {
                   const impactColorMap: Record<string, string> = {
-                    Financial: "text-red-600",
-                    Sensitive: "text-orange-500",
-                    Mindful: "text-emerald-600",
-                    Physical: "text-blue-600",
+                    Financial: "text-error-primary",
+                    Sensitive: "text-warning-primary",
+                    Mindful: "text-success-primary",
+                    Physical: "text-info-primary",
                   };
                   const impactColor =
-                    impactColorMap[rec.category] ?? "text-emerald-600";
+                    impactColorMap[rec.category] ?? "text-success-primary";
                   const impactLabel =
                     rec.urgency === "IMMEDIATE"
                       ? "High impact"
@@ -148,18 +148,20 @@ export default function EvolveContainer() {
                     <div
                       key={rec.id}
                       className={`rounded-xl p-4 flex items-center justify-between ${
-                        isHighlighted ? "bg-emerald-50" : "bg-gray-50"
+                        isHighlighted
+                          ? "bg-success-primary border border-success-primary"
+                          : "bg-transparent border border-secondary"
                       }`}
                     >
                       <div className="flex gap-4 items-center">
-                        <span className="flex justify-center items-center w-9 h-9 text-base font-bold text-success-primary bg-emerald-100 rounded-full shrink-0">
+                        <span className="flex justify-center items-center w-9 h-9 text-base font-bold text-white bg-success-secondary rounded-full shrink-0">
                           {rec.id}
                         </span>
                         <div className="flex gap-2 items-center">
                           <p className="text-sm font-semibold text-primary">
                             {rec.title}
                           </p>
-                          <span className="py-0.5 px-2 text-xs text-secondary bg-gray-100 rounded-md">
+                          <span className="py-0.5 px-2 text-xs text-secondary bg-quartiary rounded-md">
                             {rec.category}
                           </span>
                         </div>

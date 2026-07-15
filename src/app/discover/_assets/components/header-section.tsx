@@ -55,9 +55,9 @@ export function HeaderSection() {
           </Link>
 
           <ChevronRight className="w-5 h-5 text-gray-400" />
-          <div className="flex-1 bg-gray-100 rounded-lg p-4 h-20" />
+          <div className="flex-1 bg-quartiary rounded-lg p-4 h-20" />
           <ChevronRight className="w-5 h-5 text-gray-400" />
-          <div className="flex-1 bg-gray-100 rounded-lg p-4 h-20" />
+          <div className="flex-1 bg-quartiary rounded-lg p-4 h-20" />
         </div>
       </div>
     </div>

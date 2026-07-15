@@ -274,7 +274,7 @@ export default function MarketView() {
           <p className="text-[32px] font-semibold text-primary">
             Concentration risk
           </p>
-          <p className="text-[40px] font-bold text-red-600 mb-3">High</p>
+          <p className="text-[40px] font-bold text-error-primary mb-3">High</p>
           <p className="text-lg text-secondary">
             4 suppliers control 65% of your spend
           </p>
