@@ -1,6 +1,7 @@
 import { Typography } from "@/components/common/typography/typography";
 import type { SecurityCardData, SecurityCardTone } from "../types";
 import { ShieldCheck } from "lucide-react";
+import { Card } from "@/components/ui/card";
 
 const toneStyles: Record<SecurityCardTone, string> = {
   good: "bg-emerald-50 border-emerald-200 text-emerald-700",
@@ -10,23 +11,25 @@ const toneStyles: Record<SecurityCardTone, string> = {
 
 function StatusCard({ card }: { card: SecurityCardData }) {
   return (
-    <div
-      className={`flex gap-2 rounded-xl border p-6 ${
+    <Card
+      className={`flex-row items-center gap-2 rounded-xl p-6 ${
         card.borderColor ?? "border-gray-200"
       } ${toneStyles[card.tone]}`}
     >
       <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-slate-300 bg-green-50">
         {card.icon}
       </div>
+
       <div className="flex flex-col items-start justify-center gap-1">
         <Typography variant="body-3" weight="bold">
           {card.label}
         </Typography>
+
         <Typography variant="body-3" weight="semibold">
           {card.value}
         </Typography>
       </div>
-    </div>
+    </Card>
   );
 }
 
@@ -40,7 +43,7 @@ export default function SecurityStatus({
   standingLabel = "Good standing",
 }: SecurityStatusProps) {
   return (
-    <div className="rounded-2xl bg-white p-5 shadow-sm">
+    <Card className="rounded-2xl p-5 shadow-sm">
       <div className="mb-4 flex items-center justify-between">
         <div>
           <Typography variant="h6" weight="bold">
@@ -60,6 +63,6 @@ export default function SecurityStatus({
           <StatusCard key={card.id} card={card} />
         ))}
       </div>
-    </div>
+    </Card>
   );
 }

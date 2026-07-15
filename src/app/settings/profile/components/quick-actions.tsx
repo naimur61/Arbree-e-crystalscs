@@ -2,25 +2,27 @@ import { Typography } from "@/components/common/typography/typography";
 import type { QuickAction } from "../types";
 import { Lock } from "lucide-react";
 import { LockIcon } from "./icons";
+import { Card } from "@/components/ui/card";
 
 function ActionCard({ action }: { action: QuickAction }) {
   return (
-    <div
+    <Card
       onClick={action.locked ? undefined : action.onClick}
       className={`
-        flex items-center gap-3 rounded-xl p-6 border border-gray-100 bg-white p-4 shadow-sm
-        ${
-          action.locked
-            ? "cursor-not-allowed opacity-80"
-            : "cursor-pointer hover:border-emerald-200 hover:shadow"
-        }
-      `}
+    flex-row items-center gap-3 p-6
+    border-gray-100
+    ${
+      action.locked
+        ? "cursor-not-allowed opacity-80"
+        : "cursor-pointer hover:border-emerald-200 hover:shadow"
+    }
+  `}
     >
       <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600">
         {action.icon}
       </div>
 
-      <div className="flex flex-1 flex-col">
+      <div className="flex flex-1 flex-col gap-1">
         <div className="flex items-center gap-1.5">
           <Typography variant="body-1" weight="bold">
             {action.title}
@@ -33,7 +35,7 @@ function ActionCard({ action }: { action: QuickAction }) {
           {action.description}
         </Typography>
       </div>
-    </div>
+    </Card>
   );
 }
 
@@ -47,7 +49,7 @@ export default function QuickActions({
   restrictedRoleLabel = "Viewer",
 }: QuickActionsProps) {
   return (
-    <div className="rounded-2xl bg-white p-5 shadow-sm">
+    <Card className="rounded-2xl p-3 shadow-sm">
       <div className="mb-4">
         <Typography variant="h6" weight="bold">
           Quick Actions
@@ -67,6 +69,6 @@ export default function QuickActions({
           Contact your workspace admin to request elevated permissions.
         </Typography>
       </div>
-    </div>
+    </Card>
   );
 }
