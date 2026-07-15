@@ -13,7 +13,7 @@ export default function PlanOverviewCard({ plan }: { plan: PlanInfo }) {
     <Card className="rounded-2xl border-0 p-4 shadow-sm sm:p-5">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex items-center gap-3">
-          <div className="flex h-20 w-20 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-500 text-sm font-semibold text-white">
+          <div className="flex h-20 w-20 items-center justify-center rounded-xl bg-linear-to-br from-emerald-400 to-emerald-500 text-sm font-semibold text-white">
             <ShieldIcon />
           </div>
           <div>
