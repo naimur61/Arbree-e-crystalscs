@@ -2,9 +2,17 @@
    Typography — dynamic component + named tags
    ────────────────────────────────────────────────────────────── */
 
+"use client";
+
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { themeConfig } from "@/lib/theme/theme.config";
+import { ActionButton } from "@/components/common/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import type { TypographyVariant, TypographyProps } from "./types";
 
 /* ════════════════════════════════════════════════════════════════
@@ -38,13 +46,64 @@ const defaultTag: Record<TypographyVariant, React.ElementType> = {
    ════════════════════════════════════════════════════════════════ */
 
 const Typography = React.forwardRef<HTMLElement, TypographyProps>(
-  ({ variant, as, color, weight, className, children, ...props }, ref) => {
+  (
+    {
+      variant,
+      as,
+      color,
+      weight,
+      limit,
+      tooltip = false,
+      seeMoreText = "See more",
+      seeLessText = "See less",
+      className,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
     const Tag = as ?? defaultTag[variant];
     const colorClass = color ? themeConfig.colors.text[color] : undefined;
     const weightClass = weight
       ? themeConfig.typography.weight[weight]
       : undefined;
 
+    // ── Truncation: opt-in via `limit` (default: off) ──
+    const isText = typeof children === "string" || typeof children === "number";
+    const text = isText ? String(children) : "";
+    const canTruncate =
+      limit != null && limit > 0 && isText && text.length > limit;
+
+    const [expanded, setExpanded] = React.useState(false);
+
+    const visibleContent =
+      canTruncate && !expanded
+        ? `${text.slice(0, limit).trimEnd()}…`
+        : children;
+
+    // ── Tooltip mode: truncate + hover tooltip (no "See more" button) ──
+    if (canTruncate && tooltip) {
+      return (
+        <Tooltip>
+          <TooltipTrigger asChild>
+            {React.createElement(
+              Tag,
+              {
+                ref,
+                className: cn(variant, colorClass, weightClass, className),
+                ...props,
+              },
+              visibleContent,
+            )}
+          </TooltipTrigger>
+          <TooltipContent className="max-w-xs whitespace-normal">
+            {text}
+          </TooltipContent>
+        </Tooltip>
+      );
+    }
+
+    // ── Toggle mode: truncate + "See more" button ──
     return React.createElement(
       Tag,
       {
@@ -52,7 +111,17 @@ const Typography = React.forwardRef<HTMLElement, TypographyProps>(
         className: cn(variant, colorClass, weightClass, className),
         ...props,
       },
-      children,
+      visibleContent,
+      // See-more toggle only renders when truncation is active
+      canTruncate && (
+        <ActionButton
+          variant="link"
+          size="xs"
+          className="ml-1 align-baseline"
+          handleOpen={() => setExpanded((v) => !v)}
+          buttonContent={expanded ? seeLessText : seeMoreText}
+        />
+      ),
     );
   },
 );

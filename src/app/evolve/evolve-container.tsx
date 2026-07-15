@@ -1,6 +1,6 @@
 "use client";
 
-import { FlowBanner } from "@/components/features/ui/flow-banner";
+import { FlowBanner } from "@/components/features/shared/flow-banner";
 import { ConcentrationRisk } from "./_assets/components/concentration-risk";
 import { ExecutiveBrief } from "./_assets/components/executive-brief";
 import { ImpactCard } from "./_assets/components/impact-card";

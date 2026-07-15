@@ -1,7 +1,7 @@
 import { MetricsGrid } from "./_assets/components/metrics-grid";
 import { SupplierTable } from "./_assets/components/supplier-table";
 import MarketView from "./_assets/components/market-view";
-import { FlowBanner } from "@/components/features/ui/flow-banner";
+import { FlowBanner } from "@/components/features/shared/flow-banner";
 
 export default function DiscoverContainer() {
   return (

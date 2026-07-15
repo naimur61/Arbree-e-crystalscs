@@ -17,7 +17,8 @@ export type ButtonVariant =
   | "secondary"
   | "ghost"
   | "link"
-  | "gradient";
+  | "gradient"
+  | "icon";
 
 export type ButtonSize =
   | "xs"
@@ -100,6 +101,7 @@ export const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         gradient:
           "bg-gradient-to-br from-[#004706] via-[#009D36] to-[#004706] text-white hover:opacity-90 shadow-md",
+        icon: "bg-transparent text-muted-foreground !p-0 ",
       },
       size: {
         xs: "h-6 rounded-md px-2 text-xs gap-1.5",
@@ -199,6 +201,7 @@ export const variantLabels: Record<ButtonVariant, string> = {
   ghost: "Ghost",
   link: "Link",
   gradient: "Gradient",
+  icon: "Icon",
 };
 
 export const sizeLabels: Record<ButtonSize, string> = {
