@@ -55,7 +55,7 @@ function LayoutInner({ children, title, subtitle }: AppLayoutProps) {
           subtitle={subtitle || "Premium crystals for every collection."}
         />
 
-        <main className="flex-1 bg-children-body">{children}</main>
+        <main className="flex-1 bg-children-body p-4">{children}</main>
       </div>
 
       {/* Right Sidebar — uncomment when implementing */}

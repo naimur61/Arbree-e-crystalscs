@@ -67,7 +67,7 @@ export function RightSidebar() {
     >
       <div className="flex flex-col h-full">
         {/* Header */}
-        <div className="flex justify-between items-center p-4 border-b border-border">
+        <div className="flex justify-between items-center px-4 h-14 border-b">
           <div>
             <h2 className="text-sm font-bold text-foreground">
               e-CRYSTAL AI AGENTS
@@ -76,6 +76,7 @@ export function RightSidebar() {
               Intelligence working for you, 24/7.
             </p>
           </div>
+
           <button
             onClick={toggleRightSidebar}
             className="p-1 rounded transition-colors text-muted-foreground hover:bg-accent"

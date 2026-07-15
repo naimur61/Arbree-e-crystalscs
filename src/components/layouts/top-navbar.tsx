@@ -4,16 +4,10 @@
 
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
-import {
-  Sun,
-  Moon,
-  Bell,
-  Search,
-  PanelRightClose,
-  PanelRightOpen,
-} from "lucide-react";
+import { Sun, Moon, Bell, Search, ChevronLeft } from "lucide-react";
+
 import { useLayout } from "@/providers/layout-provider";
-import { Button } from "../ui/button";
+import { ActionButton } from "@/components/common/button";
 
 interface TopNavProps {
   title: string;
@@ -32,7 +26,7 @@ export function TopNavbar({ title, subtitle }: TopNavProps) {
 
   return (
     <header className="sticky top-0 z-30 w-full border-b border-border bg-background/80 backdrop-blur-lg supports-backdrop-filter:bg-background/60">
-      <div className="flex justify-between items-center px-6 h-16">
+      <div className="flex justify-between items-center px-3 h-14">
         {/* Left: Page Title */}
         <div className="flex flex-col">
           <h4 className="font-semibold text-foreground">{title}</h4>
@@ -44,53 +38,62 @@ export function TopNavbar({ title, subtitle }: TopNavProps) {
         {/* Right: Actions */}
         <div className="flex gap-2 items-center">
           {/* Search */}
-          <button className="flex gap-2 items-center py-1.5 px-3 text-sm rounded-lg transition-colors text-muted-foreground bg-muted hover:bg-accent">
-            <Search className="w-4 h-4" />
-            <span>Search</span>
-          </button>
+          <ActionButton
+            variant="ghost"
+            btnStyle="bg-muted text-muted-foreground px-3 h-8"
+            radius="lg"
+            iconSize="sm"
+            icon={<Search />}
+            buttonContent="Search"
+          />
 
           {/* Notifications */}
-          <button className="relative p-2 rounded-lg transition-colors text-muted-foreground hover:bg-accent">
-            <Bell className="w-5 h-5" />
+          <div className="relative">
+            <ActionButton
+              variant="icon"
+              size="icon-sm"
+              tooltipContent="Notifications"
+              icon={<Bell />}
+            />
             <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
-          </button>
+          </div>
 
           {/* Theme Toggle — placeholder box until mounted to avoid hydration mismatch */}
           {mounted ? (
-            <Button
-              onClick={() =>
+            <ActionButton
+              variant="icon"
+              size="icon-sm"
+              tooltipContent={
+                resolvedTheme === "dark"
+                  ? "Switch to day mode"
+                  : "Switch to night mode"
+              }
+              handleOpen={() =>
                 setTheme(resolvedTheme === "dark" ? "light" : "dark")
               }
-              className="p-2 transition-colors text-muted-foreground"
-            >
-              {resolvedTheme === "dark" ? (
-                <Sun className="w-5 h-5" />
-              ) : (
-                <Moon className="w-5 h-5" />
-              )}
-            </Button>
+              icon={resolvedTheme === "dark" ? <Sun /> : <Moon />}
+            />
           ) : (
             <div className="size-8" />
           )}
 
           {/* User Avatar */}
-          <button className="flex justify-center items-center w-9 h-9 text-sm font-medium text-white rounded-full bg-primary">
-            SC
-          </button>
+          <ActionButton
+            variant="default"
+            radius="full"
+            btnStyle="w-9 h-9 !px-0 shadow-none"
+            buttonContent="SC"
+          />
 
           {/* Toggle Right Sidebar */}
-          <Button
-            variant={state.isRightSidebarOpen ? "default" : "outline"}
-            size="sm"
-            onClick={toggleRightSidebar}
-            className="ml-2"
-          >
-            {state.isRightSidebarOpen ? (
-              <PanelRightClose className="w-4 h-4" />
-            ) : (
-              <PanelRightOpen className="w-4 h-4" />
-            )}
-          </Button>
+          <ActionButton
+            hidden={state.isRightSidebarOpen}
+            variant="icon"
+            radius="full"
+            tooltipContent="Toggle sidebar"
+            handleOpen={toggleRightSidebar}
+            icon={<ChevronLeft className="text-secondary" strokeWidth={3} />}
+          />
         </div>
       </div>
     </header>

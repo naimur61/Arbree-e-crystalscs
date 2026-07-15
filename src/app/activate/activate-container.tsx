@@ -5,7 +5,7 @@ import { EcosystemGraph } from "./_assets/components/ecosystem-graph";
 import { RiskHeatmap } from "./_assets/components/risk-heatmap";
 import { TabSwitcher } from "./_assets/components/tab-switcher";
 import { TopRisksCard } from "./_assets/components/top-risks-card";
-import { FlowBanner } from "@/components/features/ui/flow-banner";
+import { FlowBanner } from "@/components/features/shared/flow-banner";
 
 interface Node {
   id: string;

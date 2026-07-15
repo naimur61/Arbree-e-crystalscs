@@ -936,141 +936,143 @@
    Maps Figma typography tokens to reusable classes.
    ═══════════════════════════════════════════════ */
 
-/* ── Titles ── */
-.title-1 {
-  font-family: var(--font-montserrat);
-  font-size: var(--type-title-1-size);
-  line-height: var(--type-title-1-lh);
-  letter-spacing: var(--type-title-1-ls);
-  font-weight: var(--weight-bold);
-}
-.title-2 {
-  font-family: var(--font-montserrat);
-  font-size: var(--type-title-2-size);
-  line-height: var(--type-title-2-lh);
-  letter-spacing: var(--type-title-2-ls);
-  font-weight: var(--weight-semibold);
-}
-.title-3 {
-  font-family: var(--font-montserrat);
-  font-size: var(--type-title-3-size);
-  line-height: var(--type-title-3-lh);
-  letter-spacing: var(--type-title-3-ls);
-  font-weight: var(--weight-semibold);
-}
+@layer components {
+  /* ── Titles ── */
+  .title-1 {
+    font-family: var(--font-montserrat);
+    font-size: var(--type-title-1-size);
+    line-height: var(--type-title-1-lh);
+    letter-spacing: var(--type-title-1-ls);
+    font-weight: var(--weight-bold);
+  }
+  .title-2 {
+    font-family: var(--font-montserrat);
+    font-size: var(--type-title-2-size);
+    line-height: var(--type-title-2-lh);
+    letter-spacing: var(--type-title-2-ls);
+    font-weight: var(--weight-semibold);
+  }
+  .title-3 {
+    font-family: var(--font-montserrat);
+    font-size: var(--type-title-3-size);
+    line-height: var(--type-title-3-lh);
+    letter-spacing: var(--type-title-3-ls);
+    font-weight: var(--weight-semibold);
+  }
 
-/* ── Headings ── */
-.h1 {
-  font-family: var(--font-montserrat);
-  font-size: var(--type-h1-size);
-  line-height: var(--type-h1-lh);
-  letter-spacing: var(--type-h1-ls);
-  font-weight: var(--weight-bold);
-}
-.h2 {
-  font-family: var(--font-montserrat);
-  font-size: var(--type-h2-size);
-  line-height: var(--type-h2-lh);
-  letter-spacing: var(--type-h2-ls);
-  font-weight: var(--weight-semibold);
-}
-.h3 {
-  font-family: var(--font-montserrat);
-  font-size: var(--type-h3-size);
-  line-height: var(--type-h3-lh);
-  letter-spacing: var(--type-h3-ls);
-  font-weight: var(--weight-semibold);
-}
-.h4 {
-  font-family: var(--font-montserrat);
-  font-size: var(--type-h4-size);
-  line-height: var(--type-h4-lh);
-  letter-spacing: var(--type-h4-ls);
-  font-weight: var(--weight-medium);
-}
-.h5 {
-  font-family: var(--font-montserrat);
-  font-size: var(--type-h5-size);
-  line-height: var(--type-h5-lh);
-  letter-spacing: var(--type-h5-ls);
-  font-weight: var(--weight-medium);
-}
-.h6 {
-  font-family: var(--font-montserrat);
-  font-size: var(--type-h6-size);
-  line-height: var(--type-h6-lh);
-  letter-spacing: var(--type-h6-ls);
-  font-weight: var(--weight-medium);
-}
+  /* ── Headings ── */
+  .h1 {
+    font-family: var(--font-montserrat);
+    font-size: var(--type-h1-size);
+    line-height: var(--type-h1-lh);
+    letter-spacing: var(--type-h1-ls);
+    font-weight: var(--weight-bold);
+  }
+  .h2 {
+    font-family: var(--font-montserrat);
+    font-size: var(--type-h2-size);
+    line-height: var(--type-h2-lh);
+    letter-spacing: var(--type-h2-ls);
+    font-weight: var(--weight-semibold);
+  }
+  .h3 {
+    font-family: var(--font-montserrat);
+    font-size: var(--type-h3-size);
+    line-height: var(--type-h3-lh);
+    letter-spacing: var(--type-h3-ls);
+    font-weight: var(--weight-semibold);
+  }
+  .h4 {
+    font-family: var(--font-montserrat);
+    font-size: var(--type-h4-size);
+    line-height: var(--type-h4-lh);
+    letter-spacing: var(--type-h4-ls);
+    font-weight: var(--weight-medium);
+  }
+  .h5 {
+    font-family: var(--font-montserrat);
+    font-size: var(--type-h5-size);
+    line-height: var(--type-h5-lh);
+    letter-spacing: var(--type-h5-ls);
+    font-weight: var(--weight-medium);
+  }
+  .h6 {
+    font-family: var(--font-montserrat);
+    font-size: var(--type-h6-size);
+    line-height: var(--type-h6-lh);
+    letter-spacing: var(--type-h6-ls);
+    font-weight: var(--weight-medium);
+  }
 
-/* ── Body ── */
-.body-1 {
-  font-family: var(--font-montserrat);
-  font-size: var(--type-body-1-size);
-  line-height: var(--type-body-1-lh);
-  letter-spacing: var(--type-body-1-ls);
-  font-weight: var(--weight-regular);
-}
-.body-2 {
-  font-family: var(--font-montserrat);
-  font-size: var(--type-body-2-size);
-  line-height: var(--type-body-2-lh);
-  letter-spacing: var(--type-body-2-ls);
-  font-weight: var(--weight-regular);
-}
-.body-3 {
-  font-family: var(--font-montserrat);
-  font-size: var(--type-body-3-size);
-  line-height: var(--type-body-3-lh);
-  letter-spacing: var(--type-body-3-ls);
-  font-weight: var(--weight-regular);
-}
-.body-4 {
-  font-family: var(--font-montserrat);
-  font-size: var(--type-body-4-size);
-  line-height: var(--type-body-4-lh);
-  letter-spacing: var(--type-body-4-ls);
-  font-weight: var(--weight-regular);
-}
+  /* ── Body ── */
+  .body-1 {
+    font-family: var(--font-montserrat);
+    font-size: var(--type-body-1-size);
+    line-height: var(--type-body-1-lh);
+    letter-spacing: var(--type-body-1-ls);
+    font-weight: var(--weight-regular);
+  }
+  .body-2 {
+    font-family: var(--font-montserrat);
+    font-size: var(--type-body-2-size);
+    line-height: var(--type-body-2-lh);
+    letter-spacing: var(--type-body-2-ls);
+    font-weight: var(--weight-regular);
+  }
+  .body-3 {
+    font-family: var(--font-montserrat);
+    font-size: var(--type-body-3-size);
+    line-height: var(--type-body-3-lh);
+    letter-spacing: var(--type-body-3-ls);
+    font-weight: var(--weight-regular);
+  }
+  .body-4 {
+    font-family: var(--font-montserrat);
+    font-size: var(--type-body-4-size);
+    line-height: var(--type-body-4-lh);
+    letter-spacing: var(--type-body-4-ls);
+    font-weight: var(--weight-regular);
+  }
 
-/* ── Labels ── */
-.label-1 {
-  font-family: var(--font-montserrat);
-  font-size: var(--type-label-1-size);
-  line-height: var(--type-label-1-lh);
-  letter-spacing: var(--type-label-1-ls);
-  font-weight: var(--weight-medium);
-}
-.label-2 {
-  font-family: var(--font-montserrat);
-  font-size: var(--type-label-2-size);
-  line-height: var(--type-label-2-lh);
-  letter-spacing: var(--type-label-2-ls);
-  font-weight: var(--weight-medium);
-}
-.label-3 {
-  font-family: var(--font-montserrat);
-  font-size: var(--type-label-3-size);
-  line-height: var(--type-label-3-lh);
-  letter-spacing: var(--type-label-3-ls);
-  font-weight: var(--weight-medium);
-}
+  /* ── Labels ── */
+  .label-1 {
+    font-family: var(--font-montserrat);
+    font-size: var(--type-label-1-size);
+    line-height: var(--type-label-1-lh);
+    letter-spacing: var(--type-label-1-ls);
+    font-weight: var(--weight-medium);
+  }
+  .label-2 {
+    font-family: var(--font-montserrat);
+    font-size: var(--type-label-2-size);
+    line-height: var(--type-label-2-lh);
+    letter-spacing: var(--type-label-2-ls);
+    font-weight: var(--weight-medium);
+  }
+  .label-3 {
+    font-family: var(--font-montserrat);
+    font-size: var(--type-label-3-size);
+    line-height: var(--type-label-3-lh);
+    letter-spacing: var(--type-label-3-ls);
+    font-weight: var(--weight-medium);
+  }
 
-/* ── Captions ── */
-.caption-1 {
-  font-family: var(--font-montserrat);
-  font-size: var(--type-caption-1-size);
-  line-height: var(--type-caption-1-lh);
-  letter-spacing: var(--type-caption-1-ls);
-  font-weight: var(--weight-regular);
-}
-.caption-2 {
-  font-family: var(--font-montserrat);
-  font-size: var(--type-caption-2-size);
-  line-height: var(--type-caption-2-lh);
-  letter-spacing: var(--type-caption-2-ls);
-  font-weight: var(--weight-regular);
-}
+  /* ── Captions ── */
+  .caption-1 {
+    font-family: var(--font-montserrat);
+    font-size: var(--type-caption-1-size);
+    line-height: var(--type-caption-1-lh);
+    letter-spacing: var(--type-caption-1-ls);
+    font-weight: var(--weight-regular);
+  }
+  .caption-2 {
+    font-family: var(--font-montserrat);
+    font-size: var(--type-caption-2-size);
+    line-height: var(--type-caption-2-lh);
+    letter-spacing: var(--type-caption-2-ls);
+    font-weight: var(--weight-regular);
+  }
+} /* end @layer components */
 
 /* ═══════════════════════════════════════════════
    LIGHT MODE — Figma "Tailwind Alias / Default"

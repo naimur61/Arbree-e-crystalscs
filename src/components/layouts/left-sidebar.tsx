@@ -16,6 +16,7 @@ import {
   BookOpen,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Typography } from "../common/typography/typography";
 
 interface NavItem {
   label: string;
@@ -94,20 +95,23 @@ export function LeftSidebar() {
   return (
     <aside className="flex fixed top-0 left-0 z-40 flex-col w-64 h-screen border-r border-border bg-background">
       {/* Logo Section */}
-      <div className="flex flex-col items-start p-4 border-b border-border">
-        <Link href="/" className="flex gap-2 items-center">
+      <div className="flex flex-col gap-2">
+        <Link href="/">
           <Image
             src="/logo.png"
             alt="E-Crystal Logo"
             width={100}
             height={100}
-            className="object-contain w-auto h-10"
+            className="object-contain py-2 w-full h-14 border-b"
             priority
           />
         </Link>
-        <p className="px-1 mt-2 text-xs text-muted-foreground">
-          Outsource the Noise. Keep the Intelligence™
-        </p>
+
+        <div className="h-10 border-b">
+          <Typography variant="caption-2" className="px-2">
+            Outsource the Noise. Keep the Intelligence™
+          </Typography>
+        </div>
       </div>
 
       {/* Primary Navigation */}
