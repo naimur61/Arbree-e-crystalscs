@@ -12,7 +12,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from "@/components/ui/custome/tooltip";
 import type { TypographyVariant, TypographyProps } from "./types";
 
 /* ════════════════════════════════════════════════════════════════
@@ -53,7 +53,8 @@ const Typography = React.forwardRef<HTMLElement, TypographyProps>(
       color,
       weight,
       limit,
-      tooltip = false,
+      seeMore = false,
+      tooltip: _tooltip,
       seeMoreText = "See more",
       seeLessText = "See less",
       className,
@@ -81,30 +82,7 @@ const Typography = React.forwardRef<HTMLElement, TypographyProps>(
         ? `${text.slice(0, limit).trimEnd()}…`
         : children;
 
-    // ── Tooltip mode: truncate + hover tooltip (no "See more" button) ──
-    if (canTruncate && tooltip) {
-      return (
-        <Tooltip>
-          <TooltipTrigger asChild>
-            {React.createElement(
-              Tag,
-              {
-                ref,
-                className: cn(variant, colorClass, weightClass, className),
-                ...props,
-              },
-              visibleContent,
-            )}
-          </TooltipTrigger>
-          <TooltipContent className="max-w-xs whitespace-normal">
-            {text}
-          </TooltipContent>
-        </Tooltip>
-      );
-    }
-
-    // ── Toggle mode: truncate + "See more" button ──
-    return React.createElement(
+    const element = React.createElement(
       Tag,
       {
         ref,
@@ -112,8 +90,8 @@ const Typography = React.forwardRef<HTMLElement, TypographyProps>(
         ...props,
       },
       visibleContent,
-      // See-more toggle only renders when truncation is active
-      canTruncate && (
+      // Inline toggle button — only rendered when `seeMore` is true
+      canTruncate && seeMore && (
         <ActionButton
           variant="link"
           size="xs"
@@ -123,6 +101,20 @@ const Typography = React.forwardRef<HTMLElement, TypographyProps>(
         />
       ),
     );
+
+    // Tooltip on hover — default behavior when `limit` is set
+    if (canTruncate && !seeMore) {
+      return (
+        <Tooltip>
+          <TooltipTrigger asChild>{element}</TooltipTrigger>
+          <TooltipContent sideOffset={4} className="max-w-xs whitespace-normal">
+            {text}
+          </TooltipContent>
+        </Tooltip>
+      );
+    }
+
+    return element;
   },
 );
 
