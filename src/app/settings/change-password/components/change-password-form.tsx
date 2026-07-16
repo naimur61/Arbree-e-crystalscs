@@ -5,6 +5,7 @@ import { useForm, useWatch, type FieldValues } from "react-hook-form";
 import { CustomField } from "@/components/common/fields/cusInputField";
 import { ActionButton } from "@/components/common/button/action-button";
 import { Form } from "@/components/ui/form";
+import { Typography } from "@/components/common/typography/typography";
 
 interface PasswordFormResult {
   currentPassword: string;
@@ -48,7 +49,7 @@ export default function ChangePasswordForm({
   });
 
   return (
-    <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm sm:p-5">
+    <div className="rounded-2xl border border-gray-100 bg-children-body p-4 shadow-sm sm:p-5">
       <Form {...form}>
         <form onSubmit={handleSubmit} className="space-y-4">
           <CustomField.Password

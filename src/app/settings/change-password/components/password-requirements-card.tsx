@@ -2,6 +2,7 @@
 
 import { ShieldIcon, CheckIcon, XIcon, InfoIcon } from "./icons";
 import { REQUIREMENTS } from "./types";
+import { Typography } from "@/components/common/typography/typography";
 
 export default function PasswordRequirementsCard({
   password,
@@ -9,14 +10,12 @@ export default function PasswordRequirementsCard({
   password: string;
 }) {
   return (
-    <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm sm:p-5">
+    <div className="rounded-2xl border border-gray-100 bg-children-body p-4 shadow-sm sm:p-5">
       <div className="flex items-center gap-2">
         <span className="text-emerald-600">
           <ShieldIcon />
         </span>
-        <h3 className="text-sm font-semibold text-gray-900">
-          Password Requirements
-        </h3>
+        <Typography variant="h6">Password Requirements</Typography>
       </div>
 
       <ul className="mt-3 space-y-2">

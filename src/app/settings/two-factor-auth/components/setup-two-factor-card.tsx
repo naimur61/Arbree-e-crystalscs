@@ -9,6 +9,7 @@ import RecoveryStep from "./recovery-step";
 import DoneStep from "./done-step";
 import { ArrowLeftIcon } from "./icons";
 import { ActionButton } from "@/components/common/button/action-button";
+import { Card } from "@/components/ui/card";
 
 interface SetupTwoFactorCardProps {
   steps: SetupStep[];
@@ -56,7 +57,7 @@ export default function SetupTwoFactorCard({
   const isDone = currentStepId === "done";
 
   return (
-    <div className="rounded-2xl bg-white px-3 py-4 shadow-sm sm:px-5 sm:py-5 md:px-6">
+    <Card className="rounded-2xl px-3 py-4 shadow-sm sm:px-5 sm:py-5 md:px-6">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-x-4">
         <h2 className="shrink-0 text-sm font-semibold text-gray-900 sm:text-base">
           Setup Two-Factor Authentication
@@ -131,6 +132,6 @@ export default function SetupTwoFactorCard({
           />
         </div>
       )}
-    </div>
+    </Card>
   );
 }

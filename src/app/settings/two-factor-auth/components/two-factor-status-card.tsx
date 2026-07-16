@@ -6,6 +6,8 @@ import { Sparkles } from "lucide-react";
 import { ShieldCheckIcon, SmartphoneIcon, RefreshIcon } from "./icons";
 import { KeyRound, Check } from "lucide-react";
 import { ActionButton } from "@/components/common/button/action-button";
+import { Typography } from "@/components/common/typography/typography";
+import { Card } from "@/components/ui/card";
 
 interface TwoFactorStatusCardProps {
   status: TwoFactorStatus;
@@ -21,7 +23,7 @@ export default function TwoFactorStatusCard({
   onReconfigure,
 }: TwoFactorStatusCardProps) {
   return (
-    <div className="rounded-2xl bg-white px-3 py-4 shadow-sm sm:px-5 sm:py-5 md:px-6">
+    <Card className="rounded-2xl px-3 py-4 shadow-sm sm:px-5 sm:py-5 md:px-6">
       {/* Banner row */}
       <div className="flex items-start justify-between gap-2 sm:gap-3">
         <div className="flex items-start gap-2 sm:gap-3">
@@ -30,17 +32,17 @@ export default function TwoFactorStatusCard({
           </span>
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-              <span className="text-sm font-semibold text-gray-900 sm:text-base">
+              <Typography variant="h5" weight="bold">
                 {status.enabled ? "2FA is enabled" : "2FA is disabled"}
-              </span>
+              </Typography>
               <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 sm:text-[11px]">
                 ACTIVE
               </span>
             </div>
-            <p className="mt-0.5 text-xs text-gray-500 sm:text-sm">
+            <Typography variant="body-2" color="secondary">
               Authenticator app active as of iPhone 15 · Ensuring your codes
               secure
-            </p>
+            </Typography>
           </div>
         </div>
         <div className="shrink-0">
@@ -55,13 +57,10 @@ export default function TwoFactorStatusCard({
             <SmartphoneIcon />
           </span>
           <div className="min-w-0 leading-tight">
-            <p className="text-[10px] uppercase tracking-wide text-gray-400 sm:text-[11px]">
+            <Typography variant="body-3" color="secondary">
               Method
-            </p>
-            {/* font-semibold text-gray-900 */}
-            <p className="truncate text-xs font-semibold text-gray-900 sm:text-sm">
-              {status.method}
-            </p>
+            </Typography>
+            <Typography variant="label-1">{status.method}</Typography>
           </div>
         </div>
         <div className="flex items-center gap-2 sm:gap-2.5">
@@ -69,12 +68,12 @@ export default function TwoFactorStatusCard({
             <KeyRound />
           </span>
           <div className="min-w-0 leading-tight">
-            <p className="text-[10px] uppercase tracking-wide text-gray-400 sm:text-[11px]">
+            <Typography variant="body-3" color="secondary">
               Backup Codes
-            </p>
-            <p className="truncate text-xs font-semibold text-gray-900 sm:text-sm">
+            </Typography>
+            <Typography variant="label-1">
               {status.backupCodesRemaining} of {status.backupCodesTotal} unused
-            </p>
+            </Typography>
           </div>
         </div>
         <div className="flex items-center gap-2 sm:gap-2.5">
@@ -82,12 +81,10 @@ export default function TwoFactorStatusCard({
             <Check />
           </span>
           <div className="min-w-0 leading-tight">
-            <p className="text-[10px] uppercase tracking-wide text-gray-400 sm:text-[11px]">
+            <Typography variant="body-3" color="secondary">
               Last Verified
-            </p>
-            <p className="truncate text-xs font-semibold text-gray-900 sm:text-sm">
-              {status.lastVerified}
-            </p>
+            </Typography>
+            <Typography variant="label-1">{status.lastVerified}</Typography>
           </div>
         </div>
       </div>
@@ -113,6 +110,6 @@ export default function TwoFactorStatusCard({
           btnStyle="bg-success-secondary-hover text-white rounded-lg px-4 py-1 self-stretch text-xs font-medium hover:bg-success-secondary sm:text-sm"
         />
       </div>
-    </div>
+    </Card>
   );
 }

@@ -105,7 +105,7 @@ export default function SettingsContainer({
         </nav>
       </aside>
 
-      <main className="flex-1 bg-green-50">{children}</main>
+      <main className="flex-1 bg-children-body">{children}</main>
     </div>
   );
 }
