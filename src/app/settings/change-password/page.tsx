@@ -6,6 +6,7 @@ import { REQUIREMENTS } from "./components/types";
 import LastChangeBanner from "./components/last-change-banner";
 import ChangePasswordForm from "./components/change-password-form";
 import PasswordRequirementsCard from "./components/password-requirements-card";
+import { Typography } from "@/components/common/typography/typography";
 
 export default function ChangePasswordPage() {
   const [newPassword, setNewPassword] = useState("");
@@ -29,15 +30,13 @@ export default function ChangePasswordPage() {
   };
 
   return (
-    <div className="bg-emerald-50/40 p-4 sm:p-6">
+    <div className="p-4 sm:p-6">
       <div className="mx-auto space-y-5">
         <div>
-          <h1 className="text-lg font-semibold text-gray-900 sm:text-xl">
-            Change Password
-          </h1>
-          <p className="text-sm text-gray-500">
+          <Typography variant="h5">Change Password</Typography>
+          <Typography variant="body-3" color="secondary">
             Update your password to keep your account secure
-          </p>
+          </Typography>
         </div>
 
         <LastChangeBanner
