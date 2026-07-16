@@ -10,6 +10,7 @@ const config = {
         "feat", // New feature
         "fix", // Bug fix
         "docs", // Documentation only
+        "merge", // Merge
         "style", // Formatting, no code change
         "refactor", // Code restructure, no feature/fix
         "perf", // Performance improvement

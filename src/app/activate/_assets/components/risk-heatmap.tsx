@@ -59,7 +59,7 @@ export function RiskHeatmap({ data }: RiskHeatmapProps) {
       {/* Rotated axis label */}
       <div className="flex items-center justify-center pr-3">
         <span
-          className="text-sm font-bold text-gray-800 whitespace-nowrap"
+          className="text-sm font-bold text-primary whitespace-nowrap"
           style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
         >
           Criticality
@@ -150,7 +150,7 @@ export function RiskHeatmap({ data }: RiskHeatmapProps) {
         {/* X-axis label */}
         <div className="flex mt-3">
           <div className="w-20 flex-shrink-0" />
-          <div className="flex-1 text-center text-sm font-bold text-gray-800">
+          <div className="flex-1 text-center text-sm font-bold text-primary">
             Active Risk
           </div>
         </div>

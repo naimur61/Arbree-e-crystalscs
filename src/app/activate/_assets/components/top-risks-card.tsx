@@ -18,10 +18,16 @@ const SEVERITY_STYLES: Record<
   Risk["severity"],
   { circle: string; badge: string }
 > = {
-  Critical: { circle: "bg-red-500", badge: "bg-red-50 text-red-700" },
-  High: { circle: "bg-orange-500", badge: "bg-orange-50 text-orange-700" },
-  Medium: { circle: "bg-yellow-500", badge: "bg-yellow-50 text-yellow-700" },
-  Low: { circle: "bg-green-500", badge: "bg-green-50 text-green-700" },
+  Critical: {
+    circle: "bg-error-secondary",
+    badge: "bg-error-secondary text-white",
+  },
+  High: {
+    circle: "bg-warning-secondary",
+    badge: "bg-warning-secondary text-white",
+  },
+  Medium: { circle: "bg-yellow-500", badge: "bg-yellow-50 text-white" },
+  Low: { circle: "bg-offer-secondary", badge: "bg-offer-secondary text-white" },
 };
 
 export function TopRisksCard({ risks }: TopRisksCardProps) {
@@ -42,7 +48,7 @@ export function TopRisksCard({ risks }: TopRisksCardProps) {
             <div key={risk.id} className="flex gap-4">
               {/* Rank circle */}
               <div
-                className={`flex-shrink-0 w-8 h-8 rounded-full font-bold text-sm text-primary flex items-center justify-center ${style.circle}`}
+                className={`flex-shrink-0 w-8 h-8 rounded-full font-bold text-sm text-white flex items-center justify-center ${style.circle}`}
               >
                 {risk.id}
               </div>
@@ -71,7 +77,7 @@ export function TopRisksCard({ risks }: TopRisksCardProps) {
         })}
       </div>
 
-      <button className="mt-6 text-emerald-600 hover:text-success-primary font-semibold flex items-center gap-1.5 text-sm">
+      <button className="mt-6 text-success-primary hover:text-success-dark cursor-pointer font-semibold flex items-center gap-1.5 text-sm">
         View all alerts
         <ChevronRight className="w-4 h-4" />
       </button>

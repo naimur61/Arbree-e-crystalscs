@@ -11,9 +11,9 @@ interface StrategicRisksProps {
 }
 
 const impactColors = {
-  "High impact": "text-red-600",
-  "Moderate impact": "text-orange-600",
-  "Low impact": "text-emerald-600",
+  "High impact": "text-error-primary",
+  "Moderate impact": "text-warning-primary",
+  "Low impact": "text-success-primary",
 };
 
 export function StrategicRisks({ risks }: StrategicRisksProps) {
@@ -30,10 +30,10 @@ export function StrategicRisks({ risks }: StrategicRisksProps) {
           return (
             <div
               key={risk.id}
-              className={`rounded-xl bg-emerald-50 p-5 flex items-center justify-between ${
+              className={`rounded-xl bg-success-primary p-5 flex items-center justify-between ${
                 isTop
-                  ? "border-2 border-emerald-500"
-                  : "border-2 border-transparent"
+                  ? "border-2 border-success-primary"
+                  : "border-2 border-success-secondary"
               }`}
             >
               <div className="flex items-center gap-4 text-xs">

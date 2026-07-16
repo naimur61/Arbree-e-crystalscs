@@ -195,6 +195,21 @@ export default function GuideContainer() {
                 ["color", "TypographyColor", "Text color from theme"],
                 ["as", "React.ElementType", "Override HTML tag"],
                 ["weight", "TypographyWeight", "Font weight override"],
+                [
+                  "limit",
+                  "number",
+                  "Max chars before truncating + ‘See more’ toggle",
+                ],
+                [
+                  "seeMoreText",
+                  "string",
+                  "Expand toggle label (default ‘See more’)",
+                ],
+                [
+                  "seeLessText",
+                  "string",
+                  "Collapse toggle label (default ‘See less’)",
+                ],
                 ["className", "string", "Additional classes"],
               ].map(([prop, type, desc]) => (
                 <tr key={prop}>
@@ -337,6 +352,40 @@ export default function GuideContainer() {
               }
             </code>
           </div>
+        </div>
+
+        {/* ─── `limit` + See more ─── */}
+        <p className="text-sm font-semibold text-primary">
+          With <code className="text-accent-primary">limit</code> prop (See more
+          toggle)
+        </p>
+        <div className="p-4 rounded-xl border border-border bg-background space-y-2">
+          <Typography variant="body-2" limit={80}>
+            The quick brown fox jumps over the lazy dog. This sentence is
+            intentionally verbose so it exceeds the character limit and reveals
+            a “See more” toggle that expands the full text inline when clicked.
+          </Typography>
+          <code className="block text-xs text-tertiary">
+            {'<Typography variant="body-2" limit={80}>…long text…</Typography>'}
+          </code>
+        </div>
+
+        {/* ─── `limit` + tooltip ─── */}
+        <p className="text-sm font-semibold text-primary">
+          With <code className="text-accent-primary">limit</code> +{" "}
+          <code className="text-accent-primary">tooltip</code> (hover to reveal)
+        </p>
+        <div className="p-4 rounded-xl border border-border bg-background space-y-2">
+          <Typography variant="body-2" limit={80} tooltip>
+            The quick brown fox jumps over the lazy dog. This sentence is
+            intentionally verbose so it exceeds the character limit and shows a
+            hover tooltip with the full text instead of a “See more” button.
+          </Typography>
+          <code className="block text-xs text-tertiary">
+            {
+              '<Typography variant="body-2" limit={80} tooltip>…long text…</Typography>'
+            }
+          </code>
         </div>
       </Section>
 

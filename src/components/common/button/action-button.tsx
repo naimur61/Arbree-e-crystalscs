@@ -5,7 +5,6 @@
 
 "use client";
 
-import { Button } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
@@ -21,6 +20,7 @@ import {
   iconSizeConfig,
   cursorConfig,
 } from "./button-config";
+import { Button } from "@/components/ui/custome/button";
 
 const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
   (
@@ -82,9 +82,9 @@ const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
       >
         {/* Loading or Icon */}
         {isPending ? (
-          <Loader2 className="size-4 animate-spin" />
+          <Loader2 className="animate-spin size-4" />
         ) : icon ? (
-          <span className={cn("flex-shrink-0", iconSizeClass)}>{icon}</span>
+          <span className={cn("shrink-0", iconSizeClass)}>{icon}</span>
         ) : null}
 
         {/* Button Content */}
@@ -98,7 +98,7 @@ const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
 
         {/* Last Icon */}
         {!isPending && lastIcon && (
-          <span className={cn("flex-shrink-0", iconSizeClass)}>{lastIcon}</span>
+          <span className={cn("shrink-0", iconSizeClass)}>{lastIcon}</span>
         )}
       </Button>
     );

@@ -3,7 +3,6 @@
 import { X, PieChart, Zap, Shield, RefreshCw } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
-import { ActionButton } from "@/components/common/button/action-button";
 import { useLayout } from "@/providers/layout-provider";
 
 interface AIAgent {
@@ -45,7 +44,7 @@ const AI_AGENTS: AIAgent[] = [
       "Where new stars are born; handles continuous growth, adaptation, and shaping the future.",
     action: "Improve",
     icon: <RefreshCw className="w-6 h-6" />,
-    color: "bg-orange-100 text-orange-600",
+    color: "bg-orange-100 text-warning-primary",
   },
 ];
 
@@ -68,7 +67,7 @@ export function RightSidebar() {
     >
       <div className="flex flex-col h-full">
         {/* Header */}
-        <div className="flex justify-between items-center p-4 border-b border-border">
+        <div className="flex justify-between items-center px-4 h-14 border-b">
           <div>
             <h2 className="text-sm font-bold text-foreground">
               e-CRYSTAL AI AGENTS
@@ -77,14 +76,13 @@ export function RightSidebar() {
               Intelligence working for you, 24/7.
             </p>
           </div>
-          <ActionButton
-            type="button"
-            variant="ghost"
-            size="icon"
-            icon={<X className="w-4 h-4" />}
-            handleOpen={toggleRightSidebar}
-            btnStyle="p-1 rounded text-muted-foreground hover:bg-accent"
-          />
+
+          <button
+            onClick={toggleRightSidebar}
+            className="p-1 rounded transition-colors text-muted-foreground hover:bg-accent"
+          >
+            <X className="w-4 h-4" />
+          </button>
         </div>
 
         {/* AI Agents List */}

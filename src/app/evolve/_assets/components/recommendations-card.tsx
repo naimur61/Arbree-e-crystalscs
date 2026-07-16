@@ -19,7 +19,7 @@ const urgencyStyles: Record<
   Recommendation["urgency"],
   { dot: string; badge: string }
 > = {
-  IMMEDIATE: { dot: "bg-red-500", badge: "bg-red-100 text-red-600" },
+  IMMEDIATE: { dot: "bg-red-500", badge: "bg-red-100 text-error-primary" },
   "24H": { dot: "bg-blue-500", badge: "bg-blue-100 text-blue-600" },
   "48H": {
     dot: "bg-emerald-500",
@@ -33,7 +33,7 @@ export function RecommendationsCard({
   return (
     <div className="bg-primary rounded-[8px] border border-primary p-6 h-full flex flex-col">
       <div className="flex items-start gap-3 mb-6">
-        <Zap className="w-6 h-6 text-emerald-600 fill-emerald-600 flex-shrink-0 mt-1" />
+        <Zap className="w-6 h-6 text-success-primary fill-emerald-600 flex-shrink-0 mt-1" />
         <div>
           <p className="text-sm font-bold text-primary">
             Strategic Recommendations

@@ -19,7 +19,7 @@ export function FeatureCard() {
         {/* Feature details */}
         <div className="mt-4">
           <div className="flex items-center gap-3 bg-primary border border-emerald-300 rounded-lg p-4">
-            <Zap className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+            <Zap className="w-5 h-5 text-success-primary flex-shrink-0" />
             <div>
               <p className="font-semibold text-primary">ACTIVATE</p>
               <p className="text-xs text-secondary">
@@ -27,7 +27,7 @@ export function FeatureCard() {
                 relationships.
               </p>
             </div>
-            <ChevronRight className="w-5 h-5 text-emerald-600 flex-shrink-0 ml-auto" />
+            <ChevronRight className="w-5 h-5 text-success-primary flex-shrink-0 ml-auto" />
           </div>
         </div>
       </div>
