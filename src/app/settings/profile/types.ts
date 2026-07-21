@@ -10,7 +10,7 @@ export interface ProfileUser {
   company: string;
 }
 
-export type SecurityCardTone = "good" | "warning" | "neutral";
+export type SecurityCardTone = "good" | "warning" | "neutral" | "success";
 
 export interface SecurityCardData {
   id: string;

@@ -3,10 +3,16 @@
 import ProfileHeader from "./components/ProfileHeader";
 import SecurityStatus from "./components/security-status";
 import QuickActions from "./components/quick-actions";
-import { UserIcon, LockRotateIcon, ShieldCheckIcon } from "./components/icons";
 import type { ProfileUser, SecurityCardData, QuickAction } from "./types";
 import { Typography } from "@/components/common/typography/typography";
-import { CircleCheck, TriangleAlert, Shield, Clock } from "lucide-react";
+import {
+  CircleCheck,
+  TriangleAlert,
+  Shield,
+  Clock,
+  Pencil,
+  KeyRound,
+} from "lucide-react";
 
 const sampleUser: ProfileUser = {
   name: "Sarah Chen",
@@ -40,7 +46,7 @@ const sampleSecurityCards: SecurityCardData[] = [
     icon: <Shield />,
     label: "Active Sessions",
     value: "3 devices",
-    tone: "neutral",
+    tone: "success",
     borderColor: "border-icon-success-primary",
   },
   {
@@ -48,7 +54,7 @@ const sampleSecurityCards: SecurityCardData[] = [
     icon: <Clock />,
     label: "Last Login",
     value: "Today, 09:42",
-    tone: "neutral",
+    tone: "success",
     borderColor: "border-icon-success-primary",
   },
 ];
@@ -56,21 +62,21 @@ const sampleSecurityCards: SecurityCardData[] = [
 const sampleActions: QuickAction[] = [
   {
     id: "edit-profile",
-    icon: <UserIcon />,
+    icon: <Pencil />,
     title: "Edit Profile",
     description: "Update name and details",
     locked: true,
   },
   {
     id: "change-password",
-    icon: <LockRotateIcon />,
+    icon: <KeyRound />,
     title: "Change Password",
     description: "Rotate your credentials",
     locked: true,
   },
   {
     id: "enable-2fa",
-    icon: <ShieldCheckIcon />,
+    icon: <Shield />,
     title: "Enable 2FA",
     description: "Already active on your account",
     locked: true,
