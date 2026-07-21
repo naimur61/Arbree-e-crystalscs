@@ -72,26 +72,38 @@ const Typography = React.forwardRef<HTMLElement, TypographyProps>(
     // ── Truncation: opt-in via `limit` (default: off) ──
     const isText = typeof children === "string" || typeof children === "number";
     const text = isText ? String(children) : "";
-    const canTruncate =
-      limit != null && limit > 0 && isText && text.length > limit;
+    const isResponsive = limit === true;
+
+    // Character-based truncation
+    const canCharTruncate =
+      typeof limit === "number" && limit > 0 && isText && text.length > limit;
+
+    // CSS responsive truncation
+    const truncateClass = isResponsive ? "truncate" : "";
 
     const [expanded, setExpanded] = React.useState(false);
 
     const visibleContent =
-      canTruncate && !expanded
-        ? `${text.slice(0, limit).trimEnd()}…`
+      canCharTruncate && !expanded
+        ? `${text.slice(0, limit as number).trimEnd()}…`
         : children;
 
     const element = React.createElement(
       Tag,
       {
         ref,
-        className: cn(variant, colorClass, weightClass, className),
+        className: cn(
+          variant,
+          colorClass,
+          weightClass,
+          truncateClass,
+          className,
+        ),
         ...props,
       },
       visibleContent,
       // Inline toggle button — only rendered when `seeMore` is true
-      canTruncate && seeMore && (
+      (canCharTruncate || isResponsive) && seeMore && (
         <ActionButton
           variant="link"
           size="xs"
@@ -102,13 +114,13 @@ const Typography = React.forwardRef<HTMLElement, TypographyProps>(
       ),
     );
 
-    // Tooltip on hover — default behavior when `limit` is set
-    if (canTruncate && !seeMore) {
+    // Tooltip on hover — default behavior when truncation is active
+    if ((canCharTruncate || isResponsive) && !seeMore) {
       return (
         <Tooltip>
           <TooltipTrigger asChild>{element}</TooltipTrigger>
           <TooltipContent sideOffset={4} className="max-w-xs whitespace-normal">
-            {text}
+            {isResponsive ? children : text}
           </TooltipContent>
         </Tooltip>
       );

@@ -43,10 +43,13 @@ export interface TypographyProps extends React.HTMLAttributes<HTMLElement> {
   /** Override font weight */
   weight?: TypographyWeight;
   /**
-   * Max characters to render before truncating.
-   * When omitted (default), the text is shown in full.
+   * Truncation mode:
+   * - Pass a `number` to truncate to that many characters.
+   * - Pass `true` (bare prop, e.g. `<Typography limit>`) to truncate
+   *   responsively at the container width using CSS line-clamp.
+   * - When omitted (default), the text is shown in full.
    */
-  limit?: number;
+  limit?: number | true;
   /**
    * Instead of a tooltip, render an inline "See more" / "See less"
    * toggle that expands the full text when clicked.

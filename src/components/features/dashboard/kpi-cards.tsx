@@ -92,7 +92,7 @@ function KpiCard({ card }: { card: KpiCardData }) {
         variant="body-2"
         weight="semibold"
         className="leading-tight"
-        limit={16}
+        limit
         tooltip
       >
         {card.label}
