@@ -1,6 +1,6 @@
 "use client";
-
-import { ShieldIcon, CheckIcon, XIcon, InfoIcon } from "./icons";
+import { ShieldAlert } from "lucide-react";
+import { CheckIcon, XIcon, InfoIcon } from "./icons";
 import { REQUIREMENTS } from "./types";
 import { Typography } from "@/components/common/typography/typography";
 
@@ -10,10 +10,10 @@ export default function PasswordRequirementsCard({
   password: string;
 }) {
   return (
-    <div className="rounded-2xl border border-gray-100 bg-children-body p-4 shadow-sm sm:p-5">
+    <div className="rounded-2xl border border-gray-100 bg-primary p-4 shadow-sm sm:p-5">
       <div className="flex items-center gap-2">
         <span className="text-emerald-600">
-          <ShieldIcon />
+          <ShieldAlert />
         </span>
         <Typography variant="h6">Password Requirements</Typography>
       </div>
@@ -32,9 +32,12 @@ export default function PasswordRequirementsCard({
               >
                 {met ? <CheckIcon /> : <XIcon />}
               </span>
-              <span className={met ? "text-gray-700" : "text-gray-500"}>
+              <Typography
+                variant="body-2"
+                className={met ? "text-gray-700" : "text-gray-500"}
+              >
                 {req.label}
-              </span>
+              </Typography>
             </li>
           );
         })}
@@ -44,8 +47,10 @@ export default function PasswordRequirementsCard({
         <span className="mt-0.5 shrink-0">
           <InfoIcon />
         </span>
-        Avoid reusing previous passwords. A passphrase of 4+ unrelated words
-        works well.
+        <Typography as="span" variant="body-2">
+          Avoid reusing previous passwords. A passphrase of 4+ unrelated words
+          works well.
+        </Typography>
       </div>
     </div>
   );

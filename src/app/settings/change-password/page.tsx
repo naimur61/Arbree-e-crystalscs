@@ -44,7 +44,7 @@ export default function ChangePasswordPage() {
           rotationDays={rotationDays}
         />
 
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-[1fr_320px]">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-[1fr_500px]">
           <ChangePasswordForm
             onNewPasswordChange={setNewPassword}
             onCancel={() => console.log("cancel")}

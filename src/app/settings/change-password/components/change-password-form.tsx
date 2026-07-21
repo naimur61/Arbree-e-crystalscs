@@ -49,7 +49,7 @@ export default function ChangePasswordForm({
   });
 
   return (
-    <div className="rounded-2xl border border-gray-100 bg-children-body p-4 shadow-sm sm:p-5">
+    <div className="rounded-2xl border border-gray-100 bg-primary p-4 shadow-sm sm:p-5">
       <Form {...form}>
         <form onSubmit={handleSubmit} className="space-y-4">
           <CustomField.Password
