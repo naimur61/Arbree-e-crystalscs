@@ -681,6 +681,9 @@
 .border-offer-secondary {
   border-color: var(--border-offer-secondary);
 }
+.border-card {
+  border-color: var(--border-card);
+}
 
 /* ── Icon utilities: icon-primary, icon-secondary, etc. ── */
 .icon-primary {
@@ -1287,6 +1290,7 @@
   --border-info-secondary: #93c5fd;
   --border-offer-primary: #22c55e;
   --border-offer-secondary: #86efac;
+  --border-card: rgba(34, 197, 94, 0.2);
 
   /* ── Shadcn mapped variables ── */
   --card: oklch(1 0 0);
@@ -1470,6 +1474,7 @@
   --border-info-secondary: #1d4ed8;
   --border-offer-primary: #22c55e;
   --border-offer-secondary: #15803d;
+  --border-card: rgba(34, 197, 94, 0.2);
 
   /* ── Shadcn mapped variables ── */
   --background: oklch(0.145 0 0);

@@ -12,7 +12,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/components/ui/custome/tooltip";
+} from "@/components/ui/custom/tooltip";
 import type { TypographyVariant, TypographyProps } from "./types";
 
 /* ════════════════════════════════════════════════════════════════

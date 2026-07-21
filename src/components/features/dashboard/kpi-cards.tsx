@@ -8,9 +8,9 @@ import {
   LucideIcon,
 } from "lucide-react";
 
-import { Card } from "@/components/ui/card";
 import { Sparkline } from "@/components/features/dashboard/sparkline";
 import { Typography } from "@/components/common/typography/typography";
+import { CardContainer } from "@/components/common/card/Card";
 
 /* ---------------------- Data types ---------------------- */
 interface KpiCardData {
@@ -86,13 +86,8 @@ const CARDS: KpiCardData[] = [
 
 /* ---------------------- Card ---------------------- */
 function KpiCard({ card }: { card: KpiCardData }) {
-  const TrendIcon = card.trendIcon;
-  const isUp = card.trend > 0;
-  const absTrend = Math.abs(card.trend);
-  const trendColor = isUp ? "text-success-primary" : "text-error-primary";
-
   return (
-    <Card className={`${card.borderClass} h-29 gap-1 p-3`}>
+    <CardContainer className={`${card.borderClass}  gap-1 p-3`}>
       <Typography
         variant="body-2"
         weight="semibold"
@@ -124,7 +119,7 @@ function KpiCard({ card }: { card: KpiCardData }) {
           </div>
         </div>
       </div>
-    </Card>
+    </CardContainer>
   );
 }
 

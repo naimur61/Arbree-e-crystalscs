@@ -146,6 +146,7 @@ export const themeConfig = {
       infoSecondary: "border-info-secondary",
       offerPrimary: "border-offer-primary",
       offerSecondary: "border-offer-secondary",
+      card: "border-card",
     },
   },
   typography: {

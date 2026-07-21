@@ -20,7 +20,7 @@ import {
   iconSizeConfig,
   cursorConfig,
 } from "./button-config";
-import { Button } from "@/components/ui/custome/button";
+import { Button } from "@/components/ui/custom/button";
 
 const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
   (
