@@ -161,7 +161,7 @@ export default function EvolveContainer() {
                           <p className="text-sm font-semibold text-primary">
                             {rec.title}
                           </p>
-                          <span className="py-0.5 px-2 text-xs text-secondary bg-quartiary rounded-md">
+                          <span className="py-0.5 px-2 text-xs font-bold text-primary bg-quartiary rounded-md">
                             {rec.category}
                           </span>
                         </div>

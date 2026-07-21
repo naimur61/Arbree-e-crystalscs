@@ -1,11 +1,15 @@
-/* eslint-disable react-hooks/immutability */
 "use client";
-
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useMemo, useState } from "react";
-import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
-
+import {
+  Cell,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Sector,
+  Tooltip,
+} from "recharts";
 // --- Chart data: value = share of spend, risk = qualitative risk label for that slice ---
 type RiskLevel = "Low" | "Medium" | "High";
 
@@ -182,17 +186,18 @@ export default function MarketView() {
   const [pinnedIndex, setPinnedIndex] = useState<number | null>(null);
   const activeIndex = hoverIndex ?? pinnedIndex;
 
-  // Precompute each slice's start/mid/end angle ourselves (same convention Recharts
-  // uses internally for this startAngle/endAngle pair), so we don't depend on any
-  // Recharts-internal prop that may not exist in the installed type defs/version.
   const slicesWithAngles = useMemo(() => {
     const total = chartData.reduce((sum, d) => sum + d.value, 0);
-    let cumulative = 0;
-    return chartData.map((d) => {
+    return chartData.map((d, index) => {
+      const previousSpan = chartData
+        .slice(0, index)
+        .reduce(
+          (sum, item) => sum + (item.value / total) * (END_ANGLE - START_ANGLE),
+          0,
+        );
       const span = (d.value / total) * (END_ANGLE - START_ANGLE);
-      const startAngle = START_ANGLE + cumulative;
+      const startAngle = START_ANGLE + previousSpan;
       const endAngle = startAngle + span;
-      cumulative += span;
       return {
         ...d,
         percent: d.value / total,
@@ -211,21 +216,57 @@ export default function MarketView() {
 
   const active = activeIndex !== null ? slicesWithAngles[activeIndex] : null;
 
-  // Position the callout in % terms relative to the square chart box, using the
-  // slice's own mid-angle — same trig Recharts' official active-shape recipe uses.
-  // let calloutStyle: React.CSSProperties | null = null;
-  // if (active) {
-  //   const cos = Math.cos(-RADIAN * active.midAngle);
-  //   const sin = Math.sin(-RADIAN * active.midAngle);
-  //   const anchorRadiusFraction = 1.08; // just outside the donut ring
-  //   const leftPct = 60 + cos * anchorRadiusFraction * 60;
-  //   const topPct = 60 + sin * anchorRadiusFraction * 30;
-  //   calloutStyle = {
-  //     left: `${leftPct}%`,
-  //     top: `${topPct}%`,
-  //     transform: `translate(${cos < 0 ? "-100%" : "0%"}, -50%)`,
-  //   };
-  // }
+  // Custom sector renderer replaces <Cell> — Recharts 4.x removed Cell in favor of `shape`
+  const renderSlice = useCallback(
+    (props: any) => {
+      const {
+        cx,
+        cy,
+        innerRadius,
+        outerRadius,
+        startAngle,
+        endAngle,
+        fill,
+        index,
+      } = props;
+      const isActive = activeIndex === index;
+      return (
+        <Sector
+          cx={cx}
+          cy={cy}
+          innerRadius={innerRadius}
+          outerRadius={outerRadius}
+          startAngle={startAngle}
+          endAngle={endAngle}
+          fill={fill}
+          stroke={isActive ? "#fff" : "none"}
+          strokeWidth={isActive ? 2 : 0}
+          opacity={activeIndex === null || isActive ? 1 : 0.45}
+          className="cursor-pointer outline-none transition-opacity"
+          onMouseEnter={() => handleEnter(index)}
+          onClick={() => handleClick(index)}
+        />
+      );
+    },
+    [activeIndex, handleEnter, handleClick],
+  );
+
+  // Custom tooltip content — must be a function/component, not a pre-built element,
+  // otherwise Recharts clones it and forwards internal props (allowEscapeViewBox etc.)
+  // straight onto the DOM node.
+  const renderTooltip = useCallback(
+    () => (
+      <div className="flex items-center gap-2 w-max max-w-[220px] bg-primary text-primary text-xs font-semibold pl-2 pr-2.5 py-1.5 rounded-lg shadow-lg whitespace-nowrap">
+        <span className="w-2 h-2 rounded-full shrink-0" />
+        {active && (
+          <span className="text-xs font-semibold text-primary">
+            {Math.round(active.percent * 100)}% {active.name} · {active.risk}
+          </span>
+        )}
+      </div>
+    ),
+    [active],
+  );
 
   return (
     <div className="bg-primary rounded-[8px] border border-primary p-4 shadow-sm my-4">
@@ -311,8 +352,10 @@ export default function MarketView() {
                   paddingAngle={0}
                   dataKey="value"
                   stroke="none"
+                  shape={renderSlice}
                   onMouseLeave={handleLeave}
                 >
+                  {" "}
                   {chartData.map((entry, i) => (
                     <Cell
                       key={entry.key}
@@ -328,19 +371,7 @@ export default function MarketView() {
                     />
                   ))}
                 </Pie>
-                <Tooltip
-                  content={
-                    <div className="flex items-center gap-2 w-max max-w-[220px] bg-primary text-primary text-xs font-semibold pl-2 pr-2.5 py-1.5 rounded-lg shadow-lg whitespace-nowrap">
-                      <span className="w-2 h-2 rounded-full shrink-0" />
-                      {active && (
-                        <span className="text-xs font-semibold text-primary">
-                          {Math.round(active.percent * 100)}% {active.name} ·{" "}
-                          {active.risk}
-                        </span>
-                      )}
-                    </div>
-                  }
-                />
+                <Tooltip cursor={false} content={renderTooltip} />
               </PieChart>
             </ResponsiveContainer>
           </div>
