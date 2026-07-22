@@ -10,12 +10,14 @@ import { BlastRadiusCard } from "@/components/features/pulse/blast-radius-card";
 import { IntelligenceHighlights } from "@/components/features/pulse/intelligence-highlights";
 import { SignalSources } from "@/components/features/pulse/signal-sources";
 import { AlertFeed } from "@/components/features/pulse/alert-feed";
+import { FlowBanner } from "@/components/features/shared/flow-banner";
 
 export default function PulseContainer() {
   return (
-    <div className="min-h-screen bg-[#f4faf5] p-4 text-[13px] text-slate-800">
-      <div className="mx-auto max-w-[1400px] space-y-3">
+    <div>
+      <div className="space-y-3">
         <HeaderCard />
+        <FlowBanner currentPage="pulse" />
         <StatCards />
         <GaugeCards />
         <div className="grid grid-cols-2 gap-3">

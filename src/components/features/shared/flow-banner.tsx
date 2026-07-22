@@ -26,8 +26,8 @@ const STEPS: Record<
     icon: LucideIcon;
     title: string;
     desc: string;
-    header: string;
-    subtitle: string;
+    header?: string;
+    subtitle?: string;
   }
 > = {
   dashboard: {
@@ -55,9 +55,9 @@ const STEPS: Record<
     icon: Activity,
     title: "PULSE",
     desc: "Monitor risk in real time. Track signals, threats and emerging changes",
-    header: "Pulse - Real-Time Supplier Insights",
-    subtitle:
-      "Monitor risk in real time Track signals, threats and emerging changes.",
+    // header: "Pulse - Real-Time Supplier Insights",
+    // subtitle:
+    //   "Monitor risk in real time Track signals, threats and emerging changes.",
   },
   evolve: {
     icon: TrendingUp,
@@ -87,11 +87,11 @@ export function FlowBanner({ currentPage }: FlowBannerProps) {
   return (
     <div className="mb-4 space-y-4">
       {/* Header */}
-      {!isDashboard && (
+      {!isDashboard && header && (
         <div className="flex justify-between">
           <div>
             <p className="mb-2 text-xl font-bold text-primary">{header}</p>
-            <p className="text-xs text-secondary">{subtitle}</p>
+            {subtitle && <p className="text-xs text-secondary">{subtitle}</p>}
           </div>
           {currentPage === "evolve" && (
             <button className="flex gap-2 items-center py-2 px-6 font-semibold bg-emerald-700 rounded-lg transition-colors hover:bg-emerald-800 text-primary">
