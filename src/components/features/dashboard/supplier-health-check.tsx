@@ -92,17 +92,16 @@ export function SupplierHealthCheck() {
       title="Supplier Health Check"
       subtitle="Suppliers by risk and criticality"
     >
-      <div className="grid grid-cols-5 gap-4">
+      <div className="grid grid-cols-10 gap-4">
         <div className="flex col-span-1 justify-center items-center">
           <span
-            className="font-medium whitespace-nowrap text-[10px] text-secondary"
             style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
           >
             Criticality
           </span>
         </div>
 
-        <div className="col-span-4 flex gap-2">
+        <div className="flex col-span-9 gap-2">
           <div className="flex flex-col justify-around py-1 font-medium leading-none text-[10px] text-secondary">
             {["High", "Medium", "Low"].map((r) => (
               <span
