@@ -104,7 +104,7 @@ export function SupplierHealthCheck() {
 
         <div className="col-span-4 flex gap-2">
           <div className="flex flex-col justify-around py-1 font-medium leading-none text-[10px] text-secondary">
-            {ROWS.map((r) => (
+            {["High", "Medium", "Low"].map((r) => (
               <span
                 key={r}
                 style={{ height: 37.81 }}
