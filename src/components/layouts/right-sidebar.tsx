@@ -89,7 +89,7 @@ export function RightSidebar() {
         {/* AI Agents List */}
         <div className="overflow-y-auto flex-1 p-4 space-y-4">
           {AI_AGENTS.map((agent) => (
-            <CardContainer key={agent.name} className="dark:bg-red-500">
+            <CardContainer key={agent.name} className="bg-success-primary">
               <div className="flex gap-3 items-start">
                 {/* Agent Icon */}
                 <div className={cn("shrink-0 p-2 rounded-lg", agent.color)}>
