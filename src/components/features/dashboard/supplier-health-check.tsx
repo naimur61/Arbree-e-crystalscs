@@ -4,13 +4,14 @@ import { useState } from "react";
 import { BadgeCheck } from "lucide-react";
 import { CardContainer } from "@/components/common/card";
 
-const ROWS = ["High", "Medium", "Low"];
+const ROWS = ["High", "Medium", "Low", "Info"];
 const COLS = ["Low", "Medium", "High", "Critical"];
 
 const BG: Record<string, string[]> = {
   High: ["bg-red-50", "bg-red-200", "bg-red-400", "bg-red-600"],
   Medium: ["bg-orange-50", "bg-orange-200", "bg-orange-400", "bg-orange-600"],
   Low: ["bg-blue-50", "bg-blue-200", "bg-blue-400", "bg-blue-600"],
+  Info: ["bg-green-50", "bg-green-200", "bg-green-400", "bg-green-600"],
 };
 
 type Cell = { c: number; f?: boolean; s?: string };
@@ -23,36 +24,8 @@ const CELLS: Cell[][] = [
   ],
   [{ c: 4 }, { c: 7, s: "BetaSupply" }, { c: 6 }, { c: 3 }],
   [{ c: 8 }, { c: 5 }, { c: 2, s: "Delta Inc" }, { c: 1 }],
+  [{ c: 12, s: "EcoSource" }, { c: 9 }, { c: 4 }, { c: 2 }],
 ];
-
-function Dot({
-  dot,
-  bg,
-  flagged,
-}: {
-  dot: string;
-  bg: string;
-  flagged?: boolean;
-}) {
-  return flagged ? (
-    <div
-      className={`rounded-full flex items-center justify-center ${dot}`}
-      style={{ width: 22, height: 22 }}
-    >
-      <div
-        className={`rounded-full flex items-center justify-center ${bg}`}
-        style={{ width: 16, height: 16 }}
-      >
-        <div
-          className={`rounded-full ${dot}`}
-          style={{ width: 8, height: 8 }}
-        />
-      </div>
-    </div>
-  ) : (
-    <div className={`rounded-full ${dot}`} style={{ width: 8, height: 8 }} />
-  );
-}
 
 function Cell({
   bg,
@@ -75,7 +48,28 @@ function Cell({
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      <Dot dot={dot} bg={bg} flagged={cell.f} />
+      {cell.f ? (
+        <div
+          className={`rounded-full flex items-center justify-center ${dot}`}
+          style={{ width: 22, height: 22 }}
+        >
+          <div
+            className={`rounded-full flex items-center justify-center ${bg}`}
+            style={{ width: 16, height: 16 }}
+          >
+            <div
+              className={`rounded-full ${dot}`}
+              style={{ width: 8, height: 8 }}
+            />
+          </div>
+        </div>
+      ) : (
+        <div
+          className={`rounded-full ${dot}`}
+          style={{ width: 8, height: 8 }}
+        />
+      )}
+
       {hover && (
         <div className="absolute left-1/2 bottom-full z-20 py-1.5 px-2.5 mb-2 text-xs whitespace-nowrap bg-gray-900 rounded-md shadow-lg -translate-x-1/2 pointer-events-none text-primary">
           <div className="font-semibold">
@@ -99,15 +93,16 @@ export function SupplierHealthCheck() {
       subtitle="Suppliers by risk and criticality"
     >
       <div className="grid grid-cols-5 gap-4">
-        <div className="col-span-1 flex items-center justify-center">
+        <div className="flex col-span-1 justify-center items-center">
           <span
-            className="text-[10px] font-medium text-secondary whitespace-nowrap"
+            className="font-medium whitespace-nowrap text-[10px] text-secondary"
             style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
           >
             Criticality
           </span>
         </div>
-        <div className="flex gap-2">
+
+        <div className="col-span-4 flex gap-2">
           <div className="flex flex-col justify-around py-1 font-medium leading-none text-[10px] text-secondary">
             {ROWS.map((r) => (
               <span
@@ -119,6 +114,7 @@ export function SupplierHealthCheck() {
               </span>
             ))}
           </div>
+
           <div className="flex-1 space-y-1">
             {ROWS.map((row, ri) => (
               <div key={row} className="flex gap-1">
@@ -134,6 +130,7 @@ export function SupplierHealthCheck() {
                 ))}
               </div>
             ))}
+
             <div className="flex gap-1 mt-1 text-center text-[10px] text-secondary">
               {COLS.map((l) => (
                 <span key={l} className="flex-1">
@@ -144,8 +141,9 @@ export function SupplierHealthCheck() {
           </div>
         </div>
       </div>
+
       <div className="flex justify-center mt-2">
-        <span className="text-[10px] font-medium text-secondary">Risk</span>
+        <span className="font-medium text-[10px] text-secondary">Risk</span>
       </div>
     </CardContainer>
   );

@@ -81,7 +81,7 @@ export function TopNavbar({ title, subtitle }: TopNavProps) {
           <ActionButton
             variant="default"
             radius="full"
-            btnStyle="w-9 h-9 !px-0 shadow-none"
+            btnStyle="w-9 h-9 !px-0 bg-success-secondary shadow-none"
             buttonContent="SC"
           />
 
