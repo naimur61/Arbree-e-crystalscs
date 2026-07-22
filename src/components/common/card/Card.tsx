@@ -69,14 +69,24 @@ function CardContainer({
                 <div className="flex gap-2 items-center">
                   {icon && <span className="shrink-0">{icon}</span>}
                   {title && (
-                    <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+                    <div
+                      className={cn(
+                        "text-sm font-semibold",
+                        themeConfig.colors.text.primary,
+                      )}
+                    >
                       {title}
                     </div>
                   )}
                 </div>
               )}
               {subtitle && (
-                <div className="text-[11px] text-slate-500 dark:text-slate-400">
+                <div
+                  className={cn(
+                    "text-[11px]",
+                    themeConfig.colors.text.tertiary,
+                  )}
+                >
                   {subtitle}
                 </div>
               )}
@@ -88,7 +98,12 @@ function CardContainer({
       {children}
 
       {footer && (
-        <div className="pt-3 mt-4 border-t border-slate-100 dark:border-slate-800">
+        <div
+          className={cn(
+            "pt-3 mt-4 border-t",
+            themeConfig.colors.border.secondary,
+          )}
+        >
           {footer}
         </div>
       )}

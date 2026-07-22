@@ -18,19 +18,18 @@ const DashboardContainer = () => {
       {/* KPI Cards */}
       <KpiCards />
 
-      <GeoMap />
+      {/* Supplier Health Check & Geo-Concentration Map */}
+      <div className="grid grid-cols-2 gap-3">
+        <SupplierHealthCheck />
+
+        <GeoConcentration />
+      </div>
 
       {/* Insight Panels */}
       <InsightPanels />
 
       {/* Risk Chart */}
       <RiskChart />
-
-      {/* Supplier Health Check */}
-      <SupplierHealthCheck />
-
-      {/* Geo-Concentration & Dependency Map */}
-      <GeoConcentration />
 
       {/* e-Crystal Alerts */}
       <CrystalAlerts />

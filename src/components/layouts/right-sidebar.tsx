@@ -4,6 +4,7 @@ import { X, PieChart, Zap, Shield, RefreshCw } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { useLayout } from "@/providers/layout-provider";
+import { CardContainer } from "../common/card/Card";
 
 interface AIAgent {
   name: string;
@@ -88,10 +89,7 @@ export function RightSidebar() {
         {/* AI Agents List */}
         <div className="overflow-y-auto flex-1 p-4 space-y-4">
           {AI_AGENTS.map((agent) => (
-            <div
-              key={agent.name}
-              className="p-4 rounded-xl border transition-shadow hover:shadow-md border-border bg-card"
-            >
+            <CardContainer key={agent.name} className="dark:bg-red-500">
               <div className="flex gap-3 items-start">
                 {/* Agent Icon */}
                 <div className={cn("shrink-0 p-2 rounded-lg", agent.color)}>
@@ -121,7 +119,7 @@ export function RightSidebar() {
                   {agent.action}
                 </Button>
               </div>
-            </div>
+            </CardContainer>
           ))}
         </div>
       </div>
