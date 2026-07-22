@@ -14,29 +14,23 @@ const DashboardContainer = () => {
     <div className="space-y-4">
       {/* Flow Banner */}
       <FlowBanner currentPage="dashboard" />
-
       {/* KPI Cards */}
       <KpiCards />
 
       {/* Supplier Health Check & Geo-Concentration Map */}
       <div className="grid grid-cols-2 gap-3">
         <SupplierHealthCheck />
-
         <GeoConcentration />
       </div>
 
       {/* Insight Panels */}
       <InsightPanels />
-
       {/* Risk Chart */}
       <RiskChart />
-
       {/* e-Crystal Alerts */}
       <CrystalAlerts />
-
       {/* e-Crystal Insights */}
       <CrystalInsights />
-
       {/* Upsell Banner */}
       <UpsellBanner />
     </div>
