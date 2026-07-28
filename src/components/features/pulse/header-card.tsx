@@ -37,10 +37,6 @@ export function HeaderCard() {
             icon={<RefreshCw className="w-4 h-4" />}
             buttonContent="Refresh"
           />
-
-          {/* <button className="flex gap-1.5 items-center py-1.5 px-3 text-xs font-medium text-white bg-emerald-500 rounded-md hover:bg-emerald-600"> */}
-          {/*   <RefreshCw className="w-3 h-3" /> Refresh */}
-          {/* </button> */}
         </div>
       </div>
     </div>

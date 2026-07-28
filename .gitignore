@@ -18,6 +18,9 @@
 # production
 /build
 
+# agent help (project context for AI, not tracked)
+AGENT_HELP.md
+
 # misc
 .DS_Store
 *.pem

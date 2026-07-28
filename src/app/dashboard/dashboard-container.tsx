@@ -18,7 +18,7 @@ const DashboardContainer = () => {
       <KpiCards />
 
       {/* Supplier Health Check & Geo-Concentration Map */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
         <SupplierHealthCheck />
         <GeoConcentration />
       </div>

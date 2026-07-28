@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   ComposableMap,
   Geographies,
@@ -76,7 +76,7 @@ export default function GeoMap() {
   );
 
   return (
-    <div className="relative p-6 w-full max-w-4xl font-sans bg-white rounded-lg border border-blue-400 shadow-sm select-none">
+    <div className="relative p-6 w-full font-sans bg-white rounded-lg border shadow-sm select-none">
       {/* Title */}
       <h2 className="mb-2 text-xl font-bold text-slate-800">
         Geo-Concentration & Dependency Map
@@ -137,7 +137,7 @@ export default function GeoMap() {
 
         {/* Custom Glassmorphism Tooltip Container */}
         {tooltipContent && (
-          <div className="absolute top-[15%] right-[15%] w-64 p-4 rounded-xl text-white backdrop-blur-md bg-gradient-to-br from-[#06331a]/90 to-[#0c1f14]/95 shadow-xl border border-white/10 transition-all duration-200">
+          <div className="absolute top-[15%] right-[15%] w-64 p-4 rounded-xl text-white backdrop-blur-md bg-linear-to-br from-[#06331a]/90 to-[#0c1f14]/95 shadow-xl border border-white/10 transition-all duration-200">
             <h3 className="mb-2 text-lg font-semibold">
               {tooltipContent.name}
             </h3>

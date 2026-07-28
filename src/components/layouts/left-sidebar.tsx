@@ -14,9 +14,12 @@ import {
   FileText,
   Settings,
   BookOpen,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Typography } from "../common/typography/typography";
+import { useLayout } from "@/providers/layout-provider";
 
 interface NavItem {
   label: string;
@@ -54,6 +57,9 @@ const NAV_ITEMS: NavItem[] = [
   },
 ];
 
+/* ── Set to false to disable collapse/expand and always keep the sidebar expanded ── */
+const SIDEBAR_COLLAPSIBLE = true;
+
 const SECONDARY_NAV_ITEMS: NavItem[] = [
   {
     label: "Suppliers",
@@ -85,6 +91,8 @@ const SECONDARY_NAV_ITEMS: NavItem[] = [
 
 export function LeftSidebar() {
   const pathname = usePathname();
+  const { state, toggleLeftSidebar } = useLayout();
+  const isCollapsed = SIDEBAR_COLLAPSIBLE ? !state.isLeftSidebarOpen : false;
 
   const isActive = (href: string) => {
     if (href === "/dashboard")
@@ -92,59 +100,84 @@ export function LeftSidebar() {
     return pathname.startsWith(href);
   };
 
+  const renderNavItem = (item: NavItem) => (
+    <Link
+      key={item.href}
+      href={item.href}
+      className={cn(
+        "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
+        isCollapsed && "justify-center px-2",
+        isActive(item.href)
+          ? "bg-offer-primary text-primary"
+          : "text-muted-foreground hover:bg-accent hover:text-foreground",
+      )}
+      title={isCollapsed ? item.label : undefined}
+    >
+      <span
+        className={cn(
+          "shrink-0",
+          isActive(item.href) ? "text-primary" : "text-muted-foreground",
+        )}
+      >
+        {item.icon}
+      </span>
+      {(!isCollapsed || !SIDEBAR_COLLAPSIBLE) && (
+        <>
+          <span className="flex-1">{item.label}</span>
+          {item.badge && (
+            <span className="flex justify-center items-center px-1.5 h-5 text-xs font-medium text-white bg-red-500 rounded-full min-w-5">
+              {item.badge}
+            </span>
+          )}
+        </>
+      )}
+      {isCollapsed && item.badge && (
+        <span className="absolute -top-1 -right-1 flex justify-center items-center px-1 h-4 text-[10px] font-medium text-white bg-red-500 rounded-full min-w-4">
+          {item.badge}
+        </span>
+      )}
+    </Link>
+  );
+
   return (
-    <aside className="flex fixed top-0 left-0 z-40 flex-col w-64 h-screen border-r border-border bg-background">
+    <aside
+      className={cn(
+        "flex fixed top-0 left-0 z-40 flex-col h-screen border-r border-border bg-background transition-[width] duration-300",
+        isCollapsed ? "w-16" : "w-64",
+      )}
+    >
       {/* Logo Section */}
       <div className="flex flex-col gap-2">
-        <Link href="/">
+        <Link href="/" className={cn("flex", isCollapsed && "justify-center")}>
           <Image
             src="/logo.png"
             alt="E-Crystal Logo"
-            width={100}
-            height={100}
-            className="object-contain py-2 w-full h-14 border-b"
+            width={isCollapsed ? 32 : 100}
+            height={isCollapsed ? 32 : 100}
+            className={cn(
+              "object-contain py-2",
+              isCollapsed ? "w-8 h-14" : "w-full h-14",
+              "border-b",
+            )}
             priority
           />
         </Link>
 
-        <div className="h-10 border-b">
-          <Typography variant="caption-2" className="px-2">
-            Outsource the Noise. Keep the Intelligence™
-          </Typography>
-        </div>
+        {!isCollapsed && (
+          <div className="h-10 border-b flex items-center">
+            <Typography variant="caption-2" className="px-2">
+              Outsource the Noise. Keep the Intelligence™
+            </Typography>
+          </div>
+        )}
       </div>
 
-      {/* Primary Navigation */}
-      <nav className="overflow-y-auto flex-1 py-4 px-3">
+      {/* Navigation */}
+      <nav className="overflow-y-auto flex-1 py-4 px-3 relative">
         <ul className="space-y-1">
           {NAV_ITEMS.map((item) => (
-            <li key={item.href}>
-              <Link
-                href={item.href}
-                className={cn(
-                  "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
-                  isActive(item.href)
-                    ? "bg-offer-primary text-primary"
-                    : "text-muted-foreground hover:bg-accent hover:text-foreground",
-                )}
-              >
-                <span
-                  className={cn(
-                    "shrink-0",
-                    isActive(item.href)
-                      ? "text-primary"
-                      : "text-muted-foreground",
-                  )}
-                >
-                  {item.icon}
-                </span>
-                <span className="flex-1">{item.label}</span>
-                {item.badge && (
-                  <span className="flex justify-center items-center px-1.5 h-5 text-xs font-medium text-white bg-red-500 rounded-full min-w-5">
-                    {item.badge}
-                  </span>
-                )}
-              </Link>
+            <li key={item.href} className="relative">
+              {renderNavItem(item)}
             </li>
           ))}
         </ul>
@@ -155,37 +188,35 @@ export function LeftSidebar() {
         {/* Secondary Navigation */}
         <ul className="space-y-1">
           {SECONDARY_NAV_ITEMS.map((item) => (
-            <li key={item.href}>
-              <Link
-                href={item.href}
-                className={cn(
-                  "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
-                  isActive(item.href)
-                    ? "bg-primary/10 text-primary"
-                    : "text-muted-foreground hover:bg-accent hover:text-foreground",
-                )}
-              >
-                <span
-                  className={cn(
-                    "shrink-0",
-                    isActive(item.href)
-                      ? "text-primary"
-                      : "text-muted-foreground",
-                  )}
-                >
-                  {item.icon}
-                </span>
-                <span className="flex-1">{item.label}</span>
-                {item.badge && (
-                  <span className="flex justify-center items-center px-1.5 h-5 text-xs font-medium text-white bg-red-500 rounded-full min-w-5">
-                    {item.badge}
-                  </span>
-                )}
-              </Link>
+            <li key={item.href} className="relative">
+              {renderNavItem(item)}
             </li>
           ))}
         </ul>
       </nav>
+
+      {/* Collapse / Expand Toggle Button */}
+      {SIDEBAR_COLLAPSIBLE && (
+        <div className="border-t border-border p-2">
+          <button
+            onClick={toggleLeftSidebar}
+            className={cn(
+              "flex items-center justify-center w-full py-2 rounded-lg text-sm font-medium transition-colors",
+              "text-muted-foreground hover:bg-accent hover:text-foreground",
+            )}
+            title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+          >
+            {isCollapsed ? (
+              <ChevronRight className="w-5 h-5" />
+            ) : (
+              <div className="flex items-center gap-2">
+                <ChevronLeft className="w-5 h-5" />
+                <span>Collapse</span>
+              </div>
+            )}
+          </button>
+        </div>
+      )}
     </aside>
   );
 }
