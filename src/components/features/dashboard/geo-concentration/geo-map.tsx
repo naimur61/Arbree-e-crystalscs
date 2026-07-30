@@ -19,11 +19,7 @@ interface MarkerData {
   breakdown: string[];
 }
 
-interface TooltipData {
-  name: string;
-  suppliers: number;
-  breakdown: string[];
-}
+import { Tooltip, type TooltipData } from "./tooltip";
 
 const markers: MarkerData[] = [
   {
@@ -135,22 +131,8 @@ export default function GeoMap() {
           ))}
         </ComposableMap>
 
-        {/* Custom Glassmorphism Tooltip Container */}
-        {tooltipContent && (
-          <div className="absolute top-[15%] right-[15%] w-64 p-4 rounded-xl text-white backdrop-blur-md bg-linear-to-br from-[#06331a]/90 to-[#0c1f14]/95 shadow-xl border border-white/10 transition-all duration-200">
-            <h3 className="mb-2 text-lg font-semibold">
-              {tooltipContent.name}
-            </h3>
-            <p className="text-sm opacity-90">
-              {tooltipContent.suppliers} suppliers
-            </p>
-            {tooltipContent.breakdown.map((line, idx) => (
-              <p key={idx} className="text-sm opacity-75">
-                {line}
-              </p>
-            ))}
-          </div>
-        )}
+        {/* Tooltip */}
+        {tooltipContent && <Tooltip data={tooltipContent} />}
       </div>
 
       {/* Footer controls & update indicator */}
