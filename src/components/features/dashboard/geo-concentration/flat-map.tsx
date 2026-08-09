@@ -272,7 +272,7 @@ export default function FlatMap() {
       {/* Map Canvas */}
       <div className="p-4">
         <div
-          className="overflow-hidden relative rounded-lg bg-primary [--geo-land:#A3C1AD] [--geo-land-hover:#93B1BD] [--geo-border:#FFFFFF] dark:[--geo-land:#0F3D2E] dark:[--geo-land-hover:#15513C] dark:[--geo-border:#0A2B20]"
+          className="overflow-hidden relative rounded-lg bg-primary [--geo-land:#A3C1AD] [--geo-land-hover:#93B1BD] [--geo-border:#FFFFFF] dark:[--geo-land:#9CBDCF] dark:[--geo-land-hover:#B0D3E3] dark:[--geo-border:#7FA5B9]"
           style={{ touchAction: "none", cursor: "grab" }}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}

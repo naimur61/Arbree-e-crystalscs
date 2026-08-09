@@ -340,7 +340,7 @@ export default function GeoMap() {
       {/* Map Canvas */}
       <div className="p-4">
         <div
-          className="relative overflow-hidden rounded-lg bg-primary [--geo-land:#A3C1AD] [--geo-land-hover:#93B1BD] [--geo-border:#FFFFFF] [--geo-ocean:#CBE3F5] [--geo-ocean-stroke:#8FAFBF] dark:[--geo-land:#0F3D2E] dark:[--geo-land-hover:#15513C] dark:[--geo-border:#0A2B20] dark:[--geo-ocean:#0A2C40] dark:[--geo-ocean-stroke:#1D4A63]"
+          className="relative overflow-hidden rounded-lg bg-primary [--geo-land:#A3C1AD] [--geo-land-hover:#93B1BD] [--geo-border:#FFFFFF] [--geo-ocean:#CBE3F5] [--geo-ocean-stroke:#8FAFBF] dark:[--geo-land:#9CBDCF] dark:[--geo-land-hover:#B0D3E3] dark:[--geo-border:#7FA5B9] dark:[--geo-ocean:#0A2C40] dark:[--geo-ocean-stroke:#1D4A63]"
           style={{ touchAction: "none", cursor: "grab" }}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
