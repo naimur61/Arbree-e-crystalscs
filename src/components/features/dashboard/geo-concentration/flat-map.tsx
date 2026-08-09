@@ -6,9 +6,7 @@ import {
   Geographies,
   Geography,
   Marker,
-  Sphere,
   ZoomableGroup,
-  useMapContext,
 } from "react-simple-maps";
 import { Tooltip, type TooltipData } from "./tooltip";
 import { markers, type MarkerData } from "./markers-data";
@@ -17,21 +15,22 @@ import { markers, type MarkerData } from "./markers-data";
 // instantly with no network fetch and no loading state.
 import worldAtlas from "./world-atlas.json";
 
-// ViewBox sized for a round 3D globe: the orthographic sphere (diameter =
-// 2 × scale = 550) fits the 700×560 canvas with a small margin.
-const MAP_WIDTH = 700;
-const MAP_HEIGHT = 560;
-const MAP_SCALE = 275;
+// ViewBox tuned to the flat world map's natural 2:1 ratio so it fills
+// the canvas edge-to-edge with no extra padding.
+const MAP_WIDTH = 800;
+const MAP_HEIGHT = 390;
+const MAP_SCALE = 146;
 
 // Zoom / rotation limits for the interactive controls.
 const MIN_ZOOM = 1;
 const MAX_ZOOM = 8;
 const ZOOM_STEP = 1.3;
 
+// Degrees of longitude the map rotates per pixel of horizontal drag.
 const ROTATE_SENSITIVITY = 0.6;
 
 // rAF smooth animation: eases toward the cursor while dragging, then keeps
-// spinning with decaying momentum for a globe-like glide.
+// spinning with decaying momentum for a smooth glide.
 const EASE = 0.12; // drag-follow smoothing per frame (0-1)
 const INERTIA_FRICTION = 0.9; // per-frame momentum decay
 const MIN_SPEED = 0.05; // stop inertia below this
@@ -40,22 +39,7 @@ const MAX_SPEED = 60; // cap initial inertia
 const clamp = (v: number, min: number, max: number) =>
   Math.min(max, Math.max(min, v));
 
-const DEG2RAD = Math.PI / 180;
-
-// Great-circle distance in radians on a unit sphere — used to hide markers
-// that are on the far side of the globe.
-function haversineDistance(a: [number, number], b: [number, number]): number {
-  const dLat = (b[1] - a[1]) * DEG2RAD;
-  const dLon = (b[0] - a[0]) * DEG2RAD;
-  const h =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(a[1] * DEG2RAD) *
-      Math.cos(b[1] * DEG2RAD) *
-      Math.sin(dLon / 2) ** 2;
-  return 2 * Math.asin(Math.min(1, Math.sqrt(h)));
-}
-
-// Keep an angle bounded to [0, 360).
+// Keep the rotation bounded to [0, 360).
 function normalizeRotation(deg: number): number {
   return ((deg % 360) + 360) % 360;
 }
@@ -96,17 +80,6 @@ const MapMarker = memo(function MapMarker({
   onEnter: (data: MarkerData) => void;
   onLeave: () => void;
 }) {
-  const { width, height, projection } = useMapContext();
-
-  // Hide markers that are on the far side of the globe: orthographic
-  // mirrors them onto the visible disc, so we measure the angular distance
-  // from the view center and drop anything past the horizon.
-  const [cx, cy] = projection.invert([width / 2, height / 2]);
-  const visible =
-    haversineDistance(data.coordinates, [cx, cy]) <= Math.PI / 2 - 0.06;
-
-  if (!visible) return null;
-
   return (
     <Marker
       coordinates={data.coordinates}
@@ -127,30 +100,27 @@ const MapMarker = memo(function MapMarker({
   );
 });
 
-export default function GeoMap() {
+export default function FlatMap() {
   const [tooltipContent, setTooltipContent] = useState<TooltipData | null>(
     null,
   );
   const [zoom, setZoom] = useState(1);
-  // rotation = [longitude spin, latitude tilt]
-  const [rotation, setRotation] = useState<[number, number]>([0, 0]);
+  const [rotation, setRotation] = useState(0); // longitude only — no tilt
 
   // Refs shared with the rAF animation loop and pointer handlers.
-  const rotationRef = useRef<[number, number]>([0, 0]);
-  const targetRef = useRef<[number, number]>([0, 0]);
-  const velocityRef = useRef<[number, number]>([0, 0]);
+  const rotationRef = useRef(0);
+  const targetRef = useRef(0);
+  const velocityRef = useRef(0);
   const dragRef = useRef<{
     x: number;
-    y: number;
     lon: number;
-    lat: number;
     pointerId: number;
   } | null>(null);
   const draggingRef = useRef(false);
   const resettingRef = useRef(false);
 
-  // One continuous rAF loop drives rotation, so spinning feels like a real
-  // globe: it glides toward the cursor with easing while dragging, and
+  // One continuous rAF loop drives rotation, so horizontal dragging feels
+  // smooth: it glides toward the cursor with easing while dragging, and
   // keeps turning with decaying momentum after you release.
   useEffect(() => {
     let raf = 0;
@@ -161,45 +131,33 @@ export default function GeoMap() {
       const dt = Math.min((now - prev) / 16.667, 3) || 1;
       prev = now;
 
-      const r = rotationRef.current;
+      let r = rotationRef.current;
       let changed = false;
 
       if (draggingRef.current) {
         // Fluidly chase the pointer-drag target.
-        const goal = targetRef.current;
-        r[0] += (goal[0] - r[0]) * EASE;
-        r[1] += (goal[1] - r[1]) * EASE;
+        r += (targetRef.current - r) * EASE;
         changed = true;
       } else if (resettingRef.current) {
         // Glide back to the default view.
-        r[0] *= 1 - EASE;
-        r[1] *= 1 - EASE;
+        r *= 1 - EASE;
         changed = true;
-        if (Math.abs(r[0]) < 0.5 && Math.abs(r[1]) < 0.5) {
-          r[0] = 0;
-          r[1] = 0;
+        if (Math.abs(r) < 0.5) {
+          r = 0;
           resettingRef.current = false;
         }
-      } else if (
-        Math.abs(velocityRef.current[0]) > MIN_SPEED ||
-        Math.abs(velocityRef.current[1]) > MIN_SPEED
-      ) {
+      } else if (Math.abs(velocityRef.current) > MIN_SPEED) {
         // Momentum: keep spinning, then gradually slow down.
-        r[0] += velocityRef.current[0] * dt;
-        r[1] += velocityRef.current[1] * dt;
-        velocityRef.current[0] *= Math.pow(INERTIA_FRICTION, dt);
-        velocityRef.current[1] *= Math.pow(INERTIA_FRICTION, dt);
+        r += velocityRef.current * dt;
+        velocityRef.current *= Math.pow(INERTIA_FRICTION, dt);
         changed = true;
       } else {
-        velocityRef.current = [0, 0];
+        velocityRef.current = 0;
       }
 
       if (changed) {
-        rotationRef.current = [
-          normalizeRotation(r[0]),
-          normalizeRotation(r[1]),
-        ];
-        setRotation([rotationRef.current[0], rotationRef.current[1]]);
+        rotationRef.current = normalizeRotation(r);
+        setRotation(rotationRef.current);
       }
       raf = requestAnimationFrame(tick);
     };
@@ -208,23 +166,20 @@ export default function GeoMap() {
     return () => cancelAnimationFrame(raf);
   }, []);
 
-  // Drag-to-rotate on both axes: pointer capture keeps tracking even
-  // outside the map. Horizontal drag spins longitude, vertical tilts
-  // latitude — both wrap the full 360°.
+  // Drag-to-rotate: only the longitude (x) axis spins from horizontal drag;
+  // the map never tilts. Pointer capture keeps tracking outside the canvas.
   const handlePointerDown = useCallback(
     (e: React.PointerEvent<HTMLDivElement>) => {
       e.currentTarget.setPointerCapture(e.pointerId);
       draggingRef.current = true;
       resettingRef.current = false;
-      velocityRef.current = [0, 0];
+      velocityRef.current = 0;
       dragRef.current = {
         x: e.clientX,
-        y: e.clientY,
-        lon: rotationRef.current[0],
-        lat: rotationRef.current[1],
+        lon: rotationRef.current,
         pointerId: e.pointerId,
       };
-      targetRef.current = [rotationRef.current[0], rotationRef.current[1]];
+      targetRef.current = rotationRef.current;
     },
     [],
   );
@@ -232,15 +187,9 @@ export default function GeoMap() {
     (e: React.PointerEvent<HTMLDivElement>) => {
       const drag = dragRef.current;
       if (!drag || drag.pointerId !== e.pointerId) return;
-      const next: [number, number] = [
-        drag.lon + (e.clientX - drag.x) * ROTATE_SENSITIVITY,
-        drag.lat - (e.clientY - drag.y) * ROTATE_SENSITIVITY,
-      ];
+      const next = drag.lon + (e.clientX - drag.x) * ROTATE_SENSITIVITY;
       // Snapshot per-move velocity to seed the release momentum.
-      velocityRef.current = [
-        next[0] - targetRef.current[0],
-        next[1] - targetRef.current[1],
-      ];
+      velocityRef.current = next - targetRef.current;
       targetRef.current = next;
     },
     [],
@@ -250,17 +199,8 @@ export default function GeoMap() {
       if (dragRef.current?.pointerId !== e.pointerId) return;
       dragRef.current = null;
       draggingRef.current = false;
-      // Hand the latest drag velocity to the momentum step.
-      velocityRef.current = [
-        clamp(velocityRef.current[0], -MAX_SPEED, MAX_SPEED),
-        clamp(velocityRef.current[1], -MAX_SPEED, MAX_SPEED),
-      ];
-      if (
-        Math.abs(velocityRef.current[0]) < MIN_SPEED &&
-        Math.abs(velocityRef.current[1]) < MIN_SPEED
-      ) {
-        velocityRef.current = [0, 0];
-      }
+      velocityRef.current = clamp(velocityRef.current, -MAX_SPEED, MAX_SPEED);
+      if (Math.abs(velocityRef.current) < MIN_SPEED) velocityRef.current = 0;
     },
     [],
   );
@@ -293,8 +233,8 @@ export default function GeoMap() {
     setZoom(1);
     draggingRef.current = false;
     dragRef.current = null;
-    velocityRef.current = [0, 0];
-    targetRef.current = [0, 0];
+    velocityRef.current = 0;
+    targetRef.current = 0;
     resettingRef.current = true;
   }, []);
 
@@ -315,11 +255,7 @@ export default function GeoMap() {
         <ComposableMap
           width={MAP_WIDTH}
           height={MAP_HEIGHT}
-          projection="geoOrthographic"
-          projectionConfig={{
-            scale: MAP_SCALE,
-            rotate: [rotation[0], rotation[1], 0],
-          }}
+          projectionConfig={{ scale: MAP_SCALE, rotate: [rotation, 0, 0] }}
         >
           <ZoomableGroup
             zoom={zoom}
@@ -327,9 +263,6 @@ export default function GeoMap() {
             // Only wheel/pinch zooms; dragging is reserved for rotation.
             filterZoomEvent={(e) => e?.type === "wheel"}
           >
-            {/* Ocean + globe outline */}
-            <Sphere fill="#CBE3F5" stroke="#8FAFBF" strokeWidth={0.5} />
-
             <CountryLayer />
 
             {/* Location Markers */}
@@ -353,7 +286,7 @@ export default function GeoMap() {
         <span className="flex items-center gap-3 text-sm text-gray-500">
           <span>Last updated: 7 days ago</span>
           <span className="hidden sm:inline text-gray-400">
-            Drag to spin globe · Scroll to zoom
+            Drag to rotate · Scroll to zoom
           </span>
         </span>
         <div className="flex items-center space-x-2">
