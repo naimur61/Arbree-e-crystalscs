@@ -8,7 +8,7 @@ import {
   Marker,
   ZoomableGroup,
 } from "react-simple-maps";
-import { Globe, Minus, Plus, RotateCcw } from "lucide-react";
+import { Minus, Plus, RotateCcw } from "lucide-react";
 import { ActionButton } from "@/components/common/button";
 import { Tooltip, type TooltipData } from "./tooltip";
 import { markers, type MarkerData } from "./markers-data";
@@ -256,21 +256,13 @@ export default function FlatMap() {
   }, []);
 
   return (
-    <div className="font-sans rounded-xl border border-primary bg-primary shadow-sm select-none">
+    <div className="font-sans rounded-xl border shadow-sm select-none border-primary bg-primary">
       {/* Card Header */}
-      <div className="flex justify-between items-center px-4 py-3 border-b border-secondary">
-        <div className="flex items-center gap-2">
-          <div className="flex justify-center items-center w-7 h-7 rounded-lg bg-success-primary">
-            <Globe className="w-4 h-4 icon-success-primary" />
-          </div>
-          <div>
-            <h3 className="text-sm font-semibold text-primary">
-              Geo-Concentration & Dependency Map
-            </h3>
-            <p className="text-[11px] text-tertiary">
-              Global supplier locations · 2D view
-            </p>
-          </div>
+      <div className="flex justify-between items-center py-3 px-4">
+        <div>
+          <h3 className="text-sm font-semibold text-primary">
+            Geo-Concentration & Dependency Map
+          </h3>
         </div>
         <span className="hidden sm:inline text-[11px] text-tertiary">
           Drag to rotate · Scroll to zoom
@@ -280,7 +272,7 @@ export default function FlatMap() {
       {/* Map Canvas */}
       <div className="p-4">
         <div
-          className="relative overflow-hidden rounded-lg bg-primary [--geo-land:#A3C1AD] [--geo-land-hover:#93B1BD] [--geo-border:#FFFFFF] dark:[--geo-land:#0F3D2E] dark:[--geo-land-hover:#15513C] dark:[--geo-border:#0A2B20]"
+          className="overflow-hidden relative rounded-lg bg-primary [--geo-land:#A3C1AD] [--geo-land-hover:#93B1BD] [--geo-border:#FFFFFF] dark:[--geo-land:#0F3D2E] dark:[--geo-land-hover:#15513C] dark:[--geo-border:#0A2B20]"
           style={{ touchAction: "none", cursor: "grab" }}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
@@ -346,9 +338,9 @@ export default function FlatMap() {
       </div>
 
       {/* Card Footer */}
-      <div className="flex justify-between items-center px-4 py-3 border-t border-secondary">
+      <div className="flex justify-between items-center py-3 px-4 border-t border-secondary">
         <span className="text-xs text-tertiary">Last updated: 7 days ago</span>
-        <div className="flex items-center gap-2">
+        <div className="flex gap-2 items-center">
           <ActionButton
             variant="outline"
             size="icon-sm"
