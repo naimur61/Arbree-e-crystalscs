@@ -8,6 +8,8 @@ import {
   Marker,
   ZoomableGroup,
 } from "react-simple-maps";
+import { Globe, Minus, Plus, RotateCcw } from "lucide-react";
+import { ActionButton } from "@/components/common/button";
 import { Tooltip, type TooltipData } from "./tooltip";
 import { markers, type MarkerData } from "./markers-data";
 
@@ -46,6 +48,8 @@ function normalizeRotation(deg: number): number {
 
 // Country shapes are the expensive part (~200 SVG paths), so they are
 // memoized: hovering a marker only re-renders the tooltip, never the map.
+// Colors come from CSS vars defined on the map canvas (--geo-*) so they
+// adapt to light/dark mode.
 const CountryLayer = memo(function CountryLayer() {
   return (
     <Geographies geography={worldAtlas}>
@@ -54,12 +58,11 @@ const CountryLayer = memo(function CountryLayer() {
           <Geography
             key={geo.rsmKey}
             geography={geo}
-            fill="#A3C1AD"
-            stroke="#FFFFFF"
+            className="stroke-[var(--geo-border)]"
             strokeWidth={0.5}
             style={{
-              default: { outline: "none" },
-              hover: { fill: "#93b1bd", outline: "none" },
+              default: { fill: "var(--geo-land)", outline: "none" },
+              hover: { fill: "var(--geo-land-hover)", outline: "none" },
               pressed: { outline: "none" },
             }}
           />
@@ -239,81 +242,92 @@ export default function FlatMap() {
   }, []);
 
   return (
-    <div className="relative p-6 w-full font-sans bg-white rounded-lg border shadow-sm select-none">
-      <h2 className="mb-2 text-xl font-bold text-slate-800">
-        Geo-Concentration & Dependency Map
-      </h2>
-
-      <div
-        className="overflow-hidden relative w-full bg-white rounded"
-        style={{ touchAction: "none", cursor: "grab" }}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerEnd}
-        onPointerCancel={handlePointerEnd}
-      >
-        <ComposableMap
-          width={MAP_WIDTH}
-          height={MAP_HEIGHT}
-          projectionConfig={{ scale: MAP_SCALE, rotate: [rotation, 0, 0] }}
-        >
-          <ZoomableGroup
-            zoom={zoom}
-            onMoveEnd={handleMoveEnd}
-            // Only wheel/pinch zooms; dragging is reserved for rotation.
-            filterZoomEvent={(e) => e?.type === "wheel"}
-          >
-            <CountryLayer />
-
-            {/* Location Markers */}
-            {markers.map((marker) => (
-              <MapMarker
-                key={marker.name}
-                data={marker}
-                onEnter={handleMarkerEnter}
-                onLeave={handleMarkerLeave}
-              />
-            ))}
-          </ZoomableGroup>
-        </ComposableMap>
-
-        {/* Tooltip */}
-        {tooltipContent && <Tooltip data={tooltipContent} />}
+    <div className="font-sans rounded-xl border border-primary bg-primary shadow-sm select-none">
+      {/* Card Header */}
+      <div className="flex justify-between items-center px-4 py-3 border-b border-secondary">
+        <div className="flex items-center gap-2">
+          <div className="flex justify-center items-center w-7 h-7 rounded-lg bg-success-primary">
+            <Globe className="w-4 h-4 icon-success-primary" />
+          </div>
+          <div>
+            <h3 className="text-sm font-semibold text-primary">
+              Geo-Concentration & Dependency Map
+            </h3>
+            <p className="text-[11px] text-tertiary">
+              Global supplier locations · 2D view
+            </p>
+          </div>
+        </div>
+        <span className="hidden sm:inline text-[11px] text-tertiary">
+          Drag to rotate · Scroll to zoom
+        </span>
       </div>
 
-      {/* Footer controls & update indicator */}
-      <div className="flex justify-between items-center mt-4">
-        <span className="flex items-center gap-3 text-sm text-gray-500">
-          <span>Last updated: 7 days ago</span>
-          <span className="hidden sm:inline text-gray-400">
-            Drag to rotate · Scroll to zoom
-          </span>
-        </span>
-        <div className="flex items-center space-x-2">
-          <button
-            onClick={handleReset}
-            aria-label="Reset map view"
-            title="Reset rotation and zoom"
-            className="py-1 px-3 text-xl font-bold text-gray-600 bg-gray-100 rounded border shadow-sm hover:bg-gray-200"
+      {/* Map Canvas */}
+      <div className="p-4">
+        <div
+          className="relative overflow-hidden rounded-lg bg-primary [--geo-land:#A3C1AD] [--geo-land-hover:#93B1BD] [--geo-border:#FFFFFF] dark:[--geo-land:#0F3D2E] dark:[--geo-land-hover:#15513C] dark:[--geo-border:#0A2B20]"
+          style={{ touchAction: "none", cursor: "grab" }}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerEnd}
+          onPointerCancel={handlePointerEnd}
+        >
+          <ComposableMap
+            width={MAP_WIDTH}
+            height={MAP_HEIGHT}
+            projectionConfig={{ scale: MAP_SCALE, rotate: [rotation, 0, 0] }}
           >
-            ↻
-          </button>
-          <button
-            onClick={handleZoomOut}
-            aria-label="Zoom out"
-            title="Zoom out"
-            className="py-1 px-3 text-xl font-bold text-gray-600 bg-gray-100 rounded border shadow-sm hover:bg-gray-200"
-          >
-            -
-          </button>
-          <button
-            onClick={handleZoomIn}
-            aria-label="Zoom in"
-            title="Zoom in"
-            className="py-1 px-3 text-xl font-bold text-white bg-emerald-600 rounded shadow hover:bg-emerald-700"
-          >
-            +
-          </button>
+            <ZoomableGroup
+              zoom={zoom}
+              onMoveEnd={handleMoveEnd}
+              // Only wheel/pinch zooms; dragging is reserved for rotation.
+              filterZoomEvent={(e) => e?.type === "wheel"}
+            >
+              <CountryLayer />
+
+              {/* Location Markers */}
+              {markers.map((marker) => (
+                <MapMarker
+                  key={marker.name}
+                  data={marker}
+                  onEnter={handleMarkerEnter}
+                  onLeave={handleMarkerLeave}
+                />
+              ))}
+            </ZoomableGroup>
+          </ComposableMap>
+
+          {/* Tooltip */}
+          {tooltipContent && <Tooltip data={tooltipContent} />}
+        </div>
+      </div>
+
+      {/* Card Footer */}
+      <div className="flex justify-between items-center px-4 py-3 border-t border-secondary">
+        <span className="text-xs text-tertiary">Last updated: 7 days ago</span>
+        <div className="flex items-center gap-2">
+          <ActionButton
+            variant="outline"
+            size="icon-sm"
+            icon={<RotateCcw className="size-4" />}
+            tooltipContent="Reset view"
+            handleOpen={handleReset}
+          />
+          <ActionButton
+            variant="outline"
+            size="icon-sm"
+            icon={<Minus className="size-4" />}
+            tooltipContent="Zoom out"
+            handleOpen={handleZoomOut}
+          />
+          <ActionButton
+            variant="gradient"
+            size="icon-sm"
+            icon={<Plus className="size-4" />}
+            tooltipContent="Zoom in"
+            handleOpen={handleZoomIn}
+          />
         </div>
       </div>
     </div>
