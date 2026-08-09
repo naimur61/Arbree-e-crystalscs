@@ -6,7 +6,7 @@ import {
   Geographies,
   Geography,
   Marker,
-  ZoomableGroup,
+  useMapContext,
 } from "react-simple-maps";
 import { Minus, Plus, RotateCcw } from "lucide-react";
 import { ActionButton } from "@/components/common/button";
@@ -44,6 +44,26 @@ const clamp = (v: number, min: number, max: number) =>
 // Keep the rotation bounded to [0, 360).
 function normalizeRotation(deg: number): number {
   return ((deg % 360) + 360) % 360;
+}
+
+// The zoom transform applied to the map group (same semantics as d3-zoom):
+// screen = translate(x, y) ∘ scale(k) ∘ projection(geo).
+interface ViewTransform {
+  x: number;
+  y: number;
+  k: number;
+}
+
+// Identity transform = the exact view the map has on first load.
+const IDENTITY_VIEW: ViewTransform = { x: 0, y: 0, k: 1 };
+
+// Transform that keeps the projection center pinned to the viewport center.
+function zoomAboutCenter(k: number): ViewTransform {
+  return {
+    x: (MAP_WIDTH / 2) * (1 - k),
+    y: (MAP_HEIGHT / 2) * (1 - k),
+    k,
+  };
 }
 
 // Country shapes are the expensive part (~200 SVG paths), so they are
@@ -117,14 +137,34 @@ const MapMarker = memo(function MapMarker({
   );
 });
 
+// Renders nothing; just forwards the live projection (which changes with
+// rotation) out of the map context so the wheel handler can compute
+// cursor-anchored zoom with the exact projection being used.
+function ProjectionBridge({
+  onProjection,
+}: {
+  onProjection: (p: any) => void;
+}) {
+  const { projection } = useMapContext();
+  const prev = useRef<any>(null);
+  useEffect(() => {
+    if (projection !== prev.current) {
+      prev.current = projection;
+      onProjection(projection);
+    }
+  }, [projection, onProjection]);
+  return null;
+}
+
 export default function FlatMap() {
   const [tooltipContent, setTooltipContent] = useState<TooltipData | null>(
     null,
   );
-  const [zoom, setZoom] = useState(1);
-  const [rotation, setRotation] = useState(0); // longitude only — no tilt
+  const [view, setView] = useState<ViewTransform>(IDENTITY_VIEW);
+  // rotation = longitude only — the map never tilts
+  const [rotation, setRotation] = useState(0);
 
-  // Refs shared with the rAF animation loop and pointer handlers.
+  // Refs shared with the rAF animation loop, pointer and wheel handlers.
   const rotationRef = useRef(0);
   const targetRef = useRef(0);
   const velocityRef = useRef(0);
@@ -135,6 +175,12 @@ export default function FlatMap() {
   } | null>(null);
   const draggingRef = useRef(false);
   const resettingRef = useRef(false);
+  const projRef = useRef<any>(null);
+  const viewRef = useRef(view);
+  useEffect(() => {
+    viewRef.current = view;
+  }, [view]);
+  const mapCanvasRef = useRef<HTMLDivElement>(null);
 
   // One continuous rAF loop drives rotation, so horizontal dragging feels
   // smooth: it glides toward the cursor with easing while dragging, and
@@ -232,22 +278,56 @@ export default function FlatMap() {
   }, []);
   const handleMarkerLeave = useCallback(() => setTooltipContent(null), []);
 
-  const handleZoomIn = useCallback(
-    () => setZoom((z) => Math.min(MAX_ZOOM, +(z * ZOOM_STEP).toFixed(2))),
-    [],
-  );
-  const handleZoomOut = useCallback(
-    () => setZoom((z) => Math.max(MIN_ZOOM, +(z / ZOOM_STEP).toFixed(2))),
-    [],
-  );
-  // Keep the button zoom in sync with wheel/pinch gestures.
-  const handleMoveEnd = useCallback(({ zoom: z }: { zoom: number }) => {
-    setZoom(z);
+  const handleProjection = useCallback((p: any) => {
+    projRef.current = p;
   }, []);
 
-  // Refresh: glide smoothly back to the default view and reset zoom.
+  // Cursor-anchored wheel zoom. A native non-passive listener lets us
+  // preventDefault (stop the page from scrolling under the map) and keep
+  // the geographic point under the cursor fixed while zooming.
+  useEffect(() => {
+    const el = mapCanvasRef.current;
+    if (!el) return;
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      const proj = projRef.current;
+      if (!proj) return;
+      const rect = el.getBoundingClientRect();
+      const px = e.clientX - rect.left;
+      const py = e.clientY - rect.top;
+      const v = viewRef.current;
+      const factor = e.deltaY < 0 ? ZOOM_STEP : 1 / ZOOM_STEP;
+      const nextK = clamp(v.k * factor, MIN_ZOOM, MAX_ZOOM);
+      if (nextK === v.k) return;
+      // Geographic point currently under the cursor, in projection space.
+      const [gx, gy] = proj.invert([(px - v.x) / v.k, (py - v.y) / v.k]);
+      if (!isFinite(gx) || !isFinite(gy)) return;
+      const [sx, sy] = proj([gx, gy]);
+      // Solve the transform so that point projects back onto the cursor.
+      setView({ x: px - nextK * sx, y: py - nextK * sy, k: nextK });
+    };
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, []);
+
+  // Button zoom: always zoom about the viewport center.
+  const handleZoomIn = useCallback(() => {
+    setView((v) => {
+      const nextK = clamp(+(v.k * ZOOM_STEP).toFixed(2), MIN_ZOOM, MAX_ZOOM);
+      return nextK === v.k ? v : zoomAboutCenter(nextK);
+    });
+  }, []);
+  const handleZoomOut = useCallback(() => {
+    setView((v) => {
+      const nextK = clamp(+(v.k / ZOOM_STEP).toFixed(2), MIN_ZOOM, MAX_ZOOM);
+      return nextK === v.k ? v : zoomAboutCenter(nextK);
+    });
+  }, []);
+
+  // Refresh: return to the exact initial view (identity transform) and
+  // glide the rotation back to the default.
   const handleReset = useCallback(() => {
-    setZoom(1);
+    setView(IDENTITY_VIEW);
     draggingRef.current = false;
     dragRef.current = null;
     velocityRef.current = 0;
@@ -272,6 +352,7 @@ export default function FlatMap() {
       {/* Map Canvas */}
       <div className="p-4">
         <div
+          ref={mapCanvasRef}
           className="overflow-hidden relative rounded-lg bg-primary [--geo-land:#A3C1AD] [--geo-land-hover:#93B1BD] [--geo-border:#FFFFFF] dark:[--geo-land:#9CBDCF] dark:[--geo-land-hover:#B0D3E3] dark:[--geo-border:#7FA5B9]"
           style={{ touchAction: "none", cursor: "grab" }}
           onPointerDown={handlePointerDown}
@@ -312,12 +393,10 @@ export default function FlatMap() {
               </linearGradient>
             </defs>
 
-            <ZoomableGroup
-              zoom={zoom}
-              onMoveEnd={handleMoveEnd}
-              // Only wheel/pinch zooms; dragging is reserved for rotation.
-              filterZoomEvent={(e) => e?.type === "wheel"}
-            >
+            <ProjectionBridge onProjection={handleProjection} />
+
+            {/* Zoom transform: screen = translate(x, y) scale(k) ∘ projection */}
+            <g transform={`translate(${view.x} ${view.y}) scale(${view.k})`}>
               <CountryLayer />
 
               {/* Location Markers */}
@@ -329,7 +408,7 @@ export default function FlatMap() {
                   onLeave={handleMarkerLeave}
                 />
               ))}
-            </ZoomableGroup>
+            </g>
           </ComposableMap>
 
           {/* Tooltip */}
