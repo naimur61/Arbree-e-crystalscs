@@ -116,16 +116,30 @@ const MapMarker = memo(function MapMarker({
       onMouseEnter={() => onEnter(data)}
       onMouseLeave={onLeave}
     >
-      {/* Outer Glow Effect */}
-      <circle r={6} fill="#4ade80" opacity={0.4} className="animate-ping" />
-      {/* Inner Solid Green Dot */}
+      {/* Soft pulsing halo */}
       <circle
-        r={5}
-        fill="#16a34a"
-        stroke="#ffffff"
-        strokeWidth={1.5}
-        className="transition-transform cursor-pointer hover:scale-125"
+        r={9}
+        fill="var(--bg-success-secondary)"
+        opacity={0.35}
+        className="animate-ping"
       />
+      {/* Green border / halo ring */}
+      <circle r={8} fill="var(--bg-success-secondary)" />
+      {/* Gradient dot */}
+      <g
+        className="transition-transform cursor-pointer hover:scale-125"
+        style={{ transformBox: "fill-box", transformOrigin: "center" }}
+      >
+        <rect
+          x={-5}
+          y={-5}
+          width={10}
+          height={10}
+          rx={4}
+          fill="url(#geo-marker-gradient)"
+          style={{ boxShadow: "var(--marker-gradient-shadow)" }}
+        />
+      </g>
     </Marker>
   );
 });
@@ -342,6 +356,34 @@ export default function GeoMap() {
               rotate: [rotation[0], rotation[1], 0],
             }}
           >
+            {/* Marker gradient — colors from design tokens */}
+            <defs>
+              <linearGradient
+                id="geo-marker-gradient"
+                x1="0"
+                y1="0"
+                x2="0"
+                y2="1"
+              >
+                <stop
+                  offset="0%"
+                  style={{ stopColor: "var(--marker-gradient-start)" }}
+                />
+                <stop
+                  offset="40%"
+                  style={{ stopColor: "var(--marker-gradient-mid-40)" }}
+                />
+                <stop
+                  offset="65%"
+                  style={{ stopColor: "var(--marker-gradient-mid-65)" }}
+                />
+                <stop
+                  offset="100%"
+                  style={{ stopColor: "var(--marker-gradient-end)" }}
+                />
+              </linearGradient>
+            </defs>
+
             <ZoomableGroup
               zoom={zoom}
               onMoveEnd={handleMoveEnd}
