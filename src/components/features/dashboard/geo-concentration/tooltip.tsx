@@ -1,5 +1,7 @@
 "use client";
 
+import { MapPin } from "lucide-react";
+
 export interface TooltipData {
   name: string;
   suppliers: number;
@@ -12,29 +14,30 @@ interface TooltipProps {
 
 export function Tooltip({ data }: TooltipProps) {
   return (
-    <div className="absolute top-[15%] right-[15%] w-64">
-      {/* Glowing green blob background */}
-      <div
-        className="overflow-hidden relative"
-        style={{ borderRadius: "5px 5px 5px 0", background: "#052E16" }}
-      >
-        {/* Blob layers */}
-        <div className="absolute -top-6 -left-4 w-32 h-32 bg-white/20 rounded-full blur-xl" />
-        <div className="absolute -bottom-8 -right-6 w-40 h-40 bg-[#C4FFCC]/30 rounded-full blur-2xl" />
-        <div className="absolute top-4 right-8 w-24 h-24 bg-[#27D33B]/20 rounded-full blur-xl" />
-        {/* Outer glow */}
-        <div
-          className="absolute -inset-1 bg-green-500/10 blur-2xl -z-10"
-          style={{ borderRadius: "5px 5px 5px 0" }}
-        />
+    <div className="absolute top-[15%] right-[15%] z-10 w-64">
+      {/* Soft glow behind the card */}
+      <div className="absolute -inset-1 -z-10 rounded-lg bg-success-primary/20 blur-xl" />
 
-        {/* Content */}
-        <div className="relative p-4 text-white">
-          <h3 className="mb-2 text-lg font-semibold">{data.name}</h3>
-          <p className="text-sm opacity-90">{data.suppliers} suppliers</p>
+      <div className="overflow-hidden rounded-lg border border-primary bg-primary shadow-sm">
+        {/* Header */}
+        <div className="flex items-center gap-2 px-3 py-2 border-b border-secondary">
+          <div className="flex justify-center items-center w-6 h-6 rounded-md bg-success-primary">
+            <MapPin className="w-3.5 h-3.5 icon-success-primary" />
+          </div>
+          <h3 className="text-sm font-semibold text-primary">{data.name}</h3>
+        </div>
+
+        {/* Body */}
+        <div className="p-3">
+          <p className="text-xs text-secondary">
+            <span className="font-semibold text-success-primary">
+              {data.suppliers}
+            </span>{" "}
+            suppliers
+          </p>
           {data.breakdown.map((line, idx) => (
-            <p key={idx} className="text-sm opacity-75">
-              {line}
+            <p key={idx} className="mt-1 text-xs text-tertiary">
+              • {line}
             </p>
           ))}
         </div>
