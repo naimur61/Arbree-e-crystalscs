@@ -89,6 +89,7 @@ export function SupplierHealthCheck() {
   return (
     <CardContainer
       padding="sm"
+      className="max-h-[255px]"
       icon={<BadgeCheck className="text-white" size={24} fill="#15803D" />}
       title="Supplier Health Check"
       subtitle="Suppliers by risk and criticality"

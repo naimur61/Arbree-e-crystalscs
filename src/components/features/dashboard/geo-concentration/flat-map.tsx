@@ -336,7 +336,7 @@ export default function FlatMap() {
   }, []);
 
   return (
-    <div className="font-sans rounded-xl border shadow-sm select-none border-primary bg-primary">
+    <div className="font-sans rounded-xl border shadow-sm select-none border-primary bg-primary flex flex-col max-h-[255px]">
       {/* Card Header */}
       <div className="flex justify-between items-center py-3 px-4">
         <div>
@@ -350,10 +350,10 @@ export default function FlatMap() {
       </div>
 
       {/* Map Canvas */}
-      <div className="p-4">
+      <div className="flex-1 min-h-0 p-4">
         <div
           ref={mapCanvasRef}
-          className="overflow-hidden relative rounded-lg bg-primary [--geo-land:#A3C1AD] [--geo-land-hover:#93B1BD] [--geo-border:#FFFFFF] dark:[--geo-land:#9CBDCF] dark:[--geo-land-hover:#B0D3E3] dark:[--geo-border:#7FA5B9]"
+          className="h-full overflow-hidden relative rounded-lg bg-primary [--geo-land:#A3C1AD] [--geo-land-hover:#93B1BD] [--geo-border:#FFFFFF] dark:[--geo-land:#9CBDCF] dark:[--geo-land-hover:#B0D3E3] dark:[--geo-border:#7FA5B9]"
           style={{ touchAction: "none", cursor: "grab" }}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
@@ -363,6 +363,7 @@ export default function FlatMap() {
           <ComposableMap
             width={MAP_WIDTH}
             height={MAP_HEIGHT}
+            style={{ width: "100%", height: "100%", display: "block" }}
             projectionConfig={{ scale: MAP_SCALE, rotate: [rotation, 0, 0] }}
           >
             {/* Marker gradient — colors from design tokens */}
