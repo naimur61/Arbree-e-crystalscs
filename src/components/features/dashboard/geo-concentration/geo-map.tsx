@@ -7,7 +7,6 @@ import {
   Geography,
   Marker,
   Sphere,
-  ZoomableGroup,
   useMapContext,
 } from "react-simple-maps";
 import { Globe, Minus, Plus, RotateCcw } from "lucide-react";
@@ -62,6 +61,26 @@ function normalizeRotation(deg: number): number {
   return ((deg % 360) + 360) % 360;
 }
 
+// The zoom transform applied to the map group (same semantics as d3-zoom):
+// screen = translate(x, y) ∘ scale(k) ∘ projection(geo).
+interface ViewTransform {
+  x: number;
+  y: number;
+  k: number;
+}
+
+// Identity transform = the exact view the globe has on first load.
+const IDENTITY_VIEW: ViewTransform = { x: 0, y: 0, k: 1 };
+
+// Transform that keeps the projection center pinned to the viewport center.
+function zoomAboutCenter(k: number): ViewTransform {
+  return {
+    x: (MAP_WIDTH / 2) * (1 - k),
+    y: (MAP_HEIGHT / 2) * (1 - k),
+    k,
+  };
+}
+
 // Country shapes are the expensive part (~200 SVG paths), so they are
 // memoized: hovering a marker only re-renders the tooltip, never the map.
 // Colors come from CSS vars defined on the map canvas (--geo-*) so they
@@ -103,7 +122,8 @@ const MapMarker = memo(function MapMarker({
 
   // Hide markers that are on the far side of the globe: orthographic
   // mirrors them onto the visible disc, so we measure the angular distance
-  // from the view center and drop anything past the horizon.
+  // from the view center and drop anything past the horizon. The view
+  // center is the rotation point — independent of the zoom transform.
   const [cx, cy] = projection.invert([width / 2, height / 2]);
   const visible =
     haversineDistance(data.coordinates, [cx, cy]) <= Math.PI / 2 - 0.06;
@@ -144,15 +164,34 @@ const MapMarker = memo(function MapMarker({
   );
 });
 
+// Renders nothing; just forwards the live projection (which changes with
+// rotation) out of the map context so the wheel handler can compute
+// cursor-anchored zoom with the exact projection being used.
+function ProjectionBridge({
+  onProjection,
+}: {
+  onProjection: (p: any) => void;
+}) {
+  const { projection } = useMapContext();
+  const prev = useRef<any>(null);
+  useEffect(() => {
+    if (projection !== prev.current) {
+      prev.current = projection;
+      onProjection(projection);
+    }
+  }, [projection, onProjection]);
+  return null;
+}
+
 export default function GeoMap() {
   const [tooltipContent, setTooltipContent] = useState<TooltipData | null>(
     null,
   );
-  const [zoom, setZoom] = useState(1);
+  const [view, setView] = useState<ViewTransform>(IDENTITY_VIEW);
   // rotation = [longitude spin, latitude tilt]
   const [rotation, setRotation] = useState<[number, number]>([0, 0]);
 
-  // Refs shared with the rAF animation loop and pointer handlers.
+  // Refs shared with the rAF animation loop, pointer and wheel handlers.
   const rotationRef = useRef<[number, number]>([0, 0]);
   const targetRef = useRef<[number, number]>([0, 0]);
   const velocityRef = useRef<[number, number]>([0, 0]);
@@ -165,6 +204,12 @@ export default function GeoMap() {
   } | null>(null);
   const draggingRef = useRef(false);
   const resettingRef = useRef(false);
+  const projRef = useRef<any>(null);
+  const viewRef = useRef(view);
+  useEffect(() => {
+    viewRef.current = view;
+  }, [view]);
+  const mapCanvasRef = useRef<HTMLDivElement>(null);
 
   // One continuous rAF loop drives rotation, so spinning feels like a real
   // globe: it glides toward the cursor with easing while dragging, and
@@ -292,22 +337,69 @@ export default function GeoMap() {
   }, []);
   const handleMarkerLeave = useCallback(() => setTooltipContent(null), []);
 
-  const handleZoomIn = useCallback(
-    () => setZoom((z) => Math.min(MAX_ZOOM, +(z * ZOOM_STEP).toFixed(2))),
-    [],
-  );
-  const handleZoomOut = useCallback(
-    () => setZoom((z) => Math.max(MIN_ZOOM, +(z / ZOOM_STEP).toFixed(2))),
-    [],
-  );
-  // Keep the button zoom in sync with wheel/pinch gestures.
-  const handleMoveEnd = useCallback(({ zoom: z }: { zoom: number }) => {
-    setZoom(z);
+  const handleProjection = useCallback((p: any) => {
+    projRef.current = p;
   }, []);
 
-  // Refresh: glide smoothly back to the default view and reset zoom.
+  // Cursor-anchored wheel zoom. A native non-passive listener lets us
+  // preventDefault (stop the page from scrolling under the map) and keep
+  // the geographic point under the cursor fixed while zooming.
+  useEffect(() => {
+    const el = mapCanvasRef.current;
+    if (!el) return;
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      const proj = projRef.current;
+      if (!proj) return;
+      const rect = el.getBoundingClientRect();
+      const px = e.clientX - rect.left;
+      const py = e.clientY - rect.top;
+      const v = viewRef.current;
+      const factor = e.deltaY < 0 ? ZOOM_STEP : 1 / ZOOM_STEP;
+      const nextK = clamp(v.k * factor, MIN_ZOOM, MAX_ZOOM);
+      if (nextK === v.k) return;
+      const preX = (px - v.x) / v.k;
+      const preY = (py - v.y) / v.k;
+      // The orthographic projection only exists inside the globe disc
+      // (radius = projection scale); outside it, invert() returns a phantom
+      // point, so fall back to zooming about the viewport center.
+      const discR = MAP_SCALE;
+      if (
+        (preX - MAP_WIDTH / 2) ** 2 + (preY - MAP_HEIGHT / 2) ** 2 >
+        discR ** 2
+      ) {
+        setView(zoomAboutCenter(nextK));
+        return;
+      }
+      // Geographic point currently under the cursor, in projection space.
+      const [gx, gy] = proj.invert([preX, preY]);
+      if (!isFinite(gx) || !isFinite(gy)) return;
+      const [sx, sy] = proj([gx, gy]);
+      // Solve the transform so that point projects back onto the cursor.
+      setView({ x: px - nextK * sx, y: py - nextK * sy, k: nextK });
+    };
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, []);
+
+  // Button zoom: always zoom about the viewport center.
+  const handleZoomIn = useCallback(() => {
+    setView((v) => {
+      const nextK = clamp(+(v.k * ZOOM_STEP).toFixed(2), MIN_ZOOM, MAX_ZOOM);
+      return nextK === v.k ? v : zoomAboutCenter(nextK);
+    });
+  }, []);
+  const handleZoomOut = useCallback(() => {
+    setView((v) => {
+      const nextK = clamp(+(v.k / ZOOM_STEP).toFixed(2), MIN_ZOOM, MAX_ZOOM);
+      return nextK === v.k ? v : zoomAboutCenter(nextK);
+    });
+  }, []);
+
+  // Refresh: return to the exact initial view (identity transform) and
+  // glide the rotation back to the default.
   const handleReset = useCallback(() => {
-    setZoom(1);
+    setView(IDENTITY_VIEW);
     draggingRef.current = false;
     dragRef.current = null;
     velocityRef.current = [0, 0];
@@ -340,6 +432,7 @@ export default function GeoMap() {
       {/* Map Canvas */}
       <div className="p-4">
         <div
+          ref={mapCanvasRef}
           className="relative overflow-hidden rounded-lg bg-primary [--geo-land:#A3C1AD] [--geo-land-hover:#93B1BD] [--geo-border:#FFFFFF] [--geo-ocean:#CBE3F5] [--geo-ocean-stroke:#8FAFBF] dark:[--geo-land:#9CBDCF] dark:[--geo-land-hover:#B0D3E3] dark:[--geo-border:#7FA5B9] dark:[--geo-ocean:#0A2C40] dark:[--geo-ocean-stroke:#1D4A63]"
           style={{ touchAction: "none", cursor: "grab" }}
           onPointerDown={handlePointerDown}
@@ -384,12 +477,10 @@ export default function GeoMap() {
               </linearGradient>
             </defs>
 
-            <ZoomableGroup
-              zoom={zoom}
-              onMoveEnd={handleMoveEnd}
-              // Only wheel/pinch zooms; dragging is reserved for rotation.
-              filterZoomEvent={(e) => e?.type === "wheel"}
-            >
+            <ProjectionBridge onProjection={handleProjection} />
+
+            {/* Zoom transform: screen = translate(x, y) scale(k) ∘ projection */}
+            <g transform={`translate(${view.x} ${view.y}) scale(${view.k})`}>
               {/* Ocean + globe outline */}
               <Sphere
                 className="fill-[var(--geo-ocean)] stroke-[var(--geo-ocean-stroke)]"
@@ -407,7 +498,7 @@ export default function GeoMap() {
                   onLeave={handleMarkerLeave}
                 />
               ))}
-            </ZoomableGroup>
+            </g>
           </ComposableMap>
 
           {/* Tooltip */}
