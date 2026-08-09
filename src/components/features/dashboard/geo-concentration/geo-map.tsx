@@ -408,7 +408,7 @@ export default function GeoMap() {
   }, []);
 
   return (
-    <div className="font-sans rounded-xl border border-primary bg-primary shadow-sm select-none">
+    <div className="font-sans rounded-xl border border-primary bg-primary shadow-sm select-none flex flex-col max-h-[255px]">
       {/* Card Header */}
       <div className="flex justify-between items-center px-4 py-3 border-b border-secondary">
         <div className="flex items-center gap-2">
@@ -430,10 +430,10 @@ export default function GeoMap() {
       </div>
 
       {/* Map Canvas */}
-      <div className="p-4">
+      <div className="flex-1 min-h-0 p-4">
         <div
           ref={mapCanvasRef}
-          className="relative overflow-hidden rounded-lg bg-primary [--geo-land:#A3C1AD] [--geo-land-hover:#93B1BD] [--geo-border:#FFFFFF] [--geo-ocean:#CBE3F5] [--geo-ocean-stroke:#8FAFBF] dark:[--geo-land:#9CBDCF] dark:[--geo-land-hover:#B0D3E3] dark:[--geo-border:#7FA5B9] dark:[--geo-ocean:#0A2C40] dark:[--geo-ocean-stroke:#1D4A63]"
+          className="h-full relative overflow-hidden rounded-lg bg-primary [--geo-land:#A3C1AD] [--geo-land-hover:#93B1BD] [--geo-border:#FFFFFF] [--geo-ocean:#CBE3F5] [--geo-ocean-stroke:#8FAFBF] dark:[--geo-land:#9CBDCF] dark:[--geo-land-hover:#B0D3E3] dark:[--geo-border:#7FA5B9] dark:[--geo-ocean:#0A2C40] dark:[--geo-ocean-stroke:#1D4A63]"
           style={{ touchAction: "none", cursor: "grab" }}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
@@ -443,6 +443,7 @@ export default function GeoMap() {
           <ComposableMap
             width={MAP_WIDTH}
             height={MAP_HEIGHT}
+            style={{ width: "100%", height: "100%", display: "block" }}
             projection="geoOrthographic"
             projectionConfig={{
               scale: MAP_SCALE,
