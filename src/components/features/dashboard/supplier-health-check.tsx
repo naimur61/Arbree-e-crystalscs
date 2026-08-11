@@ -44,7 +44,7 @@ function Cell({
   return (
     <div
       className={`relative rounded flex items-center justify-center flex-1 ${bg}`}
-      style={{ height: 37.81 }}
+      style={{ height: 46, minHeight: 46 }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
@@ -89,12 +89,12 @@ export function SupplierHealthCheck() {
   return (
     <CardContainer
       padding="sm"
-      className="max-h-[255px]"
+      className="max-h-80 flex flex-col"
       icon={<BadgeCheck className="text-white" size={24} fill="#15803D" />}
       title="Supplier Health Check"
       subtitle="Suppliers by risk and criticality"
     >
-      <div className="grid grid-cols-10 gap-4">
+      <div className="grid grid-cols-10 gap-4 flex-1 min-h-0">
         <div className="flex col-span-1 justify-center items-center">
           <span
             style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
@@ -103,36 +103,31 @@ export function SupplierHealthCheck() {
           </span>
         </div>
 
-        <div className="flex col-span-9 gap-2">
-          <div className="flex flex-col justify-around py-1 font-medium leading-none text-[10px] text-secondary">
-            {["High", "Medium", "Low"].map((r) => (
-              <span
-                key={r}
-                style={{ height: 37.81 }}
-                className="flex items-center"
-              >
-                {r}
-              </span>
-            ))}
-          </div>
+        <div className="flex col-span-9 min-h-0">
+          <div className="flex flex-1 flex-col min-h-0">
+            <div className="flex flex-col space-y-1">
+              {ROWS.map((row, ri) => (
+                <div key={row} className="flex items-center gap-2">
+                  <span className="w-10 shrink-0 text-right font-medium leading-none text-[10px] text-secondary">
+                    {row === "Info" ? "" : row}
+                  </span>
+                  <div className="flex flex-1 h-full gap-1">
+                    {COLS.map((_, ci) => (
+                      <Cell
+                        key={ci}
+                        bg={BG[row][ci]}
+                        dot={BG[row][3 - ci]}
+                        cell={CELLS[ri][ci]}
+                        row={row}
+                        ci={ci}
+                      />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
 
-          <div className="flex-1 space-y-1">
-            {ROWS.map((row, ri) => (
-              <div key={row} className="flex gap-1">
-                {COLS.map((_, ci) => (
-                  <Cell
-                    key={ci}
-                    bg={BG[row][ci]}
-                    dot={BG[row][3 - ci]}
-                    cell={CELLS[ri][ci]}
-                    row={row}
-                    ci={ci}
-                  />
-                ))}
-              </div>
-            ))}
-
-            <div className="flex gap-1 mt-1 text-center text-[10px] text-secondary">
+            <div className="flex gap-1 mt-1 pl-12 text-center text-[10px] text-secondary">
               {COLS.map((l) => (
                 <span key={l} className="flex-1">
                   {l}

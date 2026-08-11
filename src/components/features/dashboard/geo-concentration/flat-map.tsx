@@ -336,7 +336,7 @@ export default function FlatMap() {
   }, []);
 
   return (
-    <div className="font-sans rounded-xl border shadow-sm select-none border-primary bg-primary flex flex-col max-h-[255px]">
+    <div className="font-sans rounded-xl border shadow-sm select-none border-primary bg-primary flex flex-col max-h-80">
       {/* Card Header */}
       <div className="flex justify-between items-center py-3 px-4">
         <div>
