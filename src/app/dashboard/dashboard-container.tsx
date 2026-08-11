@@ -1,7 +1,5 @@
 import { FlowBanner } from "@/components/features/shared/flow-banner";
 import { KpiCards } from "@/components/features/dashboard/kpi-cards";
-import { InsightPanels } from "@/components/features/dashboard/insight-panels";
-import { RiskChart } from "@/components/features/dashboard/risk-chart";
 import { GeoConcentration } from "@/components/features/dashboard/geo-concentration";
 import { SupplierHealthCheck } from "@/components/features/dashboard/supplier-health-check";
 import { CrystalAlerts } from "@/components/features/dashboard/crystal-alerts";
@@ -23,13 +21,16 @@ const DashboardContainer = () => {
       </div>
 
       {/* Insight Panels */}
-      <InsightPanels />
+      {/* <InsightPanels /> */}
       {/* Risk Chart */}
-      <RiskChart />
+      {/* <RiskChart /> */}
+
       {/* e-Crystal Alerts */}
       <CrystalAlerts />
+
       {/* e-Crystal Insights */}
       <CrystalInsights />
+
       {/* Upsell Banner */}
       <UpsellBanner />
     </div>

@@ -1,9 +1,15 @@
-import { AlertTriangle, ArrowRight } from "lucide-react";
+import {
+  AlertTriangle,
+  ArrowRight,
+  BadgeDollarSign,
+  Info,
+  Shield,
+} from "lucide-react";
 import { CardContainer } from "@/components/common/card";
 
 const alerts = [
   {
-    n: 5,
+    n: <BadgeDollarSign />,
     tag: "GENERAL",
     title: "All 6 Suppliers",
     meta: "Commercial status: 'In Progress · DO NOT USE'",
@@ -11,7 +17,7 @@ const alerts = [
     tone: "rose",
   },
   {
-    n: null,
+    n: <Shield />,
     tag: "OPERATIONAL · 2024-2025",
     title: "Coventry Scaffolding",
     meta: "3 RIDDOR injuries reported: 1 in 2025, 2 in 2024",
@@ -19,7 +25,7 @@ const alerts = [
     tone: "rose",
   },
   {
-    n: null,
+    n: <Info />,
     tag: "COMPLIANCE Pending",
     title: "Hoval Ltd",
     meta: "Professional Indemnity Insurance N/A · £0 cover",
@@ -31,7 +37,7 @@ const alerts = [
 export function CrystalAlerts() {
   return (
     <CardContainer
-      icon={<AlertTriangle className="w-4 h-4 text-emerald-600" />}
+      icon={<AlertTriangle className="text-white" fill="#15803D" />}
       title="e-Crystal Alerts"
       subtitle="What changed, what matters"
     >
