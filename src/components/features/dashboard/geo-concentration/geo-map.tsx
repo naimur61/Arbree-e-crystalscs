@@ -408,7 +408,7 @@ export default function GeoMap() {
   }, []);
 
   return (
-    <div className="font-sans rounded-xl border border-primary bg-primary shadow-sm select-none flex flex-col max-h-[255px]">
+    <div className="font-sans rounded-xl border border-primary bg-primary shadow-sm select-none flex flex-col max-h-80">
       {/* Card Header */}
       <div className="flex justify-between items-center px-4 py-3 border-b border-secondary">
         <div className="flex items-center gap-2">
