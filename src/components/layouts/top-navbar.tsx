@@ -2,7 +2,7 @@
 
 /* ── TopNavbar: sticky header with title, search, theme toggle, avatar, sidebar toggle ── */
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
 import { Sun, Moon, Bell, Search, ChevronLeft } from "lucide-react";
 
@@ -18,14 +18,46 @@ export function TopNavbar({ title, subtitle }: TopNavProps) {
   const { toggleRightSidebar, state } = useLayout();
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  // Hide on scroll down, reveal on scroll up (smart hide).
+  const [hidden, setHidden] = useState(false);
+  const lastY = useRef(0);
+  const ticking = useRef(false);
 
   useEffect(() => {
     const id = setTimeout(() => setMounted(true), 0);
     return () => clearTimeout(id);
   }, []);
 
+  useEffect(() => {
+    lastY.current = window.scrollY;
+    const onScroll = () => {
+      if (ticking.current) return;
+      ticking.current = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        const delta = y - lastY.current;
+        // Always visible at the top of the page.
+        if (y < 12) {
+          setHidden(false);
+        } else if (delta > 4) {
+          setHidden(true); // scrolling down
+        } else if (delta < -4) {
+          setHidden(false); // scrolling up
+        }
+        lastY.current = y;
+        ticking.current = false;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-30 w-full border-b border-border bg-background/80 backdrop-blur-lg supports-backdrop-filter:bg-background/60">
+    <header
+      className={`sticky top-0 z-30 w-full border-b border-border bg-background/80 backdrop-blur-lg supports-backdrop-filter:bg-background/60 transition-transform duration-300 ${
+        hidden ? "-translate-y-full" : "translate-y-0"
+      }`}
+    >
       <div className="flex justify-between items-center px-3 h-14">
         {/* Left: Page Title */}
         <div className="flex flex-col">

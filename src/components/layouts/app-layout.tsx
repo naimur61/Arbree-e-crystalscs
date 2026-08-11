@@ -45,7 +45,7 @@ function LayoutInner({ children, title, subtitle }: AppLayoutProps) {
       {/* Main content area — shifts when sidebars open */}
       <div
         className={cn(
-          "flex min-h-screen flex-col transition-[margin] duration-300 overflow-x-hidden",
+          "flex min-h-screen flex-col transition-[margin] duration-300 overflow-x-clip",
           state.isLeftSidebarOpen ? "ml-64" : "ml-16",
           state.isRightSidebarOpen ? "mr-72" : "mr-0",
         )}
