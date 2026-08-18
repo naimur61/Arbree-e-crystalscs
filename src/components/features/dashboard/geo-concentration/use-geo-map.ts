@@ -1,22 +1,15 @@
 // ═══════════════════════════════════════════════════════════
-// useGeoMap – one hook that powers BOTH the 3D globe and the
-// 2D flat map. All the tricky interaction logic (spin, drag,
-// zoom, momentum) lives here so the two map files only have to
-// describe how things _look_, not how things _behave_.
+// useGeoMap – shared interaction engine for both map variants:
+// drag-to-spin (with easing), release momentum, cursor-anchored
+// wheel zoom, button zoom and reset. "flat" locks latitude tilt.
 // ═══════════════════════════════════════════════════════════
 
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import type { MarkerData } from "./markers-data";
-import type { TooltipData } from "./tooltip";
+import type { MarkerData, TooltipData } from "./geo-map";
 
-// ── Config ────────────────────────────────────────────────
-//  mode  : "globe" = 3D orthographic sphere
-//          "flat"  = 2D world map (drag spins it left/right only)
-//  width / height : the SVG viewBox size in pixels
-//  scale : projection scale (for the globe this is the disc radius)
 export interface GeoMapConfig {
   mode: "globe" | "flat";
   width: number;
@@ -24,9 +17,7 @@ export interface GeoMapConfig {
   scale: number;
 }
 
-// ── Types ─────────────────────────────────────────────────
-// A "view transform" is just the classic d3-zoom idea:
-//   screen = translate(x, y)  +  scale(k)  +  projection(geo)
+// d3-zoom style transform: screen = translate(x, y) · scale(k) · projection
 export interface ViewTransform {
   x: number;
   y: number;
@@ -35,8 +26,7 @@ export interface ViewTransform {
 
 export const IDENTITY_VIEW: ViewTransform = { x: 0, y: 0, k: 1 };
 
-// Zoom in/out about the centre of the canvas (used by the buttons).
-export const zoomAboutCenter = (
+const zoomAboutCenter = (
   k: number,
   width: number,
   height: number,
@@ -46,41 +36,33 @@ export const zoomAboutCenter = (
   k,
 });
 
-// ── Tiny pure helpers ─────────────────────────────────────
 const clamp = (v: number, min: number, max: number) =>
   Math.min(max, Math.max(min, v));
-
-// Wrap an angle into [0, 360) so it never drifts past a full turn.
 const normalizeRotation = (deg: number) => ((deg % 360) + 360) % 360;
 
-// ── Tuning constants (shared by both maps) ────────────────
+// ── Tuning ────────────────────────────────────────────────
 const MIN_ZOOM = 1;
 const MAX_ZOOM = 8;
-const ZOOM_STEP = 1.3; // scale factor per click / scroll tick
+const ZOOM_STEP = 1.3; // factor per click / scroll tick
 const ROTATE_SENSITIVITY = 0.6; // degrees spun per pixel dragged
 const EASE = 0.12; // drag-follow smoothing per frame (0-1)
 const INERTIA_FRICTION = 0.9; // momentum decay per frame
-const MIN_SPEED = 0.05; // below this we stop coasting
-const MAX_SPEED = 60; // cap the launch momentum
+const MIN_SPEED = 0.05; // stop coasting below this
+const MAX_SPEED = 60; // launch momentum cap
 
-// ── The hook ──────────────────────────────────────────────
-export function useGeoMap(config: GeoMapConfig) {
-  const { mode, width, height, scale } = config;
+export function useGeoMap({ mode, width, height, scale }: GeoMapConfig) {
   const isGlobe = mode === "globe";
 
-  // ── State ──
-  // rotation = [longitude spin, latitude tilt]  (lat is always 0 on the flat map)
+  // rotation = [longitude spin, latitude tilt]; lat stays 0 on flat map
   const [rotation, setRotation] = useState<[number, number]>([0, 0]);
   const [view, setView] = useState<ViewTransform>(IDENTITY_VIEW);
   const [tooltip, setTooltip] = useState<TooltipData | null>(null);
 
-  // ── Mutable refs ──
-  // The rAF loop reads/writes these every frame. Using state here would
-  // stall the animation (React would have to re-render before the next
-  // frame is even ready), so everything that changes mid-drag goes in a ref.
+  // Mutable per-frame values live in refs so the rAF loop never
+  // waits on a React re-render.
   const rotationRef = useRef<[number, number]>([0, 0]);
-  const targetRef = useRef<[number, number]>([0, 0]); // where the drag is aiming
-  const velocityRef = useRef<[number, number]>([0, 0]); // launch speed on release
+  const targetRef = useRef<[number, number]>([0, 0]); // drag aim point
+  const velocityRef = useRef<[number, number]>([0, 0]); // release speed
   const dragRef = useRef<{
     x: number;
     y: number;
@@ -90,25 +72,22 @@ export function useGeoMap(config: GeoMapConfig) {
   } | null>(null);
   const draggingRef = useRef(false);
   const resettingRef = useRef(false);
-  const projRef = useRef<any>(null); // the live d3 projection
+  const projRef = useRef<any>(null); // live d3 projection
   const viewRef = useRef(view);
   const canvasRef = useRef<HTMLDivElement>(null);
 
-  // Keep viewRef in sync so the wheel handler (which runs outside React)
-  // always reads the latest transform.
   useEffect(() => {
     viewRef.current = view;
   }, [view]);
 
-  // ── rAF loop: smooth drag + coasting momentum ──────────
+  // ── rAF loop: smooth drag + momentum + reset ────────────
   useEffect(() => {
     let raf = 0;
     let prev = performance.now();
 
     const tick = () => {
       const now = performance.now();
-      // Normalise dt to "16.67ms = 1 frame" units, capped at 3 frames
-      // so a long pause doesn't fling the globe a mile.
+      // dt in 16.67ms frames, capped so long pauses don't fling the map
       const dt = Math.min((now - prev) / 16.667, 3) || 1;
       prev = now;
 
@@ -116,13 +95,11 @@ export function useGeoMap(config: GeoMapConfig) {
       let changed = false;
 
       if (draggingRef.current) {
-        // While dragging: chase the cursor with easing → buttery.
         const goal = targetRef.current;
         r[0] += (goal[0] - r[0]) * EASE;
         if (isGlobe) r[1] += (goal[1] - r[1]) * EASE;
         changed = true;
       } else if (resettingRef.current) {
-        // Reset button: decay rotation back to zero.
         r[0] *= 1 - EASE;
         if (isGlobe) r[1] *= 1 - EASE;
         changed = true;
@@ -138,7 +115,6 @@ export function useGeoMap(config: GeoMapConfig) {
         Math.abs(velocityRef.current[0]) > MIN_SPEED ||
         Math.abs(velocityRef.current[1]) > MIN_SPEED
       ) {
-        // Momentum: keep spinning, then gradually slow down.
         r[0] += velocityRef.current[0] * dt;
         if (isGlobe) r[1] += velocityRef.current[1] * dt;
         velocityRef.current[0] *= Math.pow(INERTIA_FRICTION, dt);
@@ -149,7 +125,6 @@ export function useGeoMap(config: GeoMapConfig) {
       }
 
       if (changed) {
-        // Flat map never tilts, so latitude stays 0.
         rotationRef.current = isGlobe
           ? [normalizeRotation(r[0]), normalizeRotation(r[1])]
           : [normalizeRotation(r[0]), 0];
@@ -163,7 +138,7 @@ export function useGeoMap(config: GeoMapConfig) {
     return () => cancelAnimationFrame(raf);
   }, [isGlobe]);
 
-  // ── Pointer (drag-to-rotate) handlers ───────────────────
+  // ── Pointer drag ────────────────────────────────────────
   const onPointerDown = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
     e.currentTarget.setPointerCapture(e.pointerId);
     draggingRef.current = true;
@@ -187,7 +162,7 @@ export function useGeoMap(config: GeoMapConfig) {
       drag.lon + (e.clientX - drag.x) * ROTATE_SENSITIVITY,
       drag.lat - (e.clientY - drag.y) * ROTATE_SENSITIVITY,
     ];
-    // Snapshot the last drag delta to seed the release momentum.
+    // Snapshot the last delta to seed release momentum.
     velocityRef.current = [
       next[0] - targetRef.current[0],
       next[1] - targetRef.current[1],
@@ -199,8 +174,6 @@ export function useGeoMap(config: GeoMapConfig) {
     if (dragRef.current?.pointerId !== e.pointerId) return;
     dragRef.current = null;
     draggingRef.current = false;
-    // Hand the latest drag velocity to the momentum step (clamped so a
-    // fast flick doesn't send the globe into orbit).
     velocityRef.current = [
       clamp(velocityRef.current[0], -MAX_SPEED, MAX_SPEED),
       clamp(velocityRef.current[1], -MAX_SPEED, MAX_SPEED),
@@ -213,14 +186,13 @@ export function useGeoMap(config: GeoMapConfig) {
     }
   }, []);
 
-  // ── Mouse-wheel zoom (cursor-anchored) ──────────────────
+  // ── Wheel zoom (cursor-anchored) ────────────────────────
   const onWheel = useCallback(
     (e: WheelEvent) => {
       e.preventDefault();
       const proj = projRef.current;
-      if (!proj) return;
       const rect = canvasRef.current?.getBoundingClientRect();
-      if (!rect) return;
+      if (!proj || !rect) return;
 
       const px = e.clientX - rect.left;
       const py = e.clientY - rect.top;
@@ -230,14 +202,13 @@ export function useGeoMap(config: GeoMapConfig) {
       if (nextK === v.k) return;
 
       if (isGlobe) {
-        // On a globe the orthographic projection only covers a disc.
-        // If the cursor is outside it, just zoom toward the centre.
+        // Orthographic projection only covers a disc; if the cursor is
+        // outside it, fall back to zooming toward the centre.
         const preX = (px - v.x) / v.k;
         const preY = (py - v.y) / v.k;
-        const discR = scale;
         const dx = preX - width / 2;
         const dy = preY - height / 2;
-        if (dx * dx + dy * dy > discR * discR) {
+        if (dx * dx + dy * dy > scale * scale) {
           setView(zoomAboutCenter(nextK, width, height));
           return;
         }
@@ -252,7 +223,6 @@ export function useGeoMap(config: GeoMapConfig) {
     [isGlobe, scale, width, height],
   );
 
-  // Attach the wheel listener (non-passive so we can preventDefault).
   useEffect(() => {
     const el = canvasRef.current;
     if (!el) return;
@@ -260,22 +230,18 @@ export function useGeoMap(config: GeoMapConfig) {
     return () => el.removeEventListener("wheel", onWheel);
   }, [onWheel]);
 
-  // ── Button: zoom ────────────────────────────────────────
-  const onZoomIn = useCallback(() => {
-    setView((v) => {
-      const nextK = clamp(v.k * ZOOM_STEP, MIN_ZOOM, MAX_ZOOM);
-      return nextK === v.k ? v : zoomAboutCenter(nextK, width, height);
-    });
-  }, [width, height]);
+  // ── Buttons ─────────────────────────────────────────────
+  const zoomBy = useCallback(
+    (factor: number) =>
+      setView((v) => {
+        const nextK = clamp(v.k * factor, MIN_ZOOM, MAX_ZOOM);
+        return nextK === v.k ? v : zoomAboutCenter(nextK, width, height);
+      }),
+    [width, height],
+  );
+  const onZoomIn = useCallback(() => zoomBy(ZOOM_STEP), [zoomBy]);
+  const onZoomOut = useCallback(() => zoomBy(1 / ZOOM_STEP), [zoomBy]);
 
-  const onZoomOut = useCallback(() => {
-    setView((v) => {
-      const nextK = clamp(v.k / ZOOM_STEP, MIN_ZOOM, MAX_ZOOM);
-      return nextK === v.k ? v : zoomAboutCenter(nextK, width, height);
-    });
-  }, [width, height]);
-
-  // ── Button: reset ───────────────────────────────────────
   const onReset = useCallback(() => {
     setView(IDENTITY_VIEW);
     draggingRef.current = false;
@@ -293,10 +259,7 @@ export function useGeoMap(config: GeoMapConfig) {
       breakdown: data.breakdown,
     });
   }, []);
-
   const onMarkerLeave = useCallback(() => setTooltip(null), []);
-
-  // ── Forward the live projection to a ref for the wheel handler
   const onProjection = useCallback((p: any) => {
     projRef.current = p;
   }, []);
