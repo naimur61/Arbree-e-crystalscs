@@ -10,11 +10,7 @@ import type {
 import { STEP_ORDER } from "./components/types";
 import TwoFactorStatusCard from "./components/two-factor-status-card";
 import SetupTwoFactorCard from "./components/setup-two-factor-card";
-import {
-  SmartphoneIcon,
-  MessageSquareIcon,
-  MailIcon,
-} from "./components/icons";
+import { Smartphone, Mail } from "lucide-react";
 import { Typography } from "@/components/common/typography/typography";
 
 const sampleStatus: TwoFactorStatus = {
@@ -41,7 +37,7 @@ function buildSteps(currentStepId: StepId) {
 const sampleMethods: VerificationMethod[] = [
   {
     id: "authenticator",
-    icon: <SmartphoneIcon />,
+    icon: <Smartphone />,
     title: "Authenticator App",
     description:
       "Use Google Authenticator, 1Password, Authy, or Duo to generate codes",
@@ -49,14 +45,14 @@ const sampleMethods: VerificationMethod[] = [
   },
   {
     id: "sms",
-    icon: <MessageSquareIcon />,
+    icon: <Mail />,
     title: "SMS Text Message",
     description:
       "Text codes might take a bit longer if on an unstable/poor signal",
   },
   {
     id: "email",
-    icon: <MailIcon />,
+    icon: <Mail />,
     title: "Email",
     description:
       "Receive codes at email@email.com. Slower but always available",

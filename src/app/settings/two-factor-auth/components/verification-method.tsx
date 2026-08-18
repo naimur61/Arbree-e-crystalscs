@@ -2,6 +2,7 @@
 
 import type { VerificationMethod } from "./types";
 import { ActionButton } from "@/components/common/button/action-button";
+import { Typography } from "@/components/common/typography/typography";
 
 interface VerificationMethodOptionProps {
   method: VerificationMethod;
@@ -23,7 +24,7 @@ function VerificationMethodOption({
       btnStyle={`grid grid-cols-[auto_1fr_auto] items-start w-full h-auto gap-3 rounded-xl border p-3.5 text-left whitespace-normal transition sm:p-4 md:gap-4 md:p-5 capitalize ${
         selected
           ? "border-emerald-300 bg-emerald-50/60"
-          : "border-gray-100 bg-white hover:border-gray-200"
+          : "border-gray-100 bg-primary hover:border-gray-200"
       }`}
       icon={
         <span
@@ -39,20 +40,20 @@ function VerificationMethodOption({
         </span>
       }
       buttonContent={
-        <span className="block w-full">
+        <span className="block w-full ml-5">
           <span className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-            <span className="text-sm font-medium text-gray-900">
+            <Typography variant="body-2" weight="medium">
               {method.title}
-            </span>
+            </Typography>
             {method.badge && (
               <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-emerald-700 sm:text-[10px]">
                 {method.badge}
               </span>
             )}
           </span>
-          <span className="mt-0.5 block text-xs text-gray-500 sm:text-sm">
+          <Typography variant="body-3" color="secondary">
             {method.description}
-          </span>
+          </Typography>
         </span>
       }
       lastIcon={
