@@ -318,7 +318,7 @@ export default function GeoMap({ variant = "flat" }: { variant?: MapVariant }) {
       </div>
 
       {/* Canvas */}
-      <div className="flex-1 p-4 min-h-0">
+      <div className="flex-1 min-h-0">
         <div
           ref={canvasRef}
           className={cn(

@@ -47,14 +47,14 @@ export function CrystalAlerts() {
             key={i}
             className="flex gap-3 items-start pb-2 border-b last:border-0"
           >
-            <div className="flex items-center p-1 w-6 h-6 rounded-full bg-success-primary shrink-0 text-[11px] text-success-primary-hover">
+            <div className="flex items-center p-1 w-6 h-6 rounded-full dark:text-white light:bg-success-primary dark:bg-offer-secondary shrink-0 text-[11px] text-success-primary-hover">
               {a.n ?? "!"}
             </div>
             <div className="flex-1">
               <div className="font-medium tracking-wide uppercase text-[10px] text-slate-500">
                 {a.tag}
               </div>
-              <div className="text-sm font-semibold light:text-primary dark:text-slate-100">
+              <div className="text-sm font-semibold light:text-primary">
                 {a.title}
               </div>
               <div className="text-[10px] text-slate-500">{a.meta}</div>
