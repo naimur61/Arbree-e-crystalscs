@@ -10,6 +10,7 @@ import DoneStep from "./done-step";
 import { ArrowLeftIcon } from "./icons";
 import { ActionButton } from "@/components/common/button/action-button";
 import { Card } from "@/components/ui/card";
+import { Typography } from "@/components/common/typography/typography";
 
 interface SetupTwoFactorCardProps {
   steps: SetupStep[];
@@ -58,18 +59,19 @@ export default function SetupTwoFactorCard({
 
   return (
     <Card className="rounded-2xl px-3 py-4 shadow-sm sm:px-5 sm:py-5 md:px-6">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-x-4">
-        <h2 className="shrink-0 text-sm font-semibold text-gray-900 sm:text-base">
-          Setup Two-Factor Authentication
-        </h2>
-        <SetupStepper steps={steps} />
+      <div className="-mx-3 border-b border-gray-200 px-3 pb-4 sm:-mx-5 sm:px-5 md:-mx-6 md:px-6">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-x-4">
+          <Typography variant="h6">Setup Two-Factor Authentication</Typography>
+
+          <SetupStepper steps={steps} />
+        </div>
       </div>
 
       {currentStepId === "method" && (
         <>
-          <p className="mt-4 mb-2.5 text-xs text-gray-500 sm:mt-5 sm:mb-3 sm:text-sm">
+          <Typography variant="body-2" color="secondary">
             Choose how you&apos;d like to receive verification codes
-          </p>
+          </Typography>
           <VerificationMethodList
             methods={methods}
             selectedId={selectedId}
