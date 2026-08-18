@@ -13,6 +13,7 @@ import {
 import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
 import type { ReactNode } from "react";
+import { ActionButton } from "@/components/common/button/action-button";
 
 interface DialogWrapperProps {
   style?: string;
@@ -50,10 +51,13 @@ export function DialogWrapper({
       >
         {closer && (
           <DialogClose asChild>
-            <button className="cursor-pointer absolute top-3 right-3 rounded-sm opacity-70 hover:opacity-100 focus:outline-none z-10">
-              <X className="h-5 w-5" />
-              <span className="sr-only">Close</span>
-            </button>
+            <ActionButton
+              type="button"
+              variant="ghost"
+              size="icon"
+              icon={<X className="h-5 w-5" />}
+              btnStyle="absolute top-3 right-3 rounded-sm opacity-70 hover:opacity-100 focus:outline-none z-10"
+            />
           </DialogClose>
         )}
         <DialogHeader
