@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { Sparkles } from "lucide-react";
 import { ActionButton } from "@/components/common/button/action-button";
-import { Typography } from "@/components/common/Typography/typography";
+import { Typography } from "@/components/common/typography/typography";
 
 export default function SubscriptionHeader({
   onChangePlan,

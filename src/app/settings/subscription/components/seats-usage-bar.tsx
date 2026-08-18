@@ -1,7 +1,7 @@
 "use client";
 
 import { UsersIcon } from "./icons";
-import { Typography } from "@/components/common/Typography/typography";
+import { Typography } from "@/components/common/typography/typography";
 
 export default function SeatsUsageBar({
   used,
