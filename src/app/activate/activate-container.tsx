@@ -311,7 +311,7 @@ export default function ActivateContainer() {
         <div className="p-8 bg-primary rounded-lg border border-primary">
           {/* Ecosystem Map Section */}
           <div className="mb-12">
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex lg:flex-row gap-4 flex-col justify-between items-center mb-6">
               <div>
                 <p className="mb-1 text-sm font-bold text-primary">
                   Ecosystem Map
@@ -324,25 +324,25 @@ export default function ActivateContainer() {
             </div>
 
             {/* Legend */}
-            <div className="flex gap-6 items-center mb-6 text-sm">
+            <div className="flex gap-4 items-center mb-6 text-xs">
               <div className="flex gap-2 items-center">
-                <div className="w-2 h-2 bg-success-primary rounded-full"></div>
+                <div className="w-2 h-2 bg-success-secondary rounded-full"></div>
                 <span className="text-xs text-primary">Supplier</span>
               </div>
               <div className="flex gap-2 items-center">
-                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                <div className="w-2 h-2 bg-info-secondary rounded-full"></div>
                 <span className="text-xs text-primary">Service</span>
               </div>
               <div className="flex gap-2 items-center">
-                <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+                <div className="w-2 h-2 bg-disabled rounded-full"></div>
                 <span className="text-xs text-primary">Function</span>
               </div>
               <div className="flex gap-2 items-center">
-                <div className="w-6 h-1 bg-red-500"></div>
+                <div className="w-6 h-1 bg-warning-secondary"></div>
                 <span className="text-xs text-primary">Critical path</span>
               </div>
               <div className="flex gap-2 items-center">
-                <div className="w-6 h-1 border-t-2 border-gray-300 border-dashed"></div>
+                <div className="w-6 h-1 border-t-2 border-black-solid border-dashed"></div>
                 <span className="text-xs text-primary">Standard</span>
               </div>
             </div>
