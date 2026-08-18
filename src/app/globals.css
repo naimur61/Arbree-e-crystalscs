@@ -1200,6 +1200,22 @@
   --btn-gradient-end: #004706;
   --btn-gradient-shadow: rgba(0, 0, 0, 0.02);
 
+  /* ── Map marker gradient tokens ── */
+  --marker-gradient-start: #ccffdf;
+  --marker-gradient-mid-40: #9efac0;
+  --marker-gradient-mid-65: #47eb99;
+  --marker-gradient-end: #1fad53;
+  --marker-gradient: linear-gradient(
+    180deg,
+    #ccffdf 0%,
+    #9efac0 40%,
+    #47eb99 65%,
+    #1fad53 100%
+  );
+  --marker-gradient-shadow:
+    0 -1px 2px 0 rgba(12, 255, 102, 0.5) inset,
+    0 1px 2px 0 rgba(25, 39, 30, 0.2);
+
   /* ── Text aliases ── */
   --text-primary: #0f172a;
   --text-secondary: #475569;
@@ -1383,6 +1399,22 @@
   --btn-gradient-mid: #009d36;
   --btn-gradient-end: #004706;
   --btn-gradient-shadow: rgba(0, 0, 0, 0.02);
+
+  /* ── Map marker gradient tokens ── */
+  --marker-gradient-start: #ccffdf;
+  --marker-gradient-mid-40: #9efac0;
+  --marker-gradient-mid-65: #47eb99;
+  --marker-gradient-end: #1fad53;
+  --marker-gradient: linear-gradient(
+    180deg,
+    #ccffdf 0%,
+    #9efac0 40%,
+    #47eb99 65%,
+    #1fad53 100%
+  );
+  --marker-gradient-shadow:
+    0 -1px 2px 0 rgba(12, 255, 102, 0.5) inset,
+    0 1px 2px 0 rgba(25, 39, 30, 0.2);
 
   /* ── Text aliases ── */
   --text-primary: #f8fafc;
