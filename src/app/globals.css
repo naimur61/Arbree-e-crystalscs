@@ -3,6 +3,7 @@
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
+@custom-variant light (&:not(:is(.dark *)));
 
 /* ───────────────────────────────────────────────
    Figma Design Tokens — Tailwind v4 Theme
@@ -381,555 +382,560 @@
    border-primary, icon-primary, and raw semantic classes
    ══════════════════════════════════════════════════════════════ */
 
-/* ── Background utilities: bg-primary, bg-secondary, etc. ── */
-.bg-children-body {
-  background-color: var(--bg-children-body);
-}
-.bg-primary {
-  background-color: var(--bg-primary);
-}
-.bg-secondary {
-  background-color: var(--bg-secondary);
-}
-.bg-tertiary {
-  background-color: var(--bg-tertiary);
-}
-.bg-quartiary {
-  background-color: var(--bg-quartiary);
-}
-.bg-primary-hover {
-  background-color: var(--bg-primary-hover);
-}
-.bg-secondary-hover {
-  background-color: var(--bg-secondary-hover);
-}
-.bg-tertiary-hover {
-  background-color: var(--bg-tertiary-hover);
-}
-.bg-quartiary-hover {
-  background-color: var(--bg-quartiary-hover);
-}
-.bg-black-solid {
-  background-color: var(--bg-black-solid);
-}
-.bg-black-solid-hover {
-  background-color: var(--bg-black-solid-hover);
-}
-.bg-disabled {
-  background-color: var(--bg-disabled);
-}
-.bg-disabled-alt {
-  background-color: var(--bg-disabled-alt);
-}
-.bg-accent-primary {
-  background-color: var(--bg-accent-primary);
-}
-.bg-accent-primary-hover {
-  background-color: var(--bg-accent-primary-hover);
-}
-.bg-accent-solid {
-  background-color: var(--bg-accent-solid);
-}
-.bg-accent-solid-hover {
-  background-color: var(--bg-accent-solid-hover);
-}
-.bg-error-primary {
-  background-color: var(--bg-error-primary);
-}
-.bg-error-primary-hover {
-  background-color: var(--bg-error-primary-hover);
-}
-.bg-error-secondary {
-  background-color: var(--bg-error-secondary);
-}
-.bg-error-secondary-hover {
-  background-color: var(--bg-error-secondary-hover);
-}
-.bg-success-primary {
-  background-color: var(--bg-success-primary);
-}
-.bg-success-primary-hover {
-  background-color: var(--bg-success-primary-hover);
-}
-.bg-success-secondary {
-  background-color: var(--bg-success-secondary);
-}
-.bg-success-secondary-hover {
-  background-color: var(--bg-success-secondary-hover);
-}
-.bg-warning-primary {
-  background-color: var(--bg-warning-primary);
-}
-.bg-warning-primary-hover {
-  background-color: var(--bg-warning-primary-hover);
-}
-.bg-warning-secondary {
-  background-color: var(--bg-warning-secondary);
-}
-.bg-warning-secondary-hover {
-  background-color: var(--bg-warning-secondary-hover);
-}
-.bg-info-primary {
-  background-color: var(--bg-info-primary);
-}
-.bg-info-primary-hover {
-  background-color: var(--bg-info-primary-hover);
-}
-.bg-info-secondary {
-  background-color: var(--bg-info-secondary);
-}
-.bg-info-secondary-hover {
-  background-color: var(--bg-info-secondary-hover);
-}
-.bg-offer-primary {
-  background-color: var(--bg-offer-primary);
-}
-.bg-offer-primary-hover {
-  background-color: var(--bg-offer-primary-hover);
-}
-.bg-offer-secondary {
-  background-color: var(--bg-offer-secondary);
-}
-.bg-offer-secondary-hover {
-  background-color: var(--bg-offer-secondary-hover);
-}
-.bg-overlay-alpha-primary {
-  background-color: var(--bg-overlay-alpha-primary);
-}
-.bg-overlay-alpha-secondary {
-  background-color: var(--bg-overlay-alpha-secondary);
-}
-.bg-overlay-alpha-white-primary {
-  background-color: var(--bg-overlay-alpha-white-primary);
-}
-.bg-overlay-alpha-white-secondary {
-  background-color: var(--bg-overlay-alpha-white-secondary);
-}
-.btn-gradient {
-  border-radius: 4px;
-  background: linear-gradient(
-    157deg,
-    var(--btn-gradient-start) 2.28%,
-    var(--btn-gradient-mid) 75.47%,
-    var(--btn-gradient-end) 102.54%
-  );
-  box-shadow: 0 2px 0 0 var(--btn-gradient-shadow);
-}
-.btn-gradient:hover {
-  opacity: 0.9;
-}
+@layer utilities {
+  /* ── Background utilities: bg-primary, bg-secondary, etc. ── */
+  .bg-children-body {
+    background-color: var(--bg-children-body);
+  }
+  .bg-primary {
+    background-color: var(--bg-primary);
+  }
+  .bg-secondary {
+    background-color: var(--bg-secondary);
+  }
+  .bg-tertiary {
+    background-color: var(--bg-tertiary);
+  }
+  .bg-quartiary {
+    background-color: var(--bg-quartiary);
+  }
+  .bg-primary-hover {
+    background-color: var(--bg-primary-hover);
+  }
+  .bg-secondary-hover {
+    background-color: var(--bg-secondary-hover);
+  }
+  .bg-tertiary-hover {
+    background-color: var(--bg-tertiary-hover);
+  }
+  .bg-quartiary-hover {
+    background-color: var(--bg-quartiary-hover);
+  }
+  .bg-black-solid {
+    background-color: var(--bg-black-solid);
+  }
+  .bg-black-solid-hover {
+    background-color: var(--bg-black-solid-hover);
+  }
+  .bg-disabled {
+    background-color: var(--bg-disabled);
+  }
+  .bg-disabled-alt {
+    background-color: var(--bg-disabled-alt);
+  }
+  .bg-accent-primary {
+    background-color: var(--bg-accent-primary);
+  }
+  .bg-accent-primary-hover {
+    background-color: var(--bg-accent-primary-hover);
+  }
+  .bg-accent-solid {
+    background-color: var(--bg-accent-solid);
+  }
+  .bg-accent-solid-hover {
+    background-color: var(--bg-accent-solid-hover);
+  }
+  .bg-error-primary {
+    background-color: var(--bg-error-primary);
+  }
+  .bg-error-primary-hover {
+    background-color: var(--bg-error-primary-hover);
+  }
+  .bg-error-secondary {
+    background-color: var(--bg-error-secondary);
+  }
+  .bg-error-secondary-hover {
+    background-color: var(--bg-error-secondary-hover);
+  }
+  .bg-success-primary {
+    background-color: var(--bg-success-primary);
+  }
+  .bg-success-primary-hover {
+    background-color: var(--bg-success-primary-hover);
+  }
+  .bg-success-secondary {
+    background-color: var(--bg-success-secondary);
+  }
+  .bg-success-secondary-hover {
+    background-color: var(--bg-success-secondary-hover);
+  }
+  .bg-warning-primary {
+    background-color: var(--bg-warning-primary);
+  }
+  .bg-warning-primary-hover {
+    background-color: var(--bg-warning-primary-hover);
+  }
+  .bg-warning-secondary {
+    background-color: var(--bg-warning-secondary);
+  }
+  .bg-warning-secondary-hover {
+    background-color: var(--bg-warning-secondary-hover);
+  }
+  .bg-info-primary {
+    background-color: var(--bg-info-primary);
+  }
+  .bg-info-primary-hover {
+    background-color: var(--bg-info-primary-hover);
+  }
+  .bg-info-secondary {
+    background-color: var(--bg-info-secondary);
+  }
+  .bg-info-secondary-hover {
+    background-color: var(--bg-info-secondary-hover);
+  }
+  .bg-offer-primary {
+    background-color: var(--bg-offer-primary);
+  }
+  .bg-offer-primary-hover {
+    background-color: var(--bg-offer-primary-hover);
+  }
+  .bg-offer-secondary {
+    background-color: var(--bg-offer-secondary);
+  }
+  .bg-offer-secondary-hover {
+    background-color: var(--bg-offer-secondary-hover);
+  }
+  .bg-overlay-alpha-primary {
+    background-color: var(--bg-overlay-alpha-primary);
+  }
+  .bg-overlay-alpha-secondary {
+    background-color: var(--bg-overlay-alpha-secondary);
+  }
+  .bg-overlay-alpha-white-primary {
+    background-color: var(--bg-overlay-alpha-white-primary);
+  }
+  .bg-overlay-alpha-white-secondary {
+    background-color: var(--bg-overlay-alpha-white-secondary);
+  }
+  .btn-gradient {
+    border-radius: 4px;
+    background: linear-gradient(
+      157deg,
+      var(--btn-gradient-start) 2.28%,
+      var(--btn-gradient-mid) 75.47%,
+      var(--btn-gradient-end) 102.54%
+    );
+    box-shadow: 0 2px 0 0 var(--btn-gradient-shadow);
+  }
+  .btn-gradient:hover {
+    opacity: 0.9;
+  }
 
-/* ── Text utilities: text-primary, text-secondary, etc. ── */
-.text-primary {
-  color: var(--text-primary);
-}
-.text-secondary {
-  color: var(--text-secondary);
-}
-.text-tertiary {
-  color: var(--text-tertiary);
-}
-.text-primary-hover {
-  color: var(--text-primary-hover);
-}
-.text-secondary-hover {
-  color: var(--text-secondary-hover);
-}
-.text-tertiary-hover {
-  color: var(--text-tertiary-hover);
-}
-.text-disabled {
-  color: var(--text-disabled);
-}
-.text-disabled-alt {
-  color: var(--text-disabled-alt);
-}
-.text-placeholder {
-  color: var(--text-placeholder);
-}
-.text-white {
-  color: var(--text-white);
-}
-.text-on-dark-color {
-  color: var(--text-on-dark-color);
-}
-.text-accent-primary {
-  color: var(--text-accent-primary);
-}
-.text-accent-secondary {
-  color: var(--text-accent-secondary);
-}
-.text-accent-primary-hover {
-  color: var(--text-accent-primary-hover);
-}
-.text-accent-secondary-hover {
-  color: var(--text-accent-secondary-hover);
-}
-.text-error-primary {
-  color: var(--text-error-primary);
-}
-.text-error-secondary {
-  color: var(--text-error-secondary);
-}
-.text-error-primary-hover {
-  color: var(--text-error-primary-hover);
-}
-.text-error-secondary-hover {
-  color: var(--text-error-secondary-hover);
-}
-.text-success-primary {
-  color: var(--text-success-primary);
-}
-.text-success-secondary {
-  color: var(--text-success-secondary);
-}
-.text-success-primary-hover {
-  color: var(--text-success-primary-hover);
-}
-.text-success-secondary-hover {
-  color: var(--text-success-secondary-hover);
-}
-.text-warning-primary {
-  color: var(--text-warning-primary);
-}
-.text-warning-secondary {
-  color: var(--text-warning-secondary);
-}
-.text-warning-primary-hover {
-  color: var(--text-warning-primary-hover);
-}
-.text-warning-secondary-hover {
-  color: var(--text-warning-secondary-hover);
-}
-.text-info-primary {
-  color: var(--text-info-primary);
-}
-.text-info-secondary {
-  color: var(--text-info-secondary);
-}
-.text-info-primary-hover {
-  color: var(--text-info-primary-hover);
-}
-.text-info-secondary-hover {
-  color: var(--text-info-secondary-hover);
-}
-.text-offer-primary {
-  color: var(--text-offer-primary);
-}
-.text-offer-secondary {
-  color: var(--text-offer-secondary);
-}
-.text-offer-primary-hover {
-  color: var(--text-offer-primary-hover);
-}
-.text-offer-secondary-hover {
-  color: var(--text-offer-secondary-hover);
-}
+  /* ── Text utilities: text-primary, text-secondary, etc. ── */
+  .text-primary {
+    color: var(--text-primary);
+  }
+  .text-secondary {
+    color: var(--text-secondary);
+  }
+  .text-tertiary {
+    color: var(--text-tertiary);
+  }
+  .text-primary-hover {
+    color: var(--text-primary-hover);
+  }
+  .text-secondary-hover {
+    color: var(--text-secondary-hover);
+  }
+  .text-tertiary-hover {
+    color: var(--text-tertiary-hover);
+  }
+  .text-disabled {
+    color: var(--text-disabled);
+  }
+  .text-disabled-alt {
+    color: var(--text-disabled-alt);
+  }
+  .text-placeholder {
+    color: var(--text-placeholder);
+  }
+  .text-white {
+    color: var(--text-white);
+  }
+  .text-on-dark-color {
+    color: var(--text-on-dark-color);
+  }
+  .text-accent-primary {
+    color: var(--text-accent-primary);
+  }
+  .text-accent-secondary {
+    color: var(--text-accent-secondary);
+  }
+  .text-accent-primary-hover {
+    color: var(--text-accent-primary-hover);
+  }
+  .text-accent-secondary-hover {
+    color: var(--text-accent-secondary-hover);
+  }
+  .text-error-primary {
+    color: var(--text-error-primary);
+  }
+  .text-error-secondary {
+    color: var(--text-error-secondary);
+  }
+  .text-error-primary-hover {
+    color: var(--text-error-primary-hover);
+  }
+  .text-error-secondary-hover {
+    color: var(--text-error-secondary-hover);
+  }
+  .text-success-primary {
+    color: var(--text-success-primary);
+  }
+  .text-success-secondary {
+    color: var(--text-success-secondary);
+  }
+  .text-success-primary-hover {
+    color: var(--text-success-primary-hover);
+  }
+  .text-success-secondary-hover {
+    color: var(--text-success-secondary-hover);
+  }
+  .text-warning-primary {
+    color: var(--text-warning-primary);
+  }
+  .text-warning-secondary {
+    color: var(--text-warning-secondary);
+  }
+  .text-warning-primary-hover {
+    color: var(--text-warning-primary-hover);
+  }
+  .text-warning-secondary-hover {
+    color: var(--text-warning-secondary-hover);
+  }
+  .text-info-primary {
+    color: var(--text-info-primary);
+  }
+  .text-info-secondary {
+    color: var(--text-info-secondary);
+  }
+  .text-info-primary-hover {
+    color: var(--text-info-primary-hover);
+  }
+  .text-info-secondary-hover {
+    color: var(--text-info-secondary-hover);
+  }
+  .text-offer-primary {
+    color: var(--text-offer-primary);
+  }
+  .text-offer-secondary {
+    color: var(--text-offer-secondary);
+  }
+  .text-offer-primary-hover {
+    color: var(--text-offer-primary-hover);
+  }
+  .text-offer-secondary-hover {
+    color: var(--text-offer-secondary-hover);
+  }
 
-/* ── Border utilities: border-primary, border-secondary, etc. ── */
-.border-primary {
-  border-color: var(--border-primary);
-}
-.border-secondary {
-  border-color: var(--border-secondary);
-}
-.border-tertiary {
-  border-color: var(--border-tertiary);
-}
-.border-primary-solid {
-  border-color: var(--border-primary-solid);
-}
-.border-disabled {
-  border-color: var(--border-disabled);
-}
-.border-disabled-alt {
-  border-color: var(--border-disabled-alt);
-}
-.border-accent-primary {
-  border-color: var(--border-accent-primary);
-}
-.border-accent-secondary {
-  border-color: var(--border-accent-secondary);
-}
-.border-error-primary {
-  border-color: var(--border-error-primary);
-}
-.border-error-secondary {
-  border-color: var(--border-error-secondary);
-}
-.border-success-primary {
-  border-color: var(--border-success-primary);
-}
-.border-success-secondary {
-  border-color: var(--border-success-secondary);
-}
-.border-warning-primary {
-  border-color: var(--border-warning-primary);
-}
-.border-warning-secondary {
-  border-color: var(--border-warning-secondary);
-}
-.border-info-primary {
-  border-color: var(--border-info-primary);
-}
-.border-info-secondary {
-  border-color: var(--border-info-secondary);
-}
-.border-offer-primary {
-  border-color: var(--border-offer-primary);
-}
-.border-offer-secondary {
-  border-color: var(--border-offer-secondary);
-}
+  /* ── Border utilities: border-primary, border-secondary, etc. ── */
+  .border-primary {
+    border-color: var(--border-primary);
+  }
+  .border-secondary {
+    border-color: var(--border-secondary);
+  }
+  .border-tertiary {
+    border-color: var(--border-tertiary);
+  }
+  .border-primary-solid {
+    border-color: var(--border-primary-solid);
+  }
+  .border-disabled {
+    border-color: var(--border-disabled);
+  }
+  .border-disabled-alt {
+    border-color: var(--border-disabled-alt);
+  }
+  .border-accent-primary {
+    border-color: var(--border-accent-primary);
+  }
+  .border-accent-secondary {
+    border-color: var(--border-accent-secondary);
+  }
+  .border-error-primary {
+    border-color: var(--border-error-primary);
+  }
+  .border-error-secondary {
+    border-color: var(--border-error-secondary);
+  }
+  .border-success-primary {
+    border-color: var(--border-success-primary);
+  }
+  .border-success-secondary {
+    border-color: var(--border-success-secondary);
+  }
+  .border-warning-primary {
+    border-color: var(--border-warning-primary);
+  }
+  .border-warning-secondary {
+    border-color: var(--border-warning-secondary);
+  }
+  .border-info-primary {
+    border-color: var(--border-info-primary);
+  }
+  .border-info-secondary {
+    border-color: var(--border-info-secondary);
+  }
+  .border-offer-primary {
+    border-color: var(--border-offer-primary);
+  }
+  .border-offer-secondary {
+    border-color: var(--border-offer-secondary);
+  }
+  .border-card {
+    border-color: var(--border-card);
+  }
 
-/* ── Icon utilities: icon-primary, icon-secondary, etc. ── */
-.icon-primary {
-  color: var(--icon-primary);
-  fill: var(--icon-primary);
-}
-.icon-secondary {
-  color: var(--icon-secondary);
-  fill: var(--icon-secondary);
-}
-.icon-tertiary {
-  color: var(--icon-tertiary);
-  fill: var(--icon-tertiary);
-}
-.icon-primary-hover {
-  color: var(--icon-primary-hover);
-  fill: var(--icon-primary-hover);
-}
-.icon-secondary-hover {
-  color: var(--icon-secondary-hover);
-  fill: var(--icon-secondary-hover);
-}
-.icon-tertiary-hover {
-  color: var(--icon-tertiary-hover);
-  fill: var(--icon-tertiary-hover);
-}
-.icon-disabled {
-  color: var(--icon-disabled);
-  fill: var(--icon-disabled);
-}
-.icon-disabled-alt {
-  color: var(--icon-disabled-alt);
-  fill: var(--icon-disabled-alt);
-}
-.icon-placeholder {
-  color: var(--icon-placeholder);
-  fill: var(--icon-placeholder);
-}
-.icon-white {
-  color: var(--icon-white);
-  fill: var(--icon-white);
-}
-.icon-on-dark-color {
-  color: var(--icon-on-dark-color);
-  fill: var(--icon-on-dark-color);
-}
-.icon-accent-primary {
-  color: var(--icon-accent-primary);
-  fill: var(--icon-accent-primary);
-}
-.icon-accent-secondary {
-  color: var(--icon-accent-secondary);
-  fill: var(--icon-accent-secondary);
-}
-.icon-accent-primary-hover {
-  color: var(--icon-accent-primary-hover);
-  fill: var(--icon-accent-primary-hover);
-}
-.icon-accent-secondary-hover {
-  color: var(--icon-accent-secondary-hover);
-  fill: var(--icon-accent-secondary-hover);
-}
-.icon-error-primary {
-  color: var(--icon-error-primary);
-  fill: var(--icon-error-primary);
-}
-.icon-error-secondary {
-  color: var(--icon-error-secondary);
-  fill: var(--icon-error-secondary);
-}
-.icon-error-primary-hover {
-  color: var(--icon-error-primary-hover);
-  fill: var(--icon-error-primary-hover);
-}
-.icon-error-secondary-hover {
-  color: var(--icon-error-secondary-hover);
-  fill: var(--icon-error-secondary-hover);
-}
-.icon-success-primary {
-  color: var(--icon-success-primary);
-  fill: var(--icon-success-primary);
-}
-.icon-success-secondary {
-  color: var(--icon-success-secondary);
-  fill: var(--icon-success-secondary);
-}
-.icon-success-primary-hover {
-  color: var(--icon-success-primary-hover);
-  fill: var(--icon-success-primary-hover);
-}
-.icon-success-secondary-hover {
-  color: var(--icon-success-secondary-hover);
-  fill: var(--icon-success-secondary-hover);
-}
-.icon-warning-primary {
-  color: var(--icon-warning-primary);
-  fill: var(--icon-warning-primary);
-}
-.icon-warning-secondary {
-  color: var(--icon-warning-secondary);
-  fill: var(--icon-warning-secondary);
-}
-.icon-warning-primary-hover {
-  color: var(--icon-warning-primary-hover);
-  fill: var(--icon-warning-primary-hover);
-}
-.icon-warning-secondary-hover {
-  color: var(--icon-warning-secondary-hover);
-  fill: var(--icon-warning-secondary-hover);
-}
-.icon-info-primary {
-  color: var(--icon-info-primary);
-  fill: var(--icon-info-primary);
-}
-.icon-info-secondary {
-  color: var(--icon-info-secondary);
-  fill: var(--icon-info-secondary);
-}
-.icon-info-primary-hover {
-  color: var(--icon-info-primary-hover);
-  fill: var(--icon-info-primary-hover);
-}
-.icon-info-secondary-hover {
-  color: var(--icon-info-secondary-hover);
-  fill: var(--icon-info-secondary-hover);
-}
-.icon-offer-primary {
-  color: var(--icon-offer-primary);
-  fill: var(--icon-offer-primary);
-}
-.icon-offer-secondary {
-  color: var(--icon-offer-secondary);
-  fill: var(--icon-offer-secondary);
-}
-.icon-offer-primary-hover {
-  color: var(--icon-offer-primary-hover);
-  fill: var(--icon-offer-primary-hover);
-}
-.icon-offer-secondary-hover {
-  color: var(--icon-offer-secondary-hover);
-  fill: var(--icon-offer-secondary-hover);
-}
+  /* ── Icon utilities: icon-primary, icon-secondary, etc. ── */
+  .icon-primary {
+    color: var(--icon-primary);
+    fill: var(--icon-primary);
+  }
+  .icon-secondary {
+    color: var(--icon-secondary);
+    fill: var(--icon-secondary);
+  }
+  .icon-tertiary {
+    color: var(--icon-tertiary);
+    fill: var(--icon-tertiary);
+  }
+  .icon-primary-hover {
+    color: var(--icon-primary-hover);
+    fill: var(--icon-primary-hover);
+  }
+  .icon-secondary-hover {
+    color: var(--icon-secondary-hover);
+    fill: var(--icon-secondary-hover);
+  }
+  .icon-tertiary-hover {
+    color: var(--icon-tertiary-hover);
+    fill: var(--icon-tertiary-hover);
+  }
+  .icon-disabled {
+    color: var(--icon-disabled);
+    fill: var(--icon-disabled);
+  }
+  .icon-disabled-alt {
+    color: var(--icon-disabled-alt);
+    fill: var(--icon-disabled-alt);
+  }
+  .icon-placeholder {
+    color: var(--icon-placeholder);
+    fill: var(--icon-placeholder);
+  }
+  .icon-white {
+    color: var(--icon-white);
+    fill: var(--icon-white);
+  }
+  .icon-on-dark-color {
+    color: var(--icon-on-dark-color);
+    fill: var(--icon-on-dark-color);
+  }
+  .icon-accent-primary {
+    color: var(--icon-accent-primary);
+    fill: var(--icon-accent-primary);
+  }
+  .icon-accent-secondary {
+    color: var(--icon-accent-secondary);
+    fill: var(--icon-accent-secondary);
+  }
+  .icon-accent-primary-hover {
+    color: var(--icon-accent-primary-hover);
+    fill: var(--icon-accent-primary-hover);
+  }
+  .icon-accent-secondary-hover {
+    color: var(--icon-accent-secondary-hover);
+    fill: var(--icon-accent-secondary-hover);
+  }
+  .icon-error-primary {
+    color: var(--icon-error-primary);
+    fill: var(--icon-error-primary);
+  }
+  .icon-error-secondary {
+    color: var(--icon-error-secondary);
+    fill: var(--icon-error-secondary);
+  }
+  .icon-error-primary-hover {
+    color: var(--icon-error-primary-hover);
+    fill: var(--icon-error-primary-hover);
+  }
+  .icon-error-secondary-hover {
+    color: var(--icon-error-secondary-hover);
+    fill: var(--icon-error-secondary-hover);
+  }
+  .icon-success-primary {
+    color: var(--icon-success-primary);
+    fill: var(--icon-success-primary);
+  }
+  .icon-success-secondary {
+    color: var(--icon-success-secondary);
+    fill: var(--icon-success-secondary);
+  }
+  .icon-success-primary-hover {
+    color: var(--icon-success-primary-hover);
+    fill: var(--icon-success-primary-hover);
+  }
+  .icon-success-secondary-hover {
+    color: var(--icon-success-secondary-hover);
+    fill: var(--icon-success-secondary-hover);
+  }
+  .icon-warning-primary {
+    color: var(--icon-warning-primary);
+    fill: var(--icon-warning-primary);
+  }
+  .icon-warning-secondary {
+    color: var(--icon-warning-secondary);
+    fill: var(--icon-warning-secondary);
+  }
+  .icon-warning-primary-hover {
+    color: var(--icon-warning-primary-hover);
+    fill: var(--icon-warning-primary-hover);
+  }
+  .icon-warning-secondary-hover {
+    color: var(--icon-warning-secondary-hover);
+    fill: var(--icon-warning-secondary-hover);
+  }
+  .icon-info-primary {
+    color: var(--icon-info-primary);
+    fill: var(--icon-info-primary);
+  }
+  .icon-info-secondary {
+    color: var(--icon-info-secondary);
+    fill: var(--icon-info-secondary);
+  }
+  .icon-info-primary-hover {
+    color: var(--icon-info-primary-hover);
+    fill: var(--icon-info-primary-hover);
+  }
+  .icon-info-secondary-hover {
+    color: var(--icon-info-secondary-hover);
+    fill: var(--icon-info-secondary-hover);
+  }
+  .icon-offer-primary {
+    color: var(--icon-offer-primary);
+    fill: var(--icon-offer-primary);
+  }
+  .icon-offer-secondary {
+    color: var(--icon-offer-secondary);
+    fill: var(--icon-offer-secondary);
+  }
+  .icon-offer-primary-hover {
+    color: var(--icon-offer-primary-hover);
+    fill: var(--icon-offer-primary-hover);
+  }
+  .icon-offer-secondary-hover {
+    color: var(--icon-offer-secondary-hover);
+    fill: var(--icon-offer-secondary-hover);
+  }
 
-/* ── Raw semantic color classes: primary, secondary, tertiary, etc. ── */
-.primary {
-  color: var(--text-primary);
-}
-.secondary {
-  color: var(--text-secondary);
-}
-.tertiary {
-  color: var(--text-tertiary);
-}
-.primary-hover {
-  color: var(--text-primary-hover);
-}
-.secondary-hover {
-  color: var(--text-secondary-hover);
-}
-.tertiary-hover {
-  color: var(--text-tertiary-hover);
-}
-.disabled {
-  color: var(--text-disabled);
-}
-.disabled-alt {
-  color: var(--text-disabled-alt);
-}
-.placeholder {
-  color: var(--text-placeholder);
-}
-.white {
-  color: var(--text-white);
-}
-.on-dark-color {
-  color: var(--text-on-dark-color);
-}
-.accent-primary {
-  color: var(--text-accent-primary);
-}
-.accent-secondary {
-  color: var(--text-accent-secondary);
-}
-.accent-primary-hover {
-  color: var(--text-accent-primary-hover);
-}
-.accent-secondary-hover {
-  color: var(--text-accent-secondary-hover);
-}
-.error-primary {
-  color: var(--text-error-primary);
-}
-.error-secondary {
-  color: var(--text-error-secondary);
-}
-.error-primary-hover {
-  color: var(--text-error-primary-hover);
-}
-.error-secondary-hover {
-  color: var(--text-error-secondary-hover);
-}
-.success-primary {
-  color: var(--text-success-primary);
-}
-.success-secondary {
-  color: var(--text-success-secondary);
-}
-.success-primary-hover {
-  color: var(--text-success-primary-hover);
-}
-.success-secondary-hover {
-  color: var(--text-success-secondary-hover);
-}
-.warning-primary {
-  color: var(--text-warning-primary);
-}
-.warning-secondary {
-  color: var(--text-warning-secondary);
-}
-.warning-primary-hover {
-  color: var(--text-warning-primary-hover);
-}
-.warning-secondary-hover {
-  color: var(--text-warning-secondary-hover);
-}
-.info-primary {
-  color: var(--text-info-primary);
-}
-.info-secondary {
-  color: var(--text-info-secondary);
-}
-.info-primary-hover {
-  color: var(--text-info-primary-hover);
-}
-.info-secondary-hover {
-  color: var(--text-info-secondary-hover);
-}
-.offer-primary {
-  color: var(--text-offer-primary);
-}
-.offer-secondary {
-  color: var(--text-offer-secondary);
-}
-.offer-primary-hover {
-  color: var(--text-offer-primary-hover);
-}
-.offer-secondary-hover {
-  color: var(--text-offer-secondary-hover);
-}
+  /* ── Raw semantic color classes: primary, secondary, tertiary, etc. ── */
+  .primary {
+    color: var(--text-primary);
+  }
+  .secondary {
+    color: var(--text-secondary);
+  }
+  .tertiary {
+    color: var(--text-tertiary);
+  }
+  .primary-hover {
+    color: var(--text-primary-hover);
+  }
+  .secondary-hover {
+    color: var(--text-secondary-hover);
+  }
+  .tertiary-hover {
+    color: var(--text-tertiary-hover);
+  }
+  .disabled {
+    color: var(--text-disabled);
+  }
+  .disabled-alt {
+    color: var(--text-disabled-alt);
+  }
+  .placeholder {
+    color: var(--text-placeholder);
+  }
+  .white {
+    color: var(--text-white);
+  }
+  .on-dark-color {
+    color: var(--text-on-dark-color);
+  }
+  .accent-primary {
+    color: var(--text-accent-primary);
+  }
+  .accent-secondary {
+    color: var(--text-accent-secondary);
+  }
+  .accent-primary-hover {
+    color: var(--text-accent-primary-hover);
+  }
+  .accent-secondary-hover {
+    color: var(--text-accent-secondary-hover);
+  }
+  .error-primary {
+    color: var(--text-error-primary);
+  }
+  .error-secondary {
+    color: var(--text-error-secondary);
+  }
+  .error-primary-hover {
+    color: var(--text-error-primary-hover);
+  }
+  .error-secondary-hover {
+    color: var(--text-error-secondary-hover);
+  }
+  .success-primary {
+    color: var(--text-success-primary);
+  }
+  .success-secondary {
+    color: var(--text-success-secondary);
+  }
+  .success-primary-hover {
+    color: var(--text-success-primary-hover);
+  }
+  .success-secondary-hover {
+    color: var(--text-success-secondary-hover);
+  }
+  .warning-primary {
+    color: var(--text-warning-primary);
+  }
+  .warning-secondary {
+    color: var(--text-warning-secondary);
+  }
+  .warning-primary-hover {
+    color: var(--text-warning-primary-hover);
+  }
+  .warning-secondary-hover {
+    color: var(--text-warning-secondary-hover);
+  }
+  .info-primary {
+    color: var(--text-info-primary);
+  }
+  .info-secondary {
+    color: var(--text-info-secondary);
+  }
+  .info-primary-hover {
+    color: var(--text-info-primary-hover);
+  }
+  .info-secondary-hover {
+    color: var(--text-info-secondary-hover);
+  }
+  .offer-primary {
+    color: var(--text-offer-primary);
+  }
+  .offer-secondary {
+    color: var(--text-offer-secondary);
+  }
+  .offer-primary-hover {
+    color: var(--text-offer-primary-hover);
+  }
+  .offer-secondary-hover {
+    color: var(--text-offer-secondary-hover);
+  }
+} /* end @layer utilities */
 
 /* ═══════════════════════════════════════════════
    TYPOGRAPHY UTILITY CLASSES
@@ -1287,6 +1293,7 @@
   --border-info-secondary: #93c5fd;
   --border-offer-primary: #22c55e;
   --border-offer-secondary: #86efac;
+  --border-card: rgba(34, 197, 94, 0.2);
 
   /* ── Shadcn mapped variables ── */
   --card: oklch(1 0 0);
@@ -1470,6 +1477,7 @@
   --border-info-secondary: #1d4ed8;
   --border-offer-primary: #22c55e;
   --border-offer-secondary: #15803d;
+  --border-card: rgba(34, 197, 94, 0.2);
 
   /* ── Shadcn mapped variables ── */
   --background: oklch(0.145 0 0);

@@ -43,20 +43,27 @@ export interface TypographyProps extends React.HTMLAttributes<HTMLElement> {
   /** Override font weight */
   weight?: TypographyWeight;
   /**
-   * Max characters to render before truncating.
-   * Opt-in feature: when omitted (default), the text is shown in full and no
-   * "See more" toggle is rendered.
+   * Truncation mode:
+   * - Pass a `number` to truncate to that many characters.
+   * - Pass `true` (bare prop, e.g. `<Typography limit>`) to truncate
+   *   responsively at the container width using CSS line-clamp.
+   * - When omitted (default), the text is shown in full.
    */
-  limit?: number;
+  limit?: number | true;
   /**
-   * When `limit` is set, choose how overflow is handled:
-   *  - `false` (default): truncate + render a "See more" toggle button.
-   *  - `true`: truncate + reveal the full text in a hover tooltip (no button).
+   * Instead of a tooltip, render an inline "See more" / "See less"
+   * toggle that expands the full text when clicked.
+   * Requires `limit` to be set.
+   */
+  seeMore?: boolean;
+  /**
+   * Kept for backward compatibility — no longer has an effect.
+   * Tooltip is now automatic when `limit` is set.
    */
   tooltip?: boolean;
-  /** Label for the expand ("See more") toggle. */
+  /** Label for the expand ("See more") button. Only used when `seeMore` is true. */
   seeMoreText?: string;
-  /** Label for the collapse ("See less") toggle. */
+  /** Label for the collapse ("See less") button. Only used when `seeMore` is true. */
   seeLessText?: string;
   children: React.ReactNode;
 }

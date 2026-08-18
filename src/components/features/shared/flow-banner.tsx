@@ -1,5 +1,8 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
+
 import {
   Activity,
   ArrowRight,
@@ -23,8 +26,8 @@ const STEPS: Record<
     icon: LucideIcon;
     title: string;
     desc: string;
-    header: string;
-    subtitle: string;
+    header?: string;
+    subtitle?: string;
   }
 > = {
   dashboard: {
@@ -52,9 +55,9 @@ const STEPS: Record<
     icon: Activity,
     title: "PULSE",
     desc: "Monitor risk in real time. Track signals, threats and emerging changes",
-    header: "Pulse - Real-Time Supplier Insights",
-    subtitle:
-      "Monitor risk in real time Track signals, threats and emerging changes.",
+    // header: "Pulse - Real-Time Supplier Insights",
+    // subtitle:
+    //   "Monitor risk in real time Track signals, threats and emerging changes.",
   },
   evolve: {
     icon: TrendingUp,
@@ -68,24 +71,36 @@ const STEPS: Record<
 
 const ORDER: PageType[] = ["discover", "activate", "pulse", "evolve"];
 
+const ROUTES: Record<PageType, string> = {
+  dashboard: "/dashboard",
+  discover: "/discover",
+  activate: "/activate",
+  pulse: "/pulse",
+  evolve: "/evolve",
+};
+
 export function FlowBanner({ currentPage }: FlowBannerProps) {
+  const router = useRouter();
   const { header, subtitle } = STEPS[currentPage];
+  const isDashboard = currentPage === "dashboard";
 
   return (
     <div className="mb-4 space-y-4">
       {/* Header */}
-      <div className="flex justify-between">
-        <div>
-          <p className="mb-2 text-xl font-bold text-primary">{header}</p>
-          <p className="text-xs text-secondary">{subtitle}</p>
+      {!isDashboard && header && (
+        <div className="flex justify-between">
+          <div>
+            <p className="mb-2 text-xl font-bold text-primary">{header}</p>
+            {subtitle && <p className="text-xs text-secondary">{subtitle}</p>}
+          </div>
+          {currentPage === "evolve" && (
+            <button className="flex gap-2 items-center py-2 px-6 font-semibold bg-emerald-700 rounded-lg transition-colors hover:bg-emerald-800 text-primary">
+              <Download className="w-4 h-4" />
+              Export
+            </button>
+          )}
         </div>
-        {currentPage === "evolve" && (
-          <button className="flex gap-2 items-center py-2 px-6 font-semibold bg-emerald-700 rounded-lg transition-colors hover:bg-emerald-800 text-primary">
-            <Download className="w-4 h-4" />
-            Export
-          </button>
-        )}
-      </div>
+      )}
 
       {/* Flow Steps */}
       <div className="p-4 rounded-2xl border shadow-sm bg-primary border-primary">
@@ -107,11 +122,23 @@ export function FlowBanner({ currentPage }: FlowBannerProps) {
             return (
               <div key={key} className="flex flex-1 gap-4 items-center">
                 <div
-                  className={`flex-1 rounded-lg border p-4 h-19 flex items-center gap-3 transition-all duration-300 ${
+                  role="link"
+                  tabIndex={isActive ? 0 : -1}
+                  aria-disabled={!isActive}
+                  aria-label={`Go to ${step.title}`}
+                  onClick={() => isActive && router.push(ROUTES[key])}
+                  onKeyDown={(e) => {
+                    if (isActive && (e.key === "Enter" || e.key === " ")) {
+                      e.preventDefault();
+                      router.push(ROUTES[key]);
+                    }
+                  }}
+                  className={cn(
+                    "flex-1 rounded-lg border p-4 h-19 flex items-center gap-3 transition-all duration-300",
                     isActive
-                      ? "bg-success-primary border-success-primary"
-                      : "bg-success-secondary border-success-secondary opacity-70 blur-[3px]"
-                  }`}
+                      ? "cursor-pointer bg-success-primary border-success-primary hover:opacity-90"
+                      : "cursor-default bg-success-secondary border-success-secondary opacity-70 blur-[3px]",
+                  )}
                 >
                   <div
                     className={`w-8 h-8 rounded-full flex items-center justify-center ${

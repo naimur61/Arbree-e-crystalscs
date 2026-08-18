@@ -198,17 +198,27 @@ export default function GuideContainer() {
                 [
                   "limit",
                   "number",
-                  "Max chars before truncating + ‘See more’ toggle",
+                  "Max chars before truncating (tooltip on hover by default)",
+                ],
+                [
+                  "seeMore",
+                  "boolean",
+                  "Show inline “See more” button instead of tooltip",
+                ],
+                [
+                  "tooltip",
+                  "boolean",
+                  "Deprecated — tooltip is automatic when limit is set",
                 ],
                 [
                   "seeMoreText",
                   "string",
-                  "Expand toggle label (default ‘See more’)",
+                  "Label for the “See more” toggle button (default: ‘See more’)",
                 ],
                 [
                   "seeLessText",
                   "string",
-                  "Collapse toggle label (default ‘See less’)",
+                  "Label for the “See less” toggle button (default: ‘See less’)",
                 ],
                 ["className", "string", "Additional classes"],
               ].map(([prop, type, desc]) => (
@@ -354,36 +364,37 @@ export default function GuideContainer() {
           </div>
         </div>
 
-        {/* ─── `limit` + See more ─── */}
+        {/* ─── `limit` (tooltip) ─── */}
         <p className="text-sm font-semibold text-primary">
-          With <code className="text-accent-primary">limit</code> prop (See more
-          toggle)
+          With <code className="text-accent-primary">limit</code> (tooltip on
+          hover)
         </p>
         <div className="p-4 rounded-xl border border-border bg-background space-y-2">
           <Typography variant="body-2" limit={80}>
             The quick brown fox jumps over the lazy dog. This sentence is
-            intentionally verbose so it exceeds the character limit and reveals
-            a “See more” toggle that expands the full text inline when clicked.
+            intentionally verbose so it exceeds the character limit and shows a
+            tooltip with the full text on hover.
           </Typography>
           <code className="block text-xs text-tertiary">
             {'<Typography variant="body-2" limit={80}>…long text…</Typography>'}
           </code>
         </div>
 
-        {/* ─── `limit` + tooltip ─── */}
+        {/* ─── `limit` + `seeMore` ─── */}
         <p className="text-sm font-semibold text-primary">
           With <code className="text-accent-primary">limit</code> +{" "}
-          <code className="text-accent-primary">tooltip</code> (hover to reveal)
+          <code className="text-accent-primary">seeMore</code> (inline “See
+          more” button)
         </p>
         <div className="p-4 rounded-xl border border-border bg-background space-y-2">
-          <Typography variant="body-2" limit={80} tooltip>
+          <Typography variant="body-2" limit={80} seeMore>
             The quick brown fox jumps over the lazy dog. This sentence is
             intentionally verbose so it exceeds the character limit and shows a
-            hover tooltip with the full text instead of a “See more” button.
+            “See more” toggle that expands the full text inline when clicked.
           </Typography>
           <code className="block text-xs text-tertiary">
             {
-              '<Typography variant="body-2" limit={80} tooltip>…long text…</Typography>'
+              '<Typography variant="body-2" limit={80} seeMore>…long text…</Typography>'
             }
           </code>
         </div>
