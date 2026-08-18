@@ -4,7 +4,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
-import { Sun, Moon, Bell, Search, ChevronLeft } from "lucide-react";
+import { Sun, Moon, Bell, Search, Bot } from "lucide-react";
 
 import { useLayout } from "@/providers/layout-provider";
 import { ActionButton } from "@/components/common/button";
@@ -15,7 +15,7 @@ interface TopNavProps {
 }
 
 export function TopNavbar({ title, subtitle }: TopNavProps) {
-  const { toggleRightSidebar, state } = useLayout();
+  const { toggleAgentsPanel, state } = useLayout();
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   // Hide on scroll down, reveal on scroll up (smart hide).
@@ -117,14 +117,14 @@ export function TopNavbar({ title, subtitle }: TopNavProps) {
             buttonContent="SC"
           />
 
-          {/* Toggle Right Sidebar */}
+          {/* Re-open the AI agents panel (only shown while it's collapsed) */}
           <ActionButton
-            hidden={state.isRightSidebarOpen}
+            hidden={state.isAgentsPanelOpen}
             variant="icon"
             radius="full"
-            tooltipContent="Toggle sidebar"
-            handleOpen={toggleRightSidebar}
-            icon={<ChevronLeft className="text-secondary" strokeWidth={3} />}
+            tooltipContent="Show AI agents"
+            handleOpen={toggleAgentsPanel}
+            icon={<Bot className="text-secondary" strokeWidth={2.5} />}
           />
         </div>
       </div>

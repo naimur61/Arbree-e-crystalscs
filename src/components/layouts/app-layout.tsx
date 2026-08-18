@@ -6,7 +6,6 @@ import { useLayout } from "@/providers/layout-provider";
 import { cn } from "@/lib/utils";
 import { TopNavbar } from "./top-navbar";
 import { LeftSidebar } from "./left-sidebar";
-import { RightSidebar } from "./right-sidebar";
 
 /* ── AppLayout: auth routes get no chrome, app routes get header + sidebar shells ── */
 
@@ -40,14 +39,12 @@ function LayoutInner({ children, title, subtitle }: AppLayoutProps) {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Left Sidebar — uncomment when implementing */}
       <LeftSidebar />
-      {/* Main content area — shifts when sidebars open */}
+      {/* Main content area — shifts when the sidebar opens/closes */}
       <div
         className={cn(
           "flex min-h-screen flex-col transition-[margin] duration-300 overflow-x-clip",
           state.isLeftSidebarOpen ? "ml-64" : "ml-16",
-          state.isRightSidebarOpen ? "mr-72" : "mr-0",
         )}
       >
         <TopNavbar
@@ -57,9 +54,6 @@ function LayoutInner({ children, title, subtitle }: AppLayoutProps) {
 
         <main className="flex-1 p-4 bg-children-body">{children}</main>
       </div>
-
-      {/* Right Sidebar — uncomment when implementing */}
-      <RightSidebar />
     </div>
   );
 }

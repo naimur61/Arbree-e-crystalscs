@@ -81,9 +81,9 @@ export interface TooltipData {
 function Tooltip({ data }: { data: TooltipData }) {
   return (
     <div className="absolute top-[15%] right-[15%] z-10 w-64">
-      <div className="absolute -inset-1 -z-10 rounded-lg bg-success-primary/20 blur-xl" />
-      <div className="overflow-hidden rounded-lg border border-primary bg-primary shadow-sm">
-        <div className="flex items-center gap-2 px-3 py-2 border-b border-secondary">
+      <div className="absolute -inset-1 rounded-lg -z-10 bg-success-primary/20 blur-xl" />
+      <div className="overflow-hidden rounded-lg border shadow-sm border-primary bg-primary">
+        <div className="flex gap-2 items-center py-2 px-3 border-b border-secondary">
           <div className="flex justify-center items-center w-6 h-6 rounded-md bg-success-primary">
             <MapPin className="w-3.5 h-3.5 icon-success-primary" />
           </div>
@@ -131,7 +131,7 @@ const CountryLayer = memo(function CountryLayer() {
           <Geography
             key={geo.rsmKey}
             geography={geo}
-            className="stroke-[var(--geo-border)]"
+            className="stroke-(--geo-border)"
             strokeWidth={0.5}
             style={{
               default: { fill: "var(--geo-land)", outline: "none" },
@@ -289,7 +289,7 @@ export default function GeoMap({ variant = "flat" }: { variant?: MapVariant }) {
   } = useGeoMap({ mode: variant, ...cfg });
 
   return (
-    <div className="font-sans rounded-xl border shadow-sm select-none border-primary bg-primary flex flex-col max-h-80">
+    <div className="flex flex-col max-h-80 font-sans rounded-xl border shadow-sm select-none border-primary bg-primary">
       {/* Header */}
       <div
         className={cn(
@@ -297,7 +297,7 @@ export default function GeoMap({ variant = "flat" }: { variant?: MapVariant }) {
           isGlobe && "border-b border-secondary",
         )}
       >
-        <div className="flex items-center gap-2">
+        <div className="flex gap-2 items-center">
           {isGlobe && (
             <div className="flex justify-center items-center w-7 h-7 rounded-lg bg-success-primary">
               <Globe className="w-4 h-4 icon-success-primary" />
@@ -318,7 +318,7 @@ export default function GeoMap({ variant = "flat" }: { variant?: MapVariant }) {
       </div>
 
       {/* Canvas */}
-      <div className="flex-1 min-h-0 p-4">
+      <div className="flex-1 p-4 min-h-0">
         <div
           ref={canvasRef}
           className={cn(
@@ -351,7 +351,7 @@ export default function GeoMap({ variant = "flat" }: { variant?: MapVariant }) {
             <g transform={`translate(${view.x} ${view.y}) scale(${view.k})`}>
               {isGlobe && (
                 <Sphere
-                  className="fill-[var(--geo-ocean)] stroke-[var(--geo-ocean-stroke)]"
+                  className="fill-(--geo-ocean) stroke-(--geo-ocean-stroke)"
                   strokeWidth={0.5}
                 />
               )}
@@ -373,9 +373,9 @@ export default function GeoMap({ variant = "flat" }: { variant?: MapVariant }) {
       </div>
 
       {/* Footer */}
-      <div className="flex justify-between items-center px-4 py-3 border-t border-secondary">
+      <div className="flex justify-between items-center py-3 px-4">
         <span className="text-xs text-tertiary">Last updated: 7 days ago</span>
-        <div className="flex items-center gap-2">
+        <div className="flex gap-2 items-center">
           <ActionButton
             variant="outline"
             size="icon-sm"

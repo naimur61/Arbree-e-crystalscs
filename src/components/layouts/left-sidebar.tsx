@@ -20,6 +20,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Typography } from "../common/typography/typography";
 import { useLayout } from "@/providers/layout-provider";
+import { AgentsPanel } from "./agents-panel";
 
 interface NavItem {
   label: string;
@@ -172,28 +173,46 @@ export function LeftSidebar() {
         )}
       </div>
 
-      {/* Navigation */}
-      <nav className="overflow-y-auto flex-1 py-4 px-3 relative">
-        <ul className="space-y-1">
-          {NAV_ITEMS.map((item) => (
-            <li key={item.href} className="relative">
-              {renderNavItem(item)}
-            </li>
-          ))}
-        </ul>
+      {/* Middle: nav on top + AI agents below.
+          The grid rows animate 1fr ↔ 0fr so the agents panel collapses
+          downward smoothly and the nav grows to fill the space.
+          Each part scrolls independently (overscroll contained). */}
+      <div
+        className={cn(
+          "flex-1 min-h-0 grid transition-[grid-template-rows] duration-300 ease-in-out",
+          isCollapsed
+            ? "grid-rows-[1fr]"
+            : state.isAgentsPanelOpen
+              ? "grid-rows-[1fr_auto_1fr]"
+              : "grid-rows-[1fr_auto_0fr]",
+        )}
+      >
+        {/* Navigation — top half, own scrollbar */}
+        <nav className="overflow-y-auto overscroll-contain relative py-4 px-3 min-h-0">
+          <ul className="space-y-1">
+            {NAV_ITEMS.map((item) => (
+              <li key={item.href} className="relative">
+                {renderNavItem(item)}
+              </li>
+            ))}
+          </ul>
 
-        {/* Divider */}
-        <div className="my-4 border-t border-border" />
+          {/* Divider */}
+          <div className="my-4 border-t border-border" />
 
-        {/* Secondary Navigation */}
-        <ul className="space-y-1">
-          {SECONDARY_NAV_ITEMS.map((item) => (
-            <li key={item.href} className="relative">
-              {renderNavItem(item)}
-            </li>
-          ))}
-        </ul>
-      </nav>
+          {/* Secondary Navigation */}
+          <ul className="space-y-1">
+            {SECONDARY_NAV_ITEMS.map((item) => (
+              <li key={item.href} className="relative">
+                {renderNavItem(item)}
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        {/* AI Agents — bottom half, collapsible, own scrollbar */}
+        {!isCollapsed && <AgentsPanel />}
+      </div>
 
       {/* Collapse / Expand Toggle Button */}
       {SIDEBAR_COLLAPSIBLE && (

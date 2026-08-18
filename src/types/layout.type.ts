@@ -16,13 +16,13 @@ export interface AIAgent {
 
 export interface LayoutState {
   isLeftSidebarOpen: boolean;
-  isRightSidebarOpen: boolean;
+  isAgentsPanelOpen: boolean;
   activeRoute: string;
 }
 
 export type LayoutAction =
-  | { type: 'TOGGLE_LEFT_SIDEBAR' }
-  | { type: 'TOGGLE_RIGHT_SIDEBAR' }
-  | { type: 'SET_ACTIVE_ROUTE'; payload: string }
-  | { type: 'SET_LEFT_SIDEBAR'; payload: boolean }
-  | { type: 'SET_RIGHT_SIDEBAR'; payload: boolean };
+  | { type: "TOGGLE_LEFT_SIDEBAR" }
+  | { type: "TOGGLE_AGENTS_PANEL" }
+  | { type: "SET_ACTIVE_ROUTE"; payload: string }
+  | { type: "SET_LEFT_SIDEBAR"; payload: boolean }
+  | { type: "SET_AGENTS_PANEL"; payload: boolean };

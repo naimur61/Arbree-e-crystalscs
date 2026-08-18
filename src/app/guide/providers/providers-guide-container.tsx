@@ -295,16 +295,16 @@ function ThemeToggle() {
           code={`import { useLayout } from "@/providers/layout-provider";
 
 function MyComponent() {
-  const { state, toggleLeftSidebar, toggleRightSidebar } = useLayout();
+  const { state, toggleLeftSidebar, toggleAgentsPanel } = useLayout();
 
   // state.isLeftSidebarOpen: boolean
-  // state.isRightSidebarOpen: boolean
+  // state.isAgentsPanelOpen: boolean
 
   return (
     <div>
       <p>Left sidebar: {state.isLeftSidebarOpen ? "Open" : "Closed"}</p>
       <button onClick={toggleLeftSidebar}>Toggle Left</button>
-      <button onClick={toggleRightSidebar}>Toggle Right</button>
+      <button onClick={toggleAgentsPanel}>Toggle AI Agents</button>
     </div>
   );
 }`}
@@ -312,17 +312,17 @@ function MyComponent() {
 
         <CodeBlock
           title="Available Actions"
-          code={`const { state, dispatch, toggleLeftSidebar, toggleRightSidebar } = useLayout();
+          code={`const { state, dispatch, toggleLeftSidebar, toggleAgentsPanel } = useLayout();
 
-// Toggle sidebars
+// Toggle sidebar / agents panel
 toggleLeftSidebar();
-toggleRightSidebar();
+toggleAgentsPanel();
 
 // Or use dispatch directly
 dispatch({ type: "TOGGLE_LEFT_SIDEBAR" });
-dispatch({ type: "TOGGLE_RIGHT_SIDEBAR" });
+dispatch({ type: "TOGGLE_AGENTS_PANEL" });
 dispatch({ type: "SET_LEFT_SIDEBAR", payload: true });
-dispatch({ type: "SET_RIGHT_SIDEBAR", payload: false });
+dispatch({ type: "SET_AGENTS_PANEL", payload: false });
 dispatch({ type: "SET_ACTIVE_ROUTE", payload: "/dashboard" });`}
         />
 
@@ -341,14 +341,14 @@ dispatch({ type: "SET_ACTIVE_ROUTE", payload: "/dashboard" });`}
             <tbody className="divide-y divide-border">
               {[
                 ["toggleLeftSidebar()", "Toggle left sidebar open/close"],
-                ["toggleRightSidebar()", "Toggle right sidebar open/close"],
+                ["toggleAgentsPanel()", "Collapse/expand the AI agents panel"],
                 [
                   "SET_LEFT_SIDEBAR",
                   "Set left sidebar state (payload: boolean)",
                 ],
                 [
-                  "SET_RIGHT_SIDEBAR",
-                  "Set right sidebar state (payload: boolean)",
+                  "SET_AGENTS_PANEL",
+                  "Set AI agents panel state (payload: boolean)",
                 ],
                 ["SET_ACTIVE_ROUTE", "Set active route (payload: string)"],
               ].map(([action, desc]) => (
@@ -483,8 +483,7 @@ function ContentArea() {
     <div
       className="transition-all duration-300"
       style={{
-        marginLeft: state.isLeftSidebarOpen ? "256px" : "0",
-        marginRight: state.isRightSidebarOpen ? "288px" : "0",
+        marginLeft: state.isLeftSidebarOpen ? "256px" : "64px",
       }}
     >
       {/* Content adjusts based on sidebar state */}
